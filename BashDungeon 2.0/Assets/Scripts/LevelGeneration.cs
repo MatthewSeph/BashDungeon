@@ -15,7 +15,7 @@ public class LevelGeneration : MonoBehaviour {
 		gridSizeX = Mathf.RoundToInt(worldSize.x);
 		gridSizeY = Mathf.RoundToInt(worldSize.y);
 		CreateRooms();
-		// SetRoomDoors();
+		SetRoomDoors();
 		DrawMap();
 	}
 	void CreateRooms(){
@@ -44,7 +44,8 @@ public class LevelGeneration : MonoBehaviour {
 			}
 			//finalize position
 			rooms[(int) checkPos.x + gridSizeX, (int) checkPos.y + gridSizeY] = new Room(checkPos, 0);
-			takenPositions.Insert(0,checkPos);
+			takenPositions.Insert(i+1,checkPos);
+
 		}	
 	}
 	Vector2 NewPosition(){
@@ -107,9 +108,11 @@ public class LevelGeneration : MonoBehaviour {
 		}
 		return checkingPos;
 	}
+
 	int NumberOfNeighbors(Vector2 checkingPos, List<Vector2> usedPositions){
 		int ret = 0;
 		if (usedPositions.Contains(checkingPos + Vector2.right)){
+			
 			ret++;
 		}
 		if (usedPositions.Contains(checkingPos + Vector2.left)){
@@ -123,6 +126,7 @@ public class LevelGeneration : MonoBehaviour {
 		}
 		return ret;
 	}
+
 	void DrawMap(){
 		foreach (Room room in rooms){
 			if (room == null){
@@ -139,7 +143,8 @@ public class LevelGeneration : MonoBehaviour {
 			mapper.left = room.doorLeft;
 		}
 	}
-	/* void SetRoomDoors(){
+
+	 void SetRoomDoors(){
 		for (int x = 0; x < ((gridSizeX * 2)); x++){
 			for (int y = 0; y < ((gridSizeY * 2)); y++){
 				if (rooms[x,y] == null){
@@ -168,5 +173,5 @@ public class LevelGeneration : MonoBehaviour {
 				}
 			}
 		}
-	}*/
+	}
 }
