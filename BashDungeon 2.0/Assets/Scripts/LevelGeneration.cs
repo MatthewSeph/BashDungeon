@@ -112,7 +112,6 @@ public class LevelGeneration : MonoBehaviour {
 	int NumberOfNeighbors(Vector2 checkingPos, List<Vector2> usedPositions){
 		int ret = 0;
 		if (usedPositions.Contains(checkingPos + Vector2.right)){
-			
 			ret++;
 		}
 		if (usedPositions.Contains(checkingPos + Vector2.left)){
@@ -167,7 +166,7 @@ public class LevelGeneration : MonoBehaviour {
                 {
                     rooms[(int)(takenPositions[i] + Vector2.right).x + gridSizeX, (int)(takenPositions[i] + Vector2.right).y + gridSizeY].SetParentRoom(rooms[(int)(takenPositions[i]).x + gridSizeX, (int)(takenPositions[i]).y + gridSizeY]);
 
-                    rooms[(int)(takenPositions[i] + Vector2.right).x + gridSizeX, (int)(takenPositions[i] + Vector2.right).y + gridSizeY].doorRight = true;
+                    rooms[(int)(takenPositions[i] + Vector2.right).x + gridSizeX, (int)(takenPositions[i] + Vector2.right).y + gridSizeY].doorLeft = true;
 
                     (rooms[(int)(takenPositions[i]).x + gridSizeX, (int)(takenPositions[i]).y + gridSizeY]).doorRight = true;
                 }
