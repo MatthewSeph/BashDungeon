@@ -145,7 +145,73 @@ public class LevelGeneration : MonoBehaviour {
 	}
 
 	 void SetRoomDoors(){
-		for (int x = 0; x < ((gridSizeX * 2)); x++){
+
+        for(int i = 0; i<numberOfRooms-1; i++)
+        {   
+
+            if (takenPositions.Contains(takenPositions[i] + Vector2.up))
+            {
+                if ((rooms[(int)(takenPositions[i] + Vector2.up).x + gridSizeX, (int)(takenPositions[i] + Vector2.up).y + gridSizeY ].GetParentRoom() == null) && (rooms[ (int)(takenPositions[i]).x + gridSizeX, (int)(takenPositions[i]).y + gridSizeY].type != 1))
+                {
+                    rooms[(int)(takenPositions[i] + Vector2.up).x + gridSizeX, (int)(takenPositions[i] + Vector2.up).y + gridSizeY].SetParentRoom(rooms[(int)(takenPositions[i]).x + gridSizeX, (int)(takenPositions[i]).y + gridSizeY]);
+
+                    rooms[(int)(takenPositions[i] + Vector2.up).x + gridSizeX, (int)(takenPositions[i] + Vector2.up).y + gridSizeY].doorBot = true;
+
+                    (rooms[(int)(takenPositions[i]).x + gridSizeX, (int)(takenPositions[i]).y + gridSizeY]).doorTop = true;
+                }
+            }
+
+            if (takenPositions.Contains(takenPositions[i] + Vector2.right))
+            {
+                if ((rooms[(int)(takenPositions[i] + Vector2.right).x + gridSizeX, (int)(takenPositions[i] + Vector2.right).y + gridSizeY].GetParentRoom() == null) && (rooms[(int)(takenPositions[i]).x + gridSizeX, (int)(takenPositions[i]).y + gridSizeY].type != 1))
+                {
+                    rooms[(int)(takenPositions[i] + Vector2.right).x + gridSizeX, (int)(takenPositions[i] + Vector2.right).y + gridSizeY].SetParentRoom(rooms[(int)(takenPositions[i]).x + gridSizeX, (int)(takenPositions[i]).y + gridSizeY]);
+
+                    rooms[(int)(takenPositions[i] + Vector2.right).x + gridSizeX, (int)(takenPositions[i] + Vector2.right).y + gridSizeY].doorRight = true;
+
+                    (rooms[(int)(takenPositions[i]).x + gridSizeX, (int)(takenPositions[i]).y + gridSizeY]).doorRight = true;
+                }
+            }
+
+            if (takenPositions.Contains(takenPositions[i] + Vector2.down))
+            {
+                if ((rooms[(int)(takenPositions[i] + Vector2.down).x + gridSizeX, (int)(takenPositions[i] + Vector2.down).y + gridSizeY].GetParentRoom() == null) && (rooms[(int)(takenPositions[i]).x + gridSizeX, (int)(takenPositions[i]).y + gridSizeY].type != 1))
+                {
+                    rooms[(int)(takenPositions[i] + Vector2.down).x + gridSizeX, (int)(takenPositions[i] + Vector2.down).y + gridSizeY].SetParentRoom(rooms[(int)(takenPositions[i]).x + gridSizeX, (int)(takenPositions[i]).y + gridSizeY]);
+
+                    rooms[(int)(takenPositions[i] + Vector2.down).x + gridSizeX, (int)(takenPositions[i] + Vector2.down).y + gridSizeY].doorTop = true;
+
+                    (rooms[(int)(takenPositions[i]).x + gridSizeX, (int)(takenPositions[i]).y + gridSizeY]).doorBot = true;
+                }
+            }
+
+            if (takenPositions.Contains(takenPositions[i] + Vector2.left))
+            {
+                if ((rooms[(int)(takenPositions[i] + Vector2.left).x + gridSizeX, (int)(takenPositions[i] + Vector2.left).y + gridSizeY].GetParentRoom() == null) && (rooms[(int)(takenPositions[i]).x + gridSizeX, (int)(takenPositions[i]).y + gridSizeY].type != 1))
+                {
+                    rooms[(int)(takenPositions[i] + Vector2.left).x + gridSizeX, (int)(takenPositions[i] + Vector2.left).y + gridSizeY].SetParentRoom(rooms[(int)(takenPositions[i]).x + gridSizeX, (int)(takenPositions[i]).y + gridSizeY]);
+
+                    rooms[(int)(takenPositions[i] + Vector2.left).x + gridSizeX, (int)(takenPositions[i] + Vector2.left).y + gridSizeY].doorRight = true;
+
+                    (rooms[(int)(takenPositions[i]).x + gridSizeX, (int)(takenPositions[i]).y + gridSizeY]).doorLeft = true;
+                }
+            }
+
+        }
+
+
+
+
+
+
+
+
+
+
+
+
+
+        /*for (int x = 0; x < ((gridSizeX * 2)); x++){
 			for (int y = 0; y < ((gridSizeY * 2)); y++){
 				if (rooms[x,y] == null){
 					continue;
@@ -172,6 +238,6 @@ public class LevelGeneration : MonoBehaviour {
 					rooms[x,y].doorRight = (rooms[x+1,y] != null);
 				}
 			}
-		}
+		}*/
 	}
 }
