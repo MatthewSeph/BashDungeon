@@ -7,7 +7,7 @@ public class Room {
 	public int type;
 	public Room parentRoom;
 
-	public bool doorTop, doorBot, doorLeft, doorRight;
+	public bool doorTop = false, doorBot = false, doorLeft = false, doorRight = false;
 
 	public Room(Vector2 _gridPos, int _type){
 		gridPos = _gridPos;
