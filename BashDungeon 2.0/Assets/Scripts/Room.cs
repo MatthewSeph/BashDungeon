@@ -19,6 +19,6 @@ public class Room {
 	}
 
 	public void SetParentRoom(Room parentRoom) {
-		parentRoom = this.parentRoom;
+		this.parentRoom = parentRoom;
 	}
 }
