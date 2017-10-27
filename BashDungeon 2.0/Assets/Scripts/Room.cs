@@ -6,6 +6,7 @@ public class Room {
 	public Vector2 gridPos;
 	public int type;
 	public Room parentRoom;
+    public int distance;
 
 	public bool doorTop = false, doorBot = false, doorLeft = false, doorRight = false;
 
@@ -21,4 +22,5 @@ public class Room {
 	public void SetParentRoom(Room parentRoom) {
 		this.parentRoom = parentRoom;
 	}
+
 }
