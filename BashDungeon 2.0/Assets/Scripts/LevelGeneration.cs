@@ -8,7 +8,7 @@ public class LevelGeneration : MonoBehaviour {
 	List<Vector2> takenPositions = new List<Vector2>();
 	int gridSizeX, gridSizeY, numberOfRooms = 30;
     List<Room> roomsOrderByDistance = new List<Room>();
-	public GameObject roomWhiteObj;
+
 	void Start () {
 		if (numberOfRooms >= (worldSize.x * 2) * (worldSize.y * 2)){
 			numberOfRooms = Mathf.RoundToInt((worldSize.x * 2) * (worldSize.y * 2));
@@ -130,28 +130,21 @@ public class LevelGeneration : MonoBehaviour {
 	}
 
 	void DrawMap(){
-		foreach (Room room in rooms){
-			if (room == null){
-				continue;
-			}
+		foreach (Room room in roomsOrderByDistance){
+
 			Vector2 drawPos = room.gridPos;
 			drawPos.x *= 12;
 			drawPos.y *= 12;
             Vector3 roomPosition;
+			GameObject selectedPrefab = gameObject.GetComponent<RoomPrefabSelector>().PickPrefab(room.doorTop, room.doorRight, room.doorBot, room.doorLeft);
 
-            GameObject stanza = Instantiate(Resources.Load("Prefab/Stanza")) as GameObject;
+			GameObject stanza = Instantiate(selectedPrefab) as GameObject;
 
             roomPosition.x = drawPos.x;
             roomPosition.y = 0;
             roomPosition.z = drawPos.y;
             stanza.transform.position = roomPosition;
 
-            /*MapSpriteSelector mapper = Object.Instantiate(roomWhiteObj, drawPos, Quaternion.identity).GetComponent<MapSpriteSelector>();
-			mapper.type = room.type;
-			mapper.up = room.doorTop;
-			mapper.down = room.doorBot;
-			mapper.right = room.doorRight;
-			mapper.left = room.doorLeft;*/
 		}
 	}
 
