@@ -133,8 +133,8 @@ public class LevelGeneration : MonoBehaviour {
 		foreach (Room room in roomsOrderByDistance){
 
 			Vector2 drawPos = room.gridPos;
-			drawPos.x *= 12;
-			drawPos.y *= 12;
+			drawPos.x *= 42;
+			drawPos.y *= 31.5f;
             Vector3 roomPosition;
 			GameObject selectedPrefab = gameObject.GetComponent<RoomPrefabSelector>().PickPrefab(room.doorTop, room.doorRight, room.doorBot, room.doorLeft);
 
