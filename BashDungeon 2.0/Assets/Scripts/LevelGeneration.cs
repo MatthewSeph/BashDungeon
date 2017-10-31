@@ -4,6 +4,7 @@ using UnityEngine;
 
 public class LevelGeneration : MonoBehaviour {
 	Vector2 worldSize = new Vector2(5,5);
+
 	Room[,] rooms;
 	List<Vector2> takenPositions = new List<Vector2>();
 	int gridSizeX, gridSizeY, numberOfRooms = 30;
@@ -159,6 +160,8 @@ public class LevelGeneration : MonoBehaviour {
                 {
                     rooms[(int)(takenPositions[i] + Vector2.up).x + gridSizeX, (int)(takenPositions[i] + Vector2.up).y + gridSizeY].SetParentRoom(rooms[(int)(takenPositions[i]).x + gridSizeX, (int)(takenPositions[i]).y + gridSizeY]);
 
+					rooms [(int)(takenPositions [i]).x + gridSizeX, (int)(takenPositions [i]).y + gridSizeY].childrenRooms.Insert (0, rooms [(int)(takenPositions [i] + Vector2.up).x + gridSizeX, (int)(takenPositions [i] + Vector2.up).y + gridSizeY]);
+
                     rooms[(int)(takenPositions[i] + Vector2.up).x + gridSizeX, (int)(takenPositions[i] + Vector2.up).y + gridSizeY].doorBot = true;
 
                     (rooms[(int)(takenPositions[i]).x + gridSizeX, (int)(takenPositions[i]).y + gridSizeY]).doorTop = true;
@@ -170,6 +173,8 @@ public class LevelGeneration : MonoBehaviour {
                 if ((rooms[(int)(takenPositions[i] + Vector2.right).x + gridSizeX, (int)(takenPositions[i] + Vector2.right).y + gridSizeY].GetParentRoom() == null) && (rooms[(int)(takenPositions[i] + Vector2.right).x + gridSizeX, (int)(takenPositions[i] + Vector2.right).y + gridSizeY].type != 1))
                 {
                     rooms[(int)(takenPositions[i] + Vector2.right).x + gridSizeX, (int)(takenPositions[i] + Vector2.right).y + gridSizeY].SetParentRoom(rooms[(int)(takenPositions[i]).x + gridSizeX, (int)(takenPositions[i]).y + gridSizeY]);
+
+					rooms [(int)(takenPositions [i]).x + gridSizeX, (int)(takenPositions [i]).y + gridSizeY].childrenRooms.Insert (0, rooms [(int)(takenPositions [i] + Vector2.right).x + gridSizeX, (int)(takenPositions [i] + Vector2.right).y + gridSizeY]);
 
                     rooms[(int)(takenPositions[i] + Vector2.right).x + gridSizeX, (int)(takenPositions[i] + Vector2.right).y + gridSizeY].doorLeft = true;
 
@@ -183,6 +188,8 @@ public class LevelGeneration : MonoBehaviour {
                 {
                     rooms[(int)(takenPositions[i] + Vector2.down).x + gridSizeX, (int)(takenPositions[i] + Vector2.down).y + gridSizeY].SetParentRoom(rooms[(int)(takenPositions[i]).x + gridSizeX, (int)(takenPositions[i]).y + gridSizeY]);
 
+					rooms [(int)(takenPositions [i]).x + gridSizeX, (int)(takenPositions [i]).y + gridSizeY].childrenRooms.Insert (0, rooms [(int)(takenPositions [i] + Vector2.down).x + gridSizeX, (int)(takenPositions [i] + Vector2.down).y + gridSizeY]);
+
                     rooms[(int)(takenPositions[i] + Vector2.down).x + gridSizeX, (int)(takenPositions[i] + Vector2.down).y + gridSizeY].doorTop = true;
 
                     (rooms[(int)(takenPositions[i]).x + gridSizeX, (int)(takenPositions[i]).y + gridSizeY]).doorBot = true;
@@ -194,6 +201,8 @@ public class LevelGeneration : MonoBehaviour {
                 if ((rooms[(int)(takenPositions[i] + Vector2.left).x + gridSizeX, (int)(takenPositions[i] + Vector2.left).y + gridSizeY].GetParentRoom() == null) && (rooms[(int)(takenPositions[i] + Vector2.left).x + gridSizeX, (int)(takenPositions[i] + Vector2.left).y + gridSizeY].type != 1))
                 {
                     rooms[(int)(takenPositions[i] + Vector2.left).x + gridSizeX, (int)(takenPositions[i] + Vector2.left).y + gridSizeY].SetParentRoom(rooms[(int)(takenPositions[i]).x + gridSizeX, (int)(takenPositions[i]).y + gridSizeY]);
+
+					rooms [(int)(takenPositions [i]).x + gridSizeX, (int)(takenPositions [i]).y + gridSizeY].childrenRooms.Insert (0, rooms [(int)(takenPositions [i] + Vector2.left).x + gridSizeX, (int)(takenPositions [i] + Vector2.left).y + gridSizeY]);
 
                     rooms[(int)(takenPositions[i] + Vector2.left).x + gridSizeX, (int)(takenPositions[i] + Vector2.left).y + gridSizeY].doorRight = true;
 

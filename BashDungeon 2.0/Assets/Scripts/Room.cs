@@ -7,6 +7,7 @@ public class Room {
 	public int type;
 	public Room parentRoom;
     public int distance;
+	public List<Room> childrenRooms = new List<Room> ();
 
 	public bool doorTop = false, doorBot = false, doorLeft = false, doorRight = false;
 
@@ -22,5 +23,6 @@ public class Room {
 	public void SetParentRoom(Room parentRoom) {
 		this.parentRoom = parentRoom;
 	}
+
 
 }
