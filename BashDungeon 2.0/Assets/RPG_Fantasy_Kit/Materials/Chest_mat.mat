@@ -9,7 +9,7 @@ Material:
   m_Name: Chest_mat
   m_Shader: {fileID: 14, guid: 0000000000000000f000000000000000, type: 0}
   m_ShaderKeywords: 
-  m_LightmapFlags: 5
+  m_LightmapFlags: 1
   m_CustomRenderQueue: -1
   stringTagMap: {}
   m_SavedProperties:
@@ -53,6 +53,9 @@ Material:
         m_Offset: {x: 0, y: 0}
     m_Floats:
     - first:
+        name: _Emission
+      second: 1
+    - first:
         name: _EmissionLM
       second: 0
     - first:
@@ -60,7 +63,7 @@ Material:
       second: 0.02
     - first:
         name: _Shininess
-      second: 0.078125
+      second: 1
     m_Colors:
     - first:
         name: _Color
