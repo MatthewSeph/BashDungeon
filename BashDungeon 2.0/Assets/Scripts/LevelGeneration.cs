@@ -11,6 +11,8 @@ public class LevelGeneration : MonoBehaviour {
     List<Room> roomsOrderByDistance = new List<Room>();
 	List<Room> roomsWithNoChildren = new List<Room>();
 
+	public List<GameObject> LootPrefabs = new List<GameObject>(); 
+
 	void Start () {
 		if (numberOfRooms >= (worldSize.x * 2) * (worldSize.y * 2)){
 			numberOfRooms = Mathf.RoundToInt((worldSize.x * 2) * (worldSize.y * 2));
@@ -23,6 +25,7 @@ public class LevelGeneration : MonoBehaviour {
         SetDistances();
         RoomsOrderByDistance();
 		CheckRoomWithNoChildrenSorted();
+		SetLootRooms();
 		DrawMap();
 
 	}
@@ -157,14 +160,14 @@ public class LevelGeneration : MonoBehaviour {
 
         for(int i = 0; i<numberOfRooms-1; i++)
         {   
-
+			//Se la stanza adiacente esiste e non ha un Parent allora esso gli viene settato
             if (takenPositions.Contains(takenPositions[i] + Vector2.up))
             {
                 if ((rooms[(int)(takenPositions[i] + Vector2.up).x + gridSizeX, (int)(takenPositions[i] + Vector2.up).y + gridSizeY ].GetParentRoom() == null) && (rooms[ (int)(takenPositions[i] + Vector2.up).x + gridSizeX, (int)(takenPositions[i] + Vector2.up).y + gridSizeY].type != 1))
                 {
                     rooms[(int)(takenPositions[i] + Vector2.up).x + gridSizeX, (int)(takenPositions[i] + Vector2.up).y + gridSizeY].SetParentRoom(rooms[(int)(takenPositions[i]).x + gridSizeX, (int)(takenPositions[i]).y + gridSizeY]);
 
-					rooms [(int)(takenPositions [i]).x + gridSizeX, (int)(takenPositions [i]).y + gridSizeY].childrenRooms.Insert (0, rooms [(int)(takenPositions [i] + Vector2.up).x + gridSizeX, (int)(takenPositions [i] + Vector2.up).y + gridSizeY]);
+					rooms [(int)(takenPositions [i]).x + gridSizeX, (int)(takenPositions [i]).y + gridSizeY].childrenRooms.Add(rooms [(int)(takenPositions [i] + Vector2.up).x + gridSizeX, (int)(takenPositions [i] + Vector2.up).y + gridSizeY]);
 
                     rooms[(int)(takenPositions[i] + Vector2.up).x + gridSizeX, (int)(takenPositions[i] + Vector2.up).y + gridSizeY].doorBot = true;
 
@@ -267,7 +270,7 @@ public class LevelGeneration : MonoBehaviour {
 			if (room.childrenRooms.Count == 0) 
 			{
 				roomsWithNoChildren.Add (room);
-				Debug.Log (room.gridPos);
+
 			}
 		}
 		roomsWithNoChildren.Sort(SortByDistance);
@@ -277,7 +280,25 @@ public class LevelGeneration : MonoBehaviour {
 
     static int SortByDistance(Room r1, Room r2)
     {
-        return r1.distance.CompareTo(r2.distance);
+        return r2.distance.CompareTo(r1.distance);
     }
+
+	void SetLootRooms()
+	{
+		
+		Vector3 lootPosition = Vector3.zero;
+
+		for (int i = 0; i < LootPrefabs.Count; i++) 
+		{
+			
+			GameObject loot = Instantiate (LootPrefabs[i]) as GameObject;
+
+			lootPosition.y = loot.transform.position.y;
+			lootPosition.x = loot.transform.position.x + ( roomsWithNoChildren [i].gridPos.x * 42 );
+			lootPosition.z = loot.transform.position.z + ( roomsWithNoChildren [i].gridPos.y * 31.5f );
+
+			loot.transform.position = lootPosition;
+		}
+	}
 
 }
