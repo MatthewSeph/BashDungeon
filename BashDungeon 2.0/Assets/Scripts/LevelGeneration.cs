@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class LevelGeneration : MonoBehaviour {
 	Vector2 worldSize = new Vector2(5,5);
@@ -285,19 +286,23 @@ public class LevelGeneration : MonoBehaviour {
 
 	void SetLootRooms()
 	{
-		
-		Vector3 lootPosition = Vector3.zero;
+		if ( !(roomsWithNoChildren.Count <= LootPrefabs.Count)) { //se ho abbastanza stanze terminali setto le stanze con loot, altrimenti rigenero il dungeon
+			Vector3 lootPosition = Vector3.zero;
 
-		for (int i = 0; i < LootPrefabs.Count; i++) 
-		{
+			for (int i = 0; i < LootPrefabs.Count; i++) {
 			
-			GameObject loot = Instantiate (LootPrefabs[i]) as GameObject;
+				GameObject loot = Instantiate (LootPrefabs [i]) as GameObject;
 
-			lootPosition.y = loot.transform.position.y;
-			lootPosition.x = loot.transform.position.x + ( roomsWithNoChildren [i].gridPos.x * 42 );
-			lootPosition.z = loot.transform.position.z + ( roomsWithNoChildren [i].gridPos.y * 31.5f );
+				lootPosition.y = loot.transform.position.y;
+				lootPosition.x = loot.transform.position.x + (roomsWithNoChildren [i].gridPos.x * 42);
+				lootPosition.z = loot.transform.position.z + (roomsWithNoChildren [i].gridPos.y * 31.5f);
 
-			loot.transform.position = lootPosition;
+				loot.transform.position = lootPosition;
+			}
+		} else 
+		{
+			Debug.Log ("Dungeon rigenerato per mancanza di ''stanze terminali''");
+			SceneManager.LoadScene(SceneManager.GetActiveScene().name);
 		}
 	}
 
