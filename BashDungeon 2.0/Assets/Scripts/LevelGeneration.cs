@@ -9,6 +9,7 @@ public class LevelGeneration : MonoBehaviour {
 	List<Vector2> takenPositions = new List<Vector2>();
 	int gridSizeX, gridSizeY, numberOfRooms = 30;
     List<Room> roomsOrderByDistance = new List<Room>();
+	List<Room> roomsWithNoChildren = new List<Room>();
 
 	void Start () {
 		if (numberOfRooms >= (worldSize.x * 2) * (worldSize.y * 2)){
@@ -16,11 +17,14 @@ public class LevelGeneration : MonoBehaviour {
 		}
 		gridSizeX = Mathf.RoundToInt(worldSize.x);
 		gridSizeY = Mathf.RoundToInt(worldSize.y);
+
 		CreateRooms();
 		SetRoomDoors();
         SetDistances();
         RoomsOrderByDistance();
+		CheckRoomWithNoChildrenSorted();
 		DrawMap();
+
 	}
 	void CreateRooms(){
 		//setup
@@ -255,6 +259,20 @@ public class LevelGeneration : MonoBehaviour {
 
         roomsOrderByDistance.Sort(SortByDistance);
     }
+
+	void CheckRoomWithNoChildrenSorted()
+	{
+		foreach (Room room in roomsOrderByDistance) 
+		{
+			if (room.childrenRooms.Count == 0) 
+			{
+				roomsWithNoChildren.Add (room);
+				Debug.Log (room.gridPos);
+			}
+		}
+		roomsWithNoChildren.Sort(SortByDistance);
+
+	}
 
 
     static int SortByDistance(Room r1, Room r2)
