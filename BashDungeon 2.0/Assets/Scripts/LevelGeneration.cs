@@ -142,8 +142,8 @@ public class LevelGeneration : MonoBehaviour {
 		foreach (Room room in roomsOrderByDistance){
 
 			Vector2 drawPos = room.gridPos;
-			drawPos.x *= 42;
-			drawPos.y *= 31.5f;
+			drawPos.x *= 24;
+			drawPos.y *= 24;
             Vector3 roomPosition;
 			GameObject selectedPrefab = gameObject.GetComponent<RoomPrefabSelector>().PickPrefab(room.doorTop, room.doorRight, room.doorBot, room.doorLeft);
 
@@ -294,8 +294,8 @@ public class LevelGeneration : MonoBehaviour {
 				GameObject loot = Instantiate (LootPrefabs [i]) as GameObject;
 
 				lootPosition.y = loot.transform.position.y;
-				lootPosition.x = loot.transform.position.x + (roomsWithNoChildren [i].gridPos.x * 42);
-				lootPosition.z = loot.transform.position.z + (roomsWithNoChildren [i].gridPos.y * 31.5f);
+				lootPosition.x = loot.transform.position.x + (roomsWithNoChildren [i].gridPos.x * 24);
+				lootPosition.z = loot.transform.position.z + (roomsWithNoChildren [i].gridPos.y * 24);
 
 				loot.transform.position = lootPosition;
 			}

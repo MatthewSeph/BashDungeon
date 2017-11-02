@@ -13,7 +13,7 @@ OcclusionCullingSettings:
 --- !u!104 &2
 RenderSettings:
   m_ObjectHideFlags: 0
-  serializedVersion: 7
+  serializedVersion: 8
   m_Fog: 0
   m_FogColor: {r: 0.5, g: 0.5, b: 0.5, a: 1}
   m_FogMode: 3
@@ -25,6 +25,7 @@ RenderSettings:
   m_AmbientGroundColor: {r: 0.047, g: 0.043, b: 0.035, a: 1}
   m_AmbientIntensity: 1
   m_AmbientMode: 3
+  m_SubtractiveShadowColor: {r: 0.42, g: 0.478, b: 0.627, a: 1}
   m_SkyboxMaterial: {fileID: 0}
   m_HaloStrength: 0.5
   m_FlareStrength: 1
@@ -41,7 +42,7 @@ RenderSettings:
 --- !u!157 &3
 LightmapSettings:
   m_ObjectHideFlags: 0
-  serializedVersion: 7
+  serializedVersion: 11
   m_GIWorkflowMode: 0
   m_GISettings:
     serializedVersion: 2
@@ -53,7 +54,7 @@ LightmapSettings:
     m_EnableBakedLightmaps: 1
     m_EnableRealtimeLightmaps: 0
   m_LightmapEditorSettings:
-    serializedVersion: 4
+    serializedVersion: 9
     m_Resolution: 2
     m_BakeResolution: 40
     m_TextureWidth: 1024
@@ -66,13 +67,29 @@ LightmapSettings:
     m_LightmapParameters: {fileID: 0}
     m_LightmapsBakeMode: 1
     m_TextureCompression: 1
-    m_DirectLightInLightProbes: 1
     m_FinalGather: 0
     m_FinalGatherFiltering: 1
     m_FinalGatherRayCount: 256
     m_ReflectionCompression: 2
+    m_MixedBakeMode: 1
+    m_BakeBackend: 0
+    m_PVRSampling: 1
+    m_PVRDirectSampleCount: 32
+    m_PVRSampleCount: 500
+    m_PVRBounces: 2
+    m_PVRFilterTypeDirect: 0
+    m_PVRFilterTypeIndirect: 0
+    m_PVRFilterTypeAO: 0
+    m_PVRFilteringMode: 0
+    m_PVRCulling: 1
+    m_PVRFilteringGaussRadiusDirect: 1
+    m_PVRFilteringGaussRadiusIndirect: 5
+    m_PVRFilteringGaussRadiusAO: 2
+    m_PVRFilteringAtrousPositionSigmaDirect: 0.5
+    m_PVRFilteringAtrousPositionSigmaIndirect: 2
+    m_PVRFilteringAtrousPositionSigmaAO: 1
   m_LightingDataAsset: {fileID: 0}
-  m_RuntimeCPUUsage: 25
+  m_UseShadowmask: 0
 --- !u!196 &4
 NavMeshSettings:
   serializedVersion: 2
@@ -89,7 +106,11 @@ NavMeshSettings:
     minRegionArea: 2
     manualCellSize: 0
     cellSize: 0.16666667
+    manualTileSize: 0
+    tileSize: 256
     accuratePlacement: 0
+    debug:
+      m_Flags: 0
   m_NavMeshData: {fileID: 0}
 --- !u!1 &21959020
 GameObject:
@@ -189,21 +210,21 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 96994ed52f66f224595b0e1aafa282ce, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  roomU: {fileID: 1082496472065754, guid: c8c151e8ceecef241842c78efaeaabc1, type: 2}
-  roomD: {fileID: 1082496472065754, guid: c8c151e8ceecef241842c78efaeaabc1, type: 2}
-  roomR: {fileID: 1082496472065754, guid: c8c151e8ceecef241842c78efaeaabc1, type: 2}
-  roomL: {fileID: 1082496472065754, guid: c8c151e8ceecef241842c78efaeaabc1, type: 2}
-  roomUD: {fileID: 1082496472065754, guid: c8c151e8ceecef241842c78efaeaabc1, type: 2}
-  roomRL: {fileID: 1082496472065754, guid: c8c151e8ceecef241842c78efaeaabc1, type: 2}
-  roomUR: {fileID: 1082496472065754, guid: c8c151e8ceecef241842c78efaeaabc1, type: 2}
-  roomUL: {fileID: 1082496472065754, guid: c8c151e8ceecef241842c78efaeaabc1, type: 2}
-  roomDR: {fileID: 1082496472065754, guid: c8c151e8ceecef241842c78efaeaabc1, type: 2}
-  roomDL: {fileID: 1082496472065754, guid: c8c151e8ceecef241842c78efaeaabc1, type: 2}
-  roomULD: {fileID: 1082496472065754, guid: c8c151e8ceecef241842c78efaeaabc1, type: 2}
-  roomRUL: {fileID: 1082496472065754, guid: c8c151e8ceecef241842c78efaeaabc1, type: 2}
-  roomDRU: {fileID: 1082496472065754, guid: c8c151e8ceecef241842c78efaeaabc1, type: 2}
-  roomLDR: {fileID: 1082496472065754, guid: c8c151e8ceecef241842c78efaeaabc1, type: 2}
-  roomUDRL: {fileID: 1082496472065754, guid: c8c151e8ceecef241842c78efaeaabc1, type: 2}
+  roomU: {fileID: 1286753543362844, guid: d0ba200aa3e456041a5d800366968055, type: 2}
+  roomD: {fileID: 1557395140445276, guid: 6006a12ab2ef4c44b9c2d4fdffcc0d1e, type: 2}
+  roomR: {fileID: 1289230891034326, guid: 51dca41b047043445a93848ca5e1d95a, type: 2}
+  roomL: {fileID: 1562136548112396, guid: bc0ab09a0e44d504daabf58b673a8dd4, type: 2}
+  roomUD: {fileID: 1922293397883810, guid: 862429e85b8b867428a2e9b87a4937f6, type: 2}
+  roomRL: {fileID: 1009947277914150, guid: 892689d9c1180264d8d3f5894f26d7f2, type: 2}
+  roomUR: {fileID: 1818455438189394, guid: c911ac38536bc034da0cb906d2c3e588, type: 2}
+  roomUL: {fileID: 1297493251331028, guid: 2b0948ec5c4bef14e9260b2687036d2c, type: 2}
+  roomDR: {fileID: 1010278426901262, guid: 277c4448a958a64409d859571169ee81, type: 2}
+  roomDL: {fileID: 1638820371858522, guid: 0b60cf8b01d595a41a884c9b6228f5ed, type: 2}
+  roomULD: {fileID: 1110362033143978, guid: dd99c6c545d949645866f6c5abbcbf5c, type: 2}
+  roomRUL: {fileID: 1401544032945884, guid: 69354f837b54a7d4fb1d9d7007ee5d5a, type: 2}
+  roomDRU: {fileID: 1957918490202144, guid: fab8af1b0ea98714b9e207fff0e9c927, type: 2}
+  roomLDR: {fileID: 1805263561942626, guid: 9c68829d1dc0c4d43b072bf367bea54e, type: 2}
+  roomUDRL: {fileID: 1936323759692762, guid: 0863f12a2c9f39041a07126d66214262, type: 2}
   type: 0
 --- !u!1 &879483119
 GameObject:
@@ -228,7 +249,7 @@ Light:
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 879483119}
   m_Enabled: 1
-  serializedVersion: 7
+  serializedVersion: 8
   m_Type: 1
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_Intensity: 1.3
@@ -253,6 +274,8 @@ Light:
   m_Lightmapping: 4
   m_AreaSize: {x: 1, y: 1}
   m_BounceIntensity: 1
+  m_ColorTemperature: 6570
+  m_UseColorTemperature: 0
   m_ShadowRadius: 0
   m_ShadowAngle: 0
 --- !u!4 &879483121
@@ -291,7 +314,7 @@ Light:
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 1217836092}
   m_Enabled: 1
-  serializedVersion: 7
+  serializedVersion: 8
   m_Type: 1
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_Intensity: 1.3
@@ -316,6 +339,8 @@ Light:
   m_Lightmapping: 4
   m_AreaSize: {x: 1, y: 1}
   m_BounceIntensity: 1
+  m_ColorTemperature: 6570
+  m_UseColorTemperature: 0
   m_ShadowRadius: 0
   m_ShadowAngle: 0
 --- !u!4 &1217836094
@@ -354,7 +379,7 @@ Light:
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 1959137133}
   m_Enabled: 1
-  serializedVersion: 7
+  serializedVersion: 8
   m_Type: 1
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_Intensity: 1.3
@@ -379,6 +404,8 @@ Light:
   m_Lightmapping: 4
   m_AreaSize: {x: 1, y: 1}
   m_BounceIntensity: 1
+  m_ColorTemperature: 6570
+  m_UseColorTemperature: 0
   m_ShadowRadius: 0
   m_ShadowAngle: 0
 --- !u!4 &1959137135
@@ -417,7 +444,7 @@ Light:
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 1984339080}
   m_Enabled: 1
-  serializedVersion: 7
+  serializedVersion: 8
   m_Type: 1
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_Intensity: 1.3
@@ -442,6 +469,8 @@ Light:
   m_Lightmapping: 4
   m_AreaSize: {x: 1, y: 1}
   m_BounceIntensity: 1
+  m_ColorTemperature: 6570
+  m_UseColorTemperature: 0
   m_ShadowRadius: 0
   m_ShadowAngle: 0
 --- !u!4 &1984339082
@@ -527,10 +556,11 @@ Camera:
   m_TargetDisplay: 0
   m_TargetEye: 3
   m_HDR: 1
+  m_AllowMSAA: 1
+  m_ForceIntoRT: 0
   m_OcclusionCulling: 1
   m_StereoConvergence: 10
   m_StereoSeparation: 0.022
-  m_StereoMirrorMode: 0
 --- !u!4 &1986897931
 Transform:
   m_ObjectHideFlags: 0
