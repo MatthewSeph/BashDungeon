@@ -7,6 +7,7 @@ public class Room {
 	public int type;
 	public Room parentRoom;
     public int distance;
+    public string nomeStanza;
 	public List<Room> childrenRooms = new List<Room> ();
 
 	public bool doorTop = false, doorBot = false, doorLeft = false, doorRight = false;
@@ -14,6 +15,15 @@ public class Room {
 	public Room(Vector2 _gridPos, int _type){
 		gridPos = _gridPos;
 		type = _type;
+        
+        if (type == 1)
+        {
+            nomeStanza = "/";
+        }
+        else
+        {
+            nomeStanza = GameObject.Find("GameManager").GetComponent<RandomNamesGenerator>().GenerateName();
+        }
 	}
 
 	public Room GetParentRoom(){

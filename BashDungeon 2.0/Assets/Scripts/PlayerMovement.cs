@@ -6,6 +6,7 @@ public class PlayerMovement : MonoBehaviour {
 
     Vector3 targetPosition;
     float speed = 10f;
+    public Room currentRoom;
 
 
     // Use this for initialization

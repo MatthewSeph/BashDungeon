@@ -1,0 +1,281 @@
+fileFormatVersion: 2
+guid: 7a85e1a9583a8984ab410bacc3e33079
+timeCreated: 1509636769
+licenseType: Free
+ModelImporter:
+  serializedVersion: 22
+  fileIDToRecycleName:
+    100000: Camera
+    100002: Cube
+    100004: Cube.001
+    100006: Cube.002
+    100008: Cube.003
+    100010: Cube.004
+    100012: Cube.005
+    100014: Cube.006
+    100016: Cube.007
+    100018: Cube.008
+    100020: Cube.009
+    100022: Cube.010
+    100024: Cube.011
+    100026: Cube.012
+    100028: Cube.013
+    100030: Cube.014
+    100032: Cube.017
+    100034: Cylinder
+    100036: Lamp
+    100038: //RootNode
+    100040: Plane
+    100042: Plane.001
+    100044: Plane.001_MeshPart0
+    100046: Plane.001_MeshPart1
+    100048: Plane.001_MeshPart2
+    100050: Sun
+    100052: Sun.001
+    100054: Sun.002
+    100056: Sun.003
+    100058: Sun.004
+    100060: Sun.005
+    100062: Sun.006
+    400000: Camera
+    400002: Cube
+    400004: Cube.001
+    400006: Cube.002
+    400008: Cube.003
+    400010: Cube.004
+    400012: Cube.005
+    400014: Cube.006
+    400016: Cube.007
+    400018: Cube.008
+    400020: Cube.009
+    400022: Cube.010
+    400024: Cube.011
+    400026: Cube.012
+    400028: Cube.013
+    400030: Cube.014
+    400032: Cube.017
+    400034: Cylinder
+    400036: Lamp
+    400038: //RootNode
+    400040: Plane
+    400042: Plane.001
+    400044: Plane.001_MeshPart0
+    400046: Plane.001_MeshPart1
+    400048: Plane.001_MeshPart2
+    400050: Sun
+    400052: Sun.001
+    400054: Sun.002
+    400056: Sun.003
+    400058: Sun.004
+    400060: Sun.005
+    400062: Sun.006
+    2000000: Camera
+    2300000: Cube
+    2300002: Cube.001
+    2300004: Cube.002
+    2300006: Cube.003
+    2300008: Cube.004
+    2300010: Cube.005
+    2300012: Cube.006
+    2300014: Cube.007
+    2300016: Cube.008
+    2300018: Cube.009
+    2300020: Cube.010
+    2300022: Cube.011
+    2300024: Cube.012
+    2300026: Cube.013
+    2300028: Cube.014
+    2300030: Cube.017
+    2300032: Cylinder
+    2300034: Plane
+    2300036: Plane.001_MeshPart0
+    2300038: Plane.001_MeshPart1
+    2300040: Plane.001_MeshPart2
+    3300000: Cube
+    3300002: Cube.001
+    3300004: Cube.002
+    3300006: Cube.003
+    3300008: Cube.004
+    3300010: Cube.005
+    3300012: Cube.006
+    3300014: Cube.007
+    3300016: Cube.008
+    3300018: Cube.009
+    3300020: Cube.010
+    3300022: Cube.011
+    3300024: Cube.012
+    3300026: Cube.013
+    3300028: Cube.014
+    3300030: Cube.017
+    3300032: Cylinder
+    3300034: Plane
+    3300036: Plane.001_MeshPart0
+    3300038: Plane.001_MeshPart1
+    3300040: Plane.001_MeshPart2
+    4300000: Cube.017
+    4300002: Cube.014
+    4300004: Cube.013
+    4300006: Cube.012
+    4300008: Cube.009
+    4300010: Cube.008
+    4300012: Cube.010
+    4300014: Cube.006
+    4300016: Cube.004
+    4300018: Cube.003
+    4300020: Plane.001_MeshPart0
+    4300022: Plane.001_MeshPart1
+    4300024: Plane.001_MeshPart2
+    4300026: Plane
+    4300028: Cube.005
+    4300030: Cube.007
+    4300032: Cube
+    4300034: Cube.002
+    4300036: Cylinder
+    4300038: Cube.001
+    4300040: Cube.011
+    10800000: Lamp
+    10800002: Sun
+    10800004: Sun.001
+    10800006: Sun.002
+    10800008: Sun.003
+    10800010: Sun.004
+    10800012: Sun.005
+    10800014: Sun.006
+  externalObjects:
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Material
+    second: {fileID: 2100000, guid: 33fc1979b5e09b142b000fedafa3034c, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Material.001
+    second: {fileID: 2100000, guid: f073752e0d7554d42a4ee54c84fd75f7, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Material.002
+    second: {fileID: 2100000, guid: c3852fb364ed95840bf27db84d0eca9a, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Material.003
+    second: {fileID: 2100000, guid: c175b8ae99d88f5408f97c469546dbb2, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Material.004
+    second: {fileID: 2100000, guid: 1aea2c53d2c2521418bf85ea339dd9d7, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Material.005
+    second: {fileID: 2100000, guid: 3bf954e24b724c042b5daa182d78e741, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Material.006
+    second: {fileID: 2100000, guid: 018402ccff91aba4fb288ae43712b787, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Material.007
+    second: {fileID: 2100000, guid: 16e51924163c5e742ac01d1ffc079386, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Material.008
+    second: {fileID: 2100000, guid: c52c8234790325741a03e190f33cae61, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Material.009
+    second: {fileID: 2100000, guid: 4e3e7bc6f51970248a3588efd6667ae3, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Material.010
+    second: {fileID: 2100000, guid: d4355691692b5a94498c784b6c884a69, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: No Name
+    second: {fileID: 2100000, guid: df73bf988d2c8944288af7edfb4a263d, type: 2}
+  materials:
+    importMaterials: 1
+    materialName: 0
+    materialSearch: 1
+    materialLocation: 0
+  animations:
+    legacyGenerateAnimations: 4
+    bakeSimulation: 0
+    resampleCurves: 1
+    optimizeGameObjects: 0
+    motionNodeName: 
+    rigImportErrors: 
+    rigImportWarnings: 
+    animationImportErrors: 
+    animationImportWarnings: 
+    animationRetargetingWarnings: 
+    animationDoRetargetingWarnings: 0
+    importAnimatedCustomProperties: 0
+    animationCompression: 1
+    animationRotationError: 0.5
+    animationPositionError: 0.5
+    animationScaleError: 0.5
+    animationWrapMode: 0
+    extraExposedTransformPaths: []
+    extraUserProperties: []
+    clipAnimations: []
+    isReadable: 1
+  meshes:
+    lODScreenPercentages: []
+    globalScale: 1
+    meshCompression: 0
+    addColliders: 0
+    importVisibility: 1
+    importBlendShapes: 1
+    importCameras: 1
+    importLights: 1
+    swapUVChannels: 0
+    generateSecondaryUV: 0
+    useFileUnits: 1
+    optimizeMeshForGPU: 1
+    keepQuads: 0
+    weldVertices: 1
+    secondaryUVAngleDistortion: 8
+    secondaryUVAreaDistortion: 15.000001
+    secondaryUVHardAngle: 88
+    secondaryUVPackMargin: 4
+    useFileScale: 1
+  tangentSpace:
+    normalSmoothAngle: 60
+    normalImportMode: 0
+    tangentImportMode: 3
+    normalCalculationMode: 4
+  importAnimation: 1
+  copyAvatar: 0
+  humanDescription:
+    serializedVersion: 2
+    human: []
+    skeleton: []
+    armTwist: 0.5
+    foreArmTwist: 0.5
+    upperLegTwist: 0.5
+    legTwist: 0.5
+    armStretch: 0.05
+    legStretch: 0.05
+    feetSpacing: 0
+    rootMotionBoneName: 
+    rootMotionBoneRotation: {x: 0, y: 0, z: 0, w: 1}
+    hasTranslationDoF: 0
+    hasExtraRoot: 0
+    skeletonHasParents: 1
+  lastHumanDescriptionAvatarSource: {instanceID: 0}
+  animationType: 0
+  humanoidOversampling: 1
+  additionalBone: 0
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
