@@ -155,11 +155,12 @@ public class LevelGeneration : MonoBehaviour {
             roomPosition.y = 0;
             roomPosition.z = drawPos.y;
             stanza.transform.position = roomPosition;
+            stanza.name = room.nomeStanza;
 
 		}
 	}
 
-	 void SetRoomDoors(){
+	void SetRoomDoors(){
 
         for(int i = 0; i<numberOfRooms-1; i++)
         {   
@@ -314,5 +315,10 @@ public class LevelGeneration : MonoBehaviour {
         GameObject player = Instantiate(playerPrefab) as GameObject;
 
         player.GetComponent<PlayerMovement>().currentRoom = roomsOrderByDistance[roomsOrderByDistance.Count-1];
+
+        player.transform.parent = (GameObject.Find("//").transform);
+        player.transform.localPosition = player.transform.position;
+
+
     }
 }
