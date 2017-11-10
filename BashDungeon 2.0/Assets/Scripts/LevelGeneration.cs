@@ -316,6 +316,8 @@ public class LevelGeneration : MonoBehaviour {
 
         player.GetComponent<PlayerMovement>().currentRoom = roomsOrderByDistance[roomsOrderByDistance.Count-1];
 
+        player.name = "Player";
+
         player.transform.parent = (GameObject.Find("//").transform);
         player.transform.localPosition = player.transform.position;
 
