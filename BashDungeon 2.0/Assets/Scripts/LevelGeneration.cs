@@ -11,11 +11,13 @@ public class LevelGeneration : MonoBehaviour {
 	int gridSizeX, gridSizeY, numberOfRooms = 30;
     List<Room> roomsOrderByDistance = new List<Room>();
 	List<Room> roomsWithNoChildren = new List<Room>();
-    public GameObject playerPrefab;
+    public GameObject player;
 
 	public List<GameObject> LootPrefabs = new List<GameObject>(); 
 
 	void Start () {
+		player = GameObject.Find ("Player");
+
 		if (numberOfRooms >= (worldSize.x * 2) * (worldSize.y * 2)){
 			numberOfRooms = Mathf.RoundToInt((worldSize.x * 2) * (worldSize.y * 2));
 		}
@@ -312,12 +314,9 @@ public class LevelGeneration : MonoBehaviour {
 
     void SpawnPlayer()
     {
-        GameObject player = Instantiate(playerPrefab) as GameObject;
+        
 
         player.GetComponent<PlayerMovement>().currentRoom = roomsOrderByDistance[roomsOrderByDistance.Count-1];
-
-        player.name = "Player";
-
         player.transform.parent = (GameObject.Find("//").transform);
         player.transform.localPosition = player.transform.position;
 

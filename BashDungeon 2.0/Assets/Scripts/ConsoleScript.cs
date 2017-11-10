@@ -13,7 +13,7 @@ public class ConsoleScript : MonoBehaviour {
     public GameObject playerGO;
 
     GameObject consoleText;
-    GameObject consoleCanvas;
+    //GameObject consoleCanvas;
 
     int righeMax = 14;
 
@@ -21,7 +21,7 @@ public class ConsoleScript : MonoBehaviour {
     {
         consoleText = GameObject.Find("ConsoleText");
         playerGO = GameObject.Find("Player");
-        consoleCanvas = GameObject.Find("ConsoleCanvas");
+        //consoleCanvas = GameObject.Find("ConsoleCanvas");
 
         textObj = consoleText.GetComponent<Text>();
     }
@@ -48,8 +48,9 @@ public class ConsoleScript : MonoBehaviour {
             else if ((c == '\n') || (c == '\r'))
             {
                 textObj.text += "\n";
-                SplitMessage(messaggio);
-                // textObj.text += "Il messaggio scritto era: " + messaggio + "\n";
+                
+				SplitMessage(messaggio);
+                
                 messaggio = "";
                 textObj.text += "User@linux:~$ ";
 
@@ -75,56 +76,77 @@ public class ConsoleScript : MonoBehaviour {
 
             valore = textObj.cachedTextGenerator.lines[1].startCharIdx;
             textObj.text = textObj.text.Substring(valore, textObj.text.Length - valore);
+
+
         }
     }
 
 
     void SplitMessage (string message)
     {
-        string[] splitMess;
+        string[] splittedMessage;
 
-        splitMess = message.Split(new char[] {' '}, StringSplitOptions.RemoveEmptyEntries);
+        splittedMessage = message.Split(new char[] {' '}, StringSplitOptions.RemoveEmptyEntries);
 
-        Debug.Log("Messaggio: " + splitMess[0].ToCharArray(0 , 1)[0]);
-
-        ControlloMessaggio(splitMess);
+        ControlloMessaggio(splittedMessage);
     }
 
 
-    void ControlloMessaggio(string[] splitMess)
+    void ControlloMessaggio(string[] splittedMessage)
     {
 
-        string comando = splitMess[0];
+        string comando = splittedMessage[0];
 
         switch (comando)
         {
-            case "pwd":
-                if (splitMess.Length<=1)
-                {
-                    textObj.text += GameObject.Find("Player").transform.parent.name + "\n";
-                }
-
-                else
-                {
-                    textObj.text += ("pwd non prevede parametri" + "\n");
-                }
+			case "pwd":
+				Pwd (splittedMessage);
                 break;
 
 
-            case "cd":
-                if ((splitMess.Length == 2) && (GameObject.Find("Player").GetComponent<PlayerMovement>().currentRoom.childrenRooms.Exists(x => x.nomeStanza == splitMess[1])))
-                {
-                    GameObject.Find("Player").transform.parent = (GameObject.Find("/" + splitMess[1]).transform);
-                    Debug.Log(GameObject.Find("Player").transform.parent.name);
-                    
-                }
-                else
-                {
-                    textObj.text += ("cd prevede un parametro" + "\n");
-                }
-
+			case "cd":
+				Cd (splittedMessage);
                 break;
+
+			default:
+				textObj.text += ("NON LO FATE" + "\n");
+				break;
         }
 
     }
+
+
+	void Pwd(string[] splittedMessage)
+	{
+		if (splittedMessage.Length<=1)
+		{
+			textObj.text += playerGO.transform.parent.name + "\n";
+		}
+
+		else
+		{
+			textObj.text += ("pwd non prevede parametri" + "\n");
+		}
+	}
+
+	void Cd(string[] splittedMessage) 
+	{
+		if (splittedMessage.Length == 2)
+		{
+			if ((playerGO.GetComponent<PlayerMovement> ().currentRoom.childrenRooms.Exists (x => x.nomeStanza == splittedMessage [1]))) 
+			{
+				playerGO.transform.parent = (GameObject.Find ("/" + splittedMessage [1]).transform);
+				Debug.Log (GameObject.Find ("Player").transform.parent.name);
+			} 
+			else 
+			{
+				textObj.text += (splittedMessage[1] + " non è un path corretto" + "\n");
+			}
+		}
+		else
+		{
+			textObj.text += ("cd prevede un parametro" + "\n");
+		}
+	}
+
 }
