@@ -11,6 +11,7 @@ public class ConsoleScript : MonoBehaviour {
     public string messaggio;
     public Text textObj;
     public GameObject playerGO;
+    public GameObject gameManager;
 
     GameObject consoleText;
     //GameObject consoleCanvas;
@@ -22,6 +23,7 @@ public class ConsoleScript : MonoBehaviour {
         consoleText = GameObject.Find("ConsoleText");
         playerGO = GameObject.Find("Player");
         //consoleCanvas = GameObject.Find("ConsoleCanvas");
+        gameManager = GameObject.Find("GameManager");
 
         textObj = consoleText.GetComponent<Text>();
     }
@@ -87,8 +89,11 @@ public class ConsoleScript : MonoBehaviour {
         string[] splittedMessage;
 
         splittedMessage = message.Split(new char[] {' '}, StringSplitOptions.RemoveEmptyEntries);
-
-        ControlloMessaggio(splittedMessage);
+        if (splittedMessage.Length != 0)
+        {
+            ControlloMessaggio(splittedMessage);
+        }
+        
     }
 
 
@@ -108,8 +113,12 @@ public class ConsoleScript : MonoBehaviour {
 				Cd (splittedMessage);
                 break;
 
-			default:
-				textObj.text += ("NON LO FATE" + "\n");
+            case "ls":
+                Ls(splittedMessage);
+                break;
+
+            default:
+				textObj.text += (splittedMessage[0] + " non e' un comando riconosciuto." + "\n");
 				break;
         }
 
@@ -118,14 +127,14 @@ public class ConsoleScript : MonoBehaviour {
 
 	void Pwd(string[] splittedMessage)
 	{
-		if (splittedMessage.Length<=1)
+		if (splittedMessage.Length==1)
 		{
 			textObj.text += playerGO.transform.parent.name + "\n";
 		}
 
 		else
 		{
-			textObj.text += ("pwd non prevede parametri" + "\n");
+			textObj.text += ("pwd non prevede parametri." + "\n");
 		}
 	}
 
@@ -133,20 +142,47 @@ public class ConsoleScript : MonoBehaviour {
 	{
 		if (splittedMessage.Length == 2)
 		{
-			if ((playerGO.GetComponent<PlayerMovement> ().currentRoom.childrenRooms.Exists (x => x.nomeStanza == splittedMessage [1]))) 
+			if ((playerGO.GetComponent<PlayerMovement>().currentRoom.childrenRooms.Exists (x => x.nomeStanza == splittedMessage [1]))) 
 			{
-				playerGO.transform.parent = (GameObject.Find ("/" + splittedMessage [1]).transform);
+				playerGO.transform.parent = GameObject.Find ("/" + splittedMessage [1]).transform;
 				Debug.Log (GameObject.Find ("Player").transform.parent.name);
+                playerGO.GetComponent<PlayerMovement>().currentRoom = gameManager.GetComponent<LevelGeneration>().GetRoomByName(splittedMessage[1]);
 			} 
+			else if ((splittedMessage[1] == "..") && (playerGO.GetComponent<PlayerMovement>().currentRoom.nomeStanza != "/"))
+			{
+				playerGO.transform.parent = GameObject.Find ("/" + playerGO.GetComponent<PlayerMovement> ().currentRoom.parentRoom.nomeStanza).transform;
+				Debug.Log (GameObject.Find ("Player").transform.parent.name);
+                playerGO.GetComponent<PlayerMovement>().currentRoom = gameManager.GetComponent<LevelGeneration>().GetRoomByName(playerGO.GetComponent<PlayerMovement>().currentRoom.parentRoom.nomeStanza);
+            }
 			else 
 			{
-				textObj.text += (splittedMessage[1] + " non è un path corretto" + "\n");
+				textObj.text += (splittedMessage[1] + " non è un path corretto." + "\n");
 			}
 		}
 		else
 		{
-			textObj.text += ("cd prevede un parametro" + "\n");
+			textObj.text += ("cd prevede un parametro." + "\n");
 		}
 	}
+
+    void Ls(String[] splittedMessage)
+    {
+        if(splittedMessage.Length == 1)
+        {
+
+            if (playerGO.GetComponent<PlayerMovement>().currentRoom.childrenRooms != null)
+            {
+                foreach (Room r in playerGO.GetComponent<PlayerMovement>().currentRoom.childrenRooms)
+                {
+                    textObj.text += ("<color=#7F9FCDFF>" + r.nomeStanza + "</color>\n");
+                }
+            }
+
+        }
+        else
+        {
+            textObj.text += ("ls non prevede parametri." + "\n");
+        }
+    }
 
 }

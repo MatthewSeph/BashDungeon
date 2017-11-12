@@ -322,4 +322,11 @@ public class LevelGeneration : MonoBehaviour {
 
 
     }
+
+	public Room GetRoomByName(string name)
+	{
+        Room foundRoom = roomsOrderByDistance.Find(x => x.nomeStanza == name);
+
+        return foundRoom;
+	}
 }
