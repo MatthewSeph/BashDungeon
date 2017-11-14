@@ -181,30 +181,53 @@ public class ConsoleScript : MonoBehaviour {
 		{
 			if ((playerGO.GetComponent<PlayerMovement> ().currentRoom.childrenRooms.Exists (x => x.nomeStanza == splittedMessage [1]))) 
 			{
-				
-				playerGO.transform.parent = GameObject.Find ("/" + splittedMessage [1]).transform;
+                gameManager.GetComponent<PlayManager>().MoveBeforeChangeRoom(gameManager.GetComponent<LevelGeneration>().GetRoomByName(splittedMessage[1]));
+               // gameManager.GetComponent<PlayManager>().GoToDoor(gameManager.GetComponent<PlayManager>().RoomDirection(playerGO.GetComponent<PlayerMovement>().currentRoom, gameManager.GetComponent<LevelGeneration>().GetRoomByName(splittedMessage[1])));
+                //playerGO.transform.parent = GameObject.Find ("/" + splittedMessage [1]).transform;
 				Debug.Log (GameObject.Find ("Player").transform.parent.name);
-				playerGO.GetComponent<PlayerMovement> ().currentRoom = gameManager.GetComponent<LevelGeneration> ().GetRoomByName (splittedMessage [1]);
-			} 
+                
+
+                //playerGO.GetComponent<PlayerMovement> ().currentRoom = gameManager.GetComponent<LevelGeneration> ().GetRoomByName (splittedMessage [1]);
+                //Camera.main.transform.parent = GameObject.Find("/" + splittedMessage[1]).transform;
+                
+            } 
 			else if ((splittedMessage [1] == "..") && (playerGO.GetComponent<PlayerMovement> ().currentRoom.nomeStanza != "/")) 
 			{
-				playerGO.transform.parent = GameObject.Find ("/" + playerGO.GetComponent<PlayerMovement> ().currentRoom.parentRoom.nomeStanza).transform;
+                gameManager.GetComponent<PlayManager>().MoveBeforeChangeRoom(gameManager.GetComponent<LevelGeneration>().GetRoomByName(playerGO.GetComponent<PlayerMovement>().currentRoom.parentRoom.nomeStanza));
+               // gameManager.GetComponent<PlayManager>().GoToDoor(gameManager.GetComponent<PlayManager>().RoomDirection(playerGO.GetComponent<PlayerMovement>().currentRoom, gameManager.GetComponent<LevelGeneration>().GetRoomByName(playerGO.GetComponent<PlayerMovement>().currentRoom.parentRoom.nomeStanza)));
+               // playerGO.transform.parent = GameObject.Find ("/" + playerGO.GetComponent<PlayerMovement> ().currentRoom.parentRoom.nomeStanza).transform;
 				Debug.Log (GameObject.Find ("Player").transform.parent.name);
-				playerGO.GetComponent<PlayerMovement> ().currentRoom = gameManager.GetComponent<LevelGeneration> ().GetRoomByName (playerGO.GetComponent<PlayerMovement> ().currentRoom.parentRoom.nomeStanza);
-			}
+                
+                //Camera.main.transform.parent = GameObject.Find("/" + playerGO.GetComponent<PlayerMovement>().currentRoom.parentRoom.nomeStanza).transform;
+
+                //playerGO.GetComponent<PlayerMovement> ().currentRoom = gameManager.GetComponent<LevelGeneration> ().GetRoomByName (playerGO.GetComponent<PlayerMovement> ().currentRoom.parentRoom.nomeStanza);
+                
+               
+            }
 			else if ((splittedMessage [1] == "/")) 
 			{
-				playerGO.transform.parent = GameObject.Find ("/" + "/").transform;
+                gameManager.GetComponent<PlayManager>().MoveBeforeChangeRoom(gameManager.GetComponent<LevelGeneration>().GetRoomByName("/"));
+               // gameManager.GetComponent<PlayManager>().GoToDoor(gameManager.GetComponent<PlayManager>().RoomDirection(playerGO.GetComponent<PlayerMovement>().currentRoom, gameManager.GetComponent<LevelGeneration>().GetRoomByName("/")));
+               // playerGO.transform.parent = GameObject.Find ("/" + "/").transform;
 				Debug.Log (GameObject.Find ("Player").transform.parent.name);
-				playerGO.GetComponent<PlayerMovement> ().currentRoom = gameManager.GetComponent<LevelGeneration> ().GetRoomByName ("/");
-			}
+                
+                //playerGO.GetComponent<PlayerMovement> ().currentRoom = gameManager.GetComponent<LevelGeneration> ().GetRoomByName ("/");
+                //Camera.main.transform.parent = GameObject.Find("/" + "/").transform;
+               
+            }
 			else if (CheckPath (splittedMessage)) 
 			{
 				string[] path = splittedMessage[1].Split(new char[] {'/'}, StringSplitOptions.RemoveEmptyEntries);
-				playerGO.transform.parent = GameObject.Find ("/" + path[path.Length-1]).transform;
+                gameManager.GetComponent<PlayManager>().MoveBeforeChangeRoom(gameManager.GetComponent<LevelGeneration>().GetRoomByName(path[path.Length - 1]));
+                //gameManager.GetComponent<PlayManager>().GoToDoor(gameManager.GetComponent<PlayManager>().RoomDirection(playerGO.GetComponent<PlayerMovement>().currentRoom, gameManager.GetComponent<LevelGeneration>().GetRoomByName(path[path.Length - 1])));
+
+               // playerGO.transform.parent = GameObject.Find ("/" + path[path.Length-1]).transform;
 				Debug.Log (GameObject.Find ("Player").transform.parent.name);
-				playerGO.GetComponent<PlayerMovement> ().currentRoom = gameManager.GetComponent<LevelGeneration> ().GetRoomByName (path[path.Length-1]);
-			}
+                
+                //playerGO.GetComponent<PlayerMovement> ().currentRoom = gameManager.GetComponent<LevelGeneration> ().GetRoomByName (path[path.Length-1]);
+                //Camera.main.transform.parent = GameObject.Find("/" + path[path.Length - 1]).transform;
+              
+            }
 			else 
 			{
 				textObj.text += (splittedMessage[1] + " non è un path corretto." + "\n");

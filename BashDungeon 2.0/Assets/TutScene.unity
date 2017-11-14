@@ -211,6 +211,7 @@ GameObject:
   - component: {fileID: 678893740}
   - component: {fileID: 678893742}
   - component: {fileID: 678893743}
+  - component: {fileID: 678893744}
   m_Layer: 0
   m_Name: GameManager
   m_TagString: Untagged
@@ -477,6 +478,17 @@ MonoBehaviour:
   - Wildflower
   - Wind
   - Wood
+--- !u!114 &678893744
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 678893739}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7b8bee42e029cbb40ac27549f48e606e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1001 &689088239
 Prefab:
   m_ObjectHideFlags: 0
@@ -780,7 +792,7 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 4420832020842932, guid: 25978c817fc466c489d2bbb690be978e, type: 2}
       propertyPath: m_LocalPosition.y
-      value: 0
+      value: 0.15
       objectReference: {fileID: 0}
     - target: {fileID: 4420832020842932, guid: 25978c817fc466c489d2bbb690be978e, type: 2}
       propertyPath: m_LocalPosition.z
@@ -886,6 +898,7 @@ GameObject:
   - component: {fileID: 1986897929}
   - component: {fileID: 1986897928}
   - component: {fileID: 1986897927}
+  - component: {fileID: 1986897932}
   m_Layer: 0
   m_Name: Main Camera
   m_TagString: MainCamera
@@ -962,3 +975,14 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 90, y: 0, z: 0.001}
+--- !u!114 &1986897932
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1986897926}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c496e0b930f295a4ea34de29ea907f10, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
