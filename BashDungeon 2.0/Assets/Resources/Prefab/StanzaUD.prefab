@@ -111,7 +111,6 @@ GameObject:
   - component: {fileID: 4019665254767214}
   - component: {fileID: 33430412424186668}
   - component: {fileID: 23250554565530770}
-  - component: {fileID: 114524194846716024}
   m_Layer: 0
   m_Name: Porta (4)
   m_TagString: Untagged
@@ -219,7 +218,6 @@ GameObject:
   - component: {fileID: 4007998300078506}
   - component: {fileID: 33922100019219322}
   - component: {fileID: 23653993131038112}
-  - component: {fileID: 114691196506695308}
   m_Layer: 0
   m_Name: Porta (3)
   m_TagString: Untagged
@@ -3796,17 +3794,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 763aaff5ba28970429cc02dededdf87a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
---- !u!114 &114524194846716024
-MonoBehaviour:
-  m_ObjectHideFlags: 1
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1093489836981300}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 763aaff5ba28970429cc02dededdf87a, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!114 &114576128020666104
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -3868,17 +3855,6 @@ MonoBehaviour:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1014534477229980}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 763aaff5ba28970429cc02dededdf87a, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
---- !u!114 &114691196506695308
-MonoBehaviour:
-  m_ObjectHideFlags: 1
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1217059599171498}
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 763aaff5ba28970429cc02dededdf87a, type: 3}

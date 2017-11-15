@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.AI;
 
 public class PlayManager : MonoBehaviour {
 
@@ -23,21 +24,48 @@ public class PlayManager : MonoBehaviour {
 
     public void GoToDoor(Vector2 roomDirection)
     {
-        if(roomDirection == Vector2.up)
+        playerGO.GetComponent<NavMeshAgent>().enabled = true;
+        
+        Vector3 positionToGo = new Vector3();
+        if (roomDirection == Vector2.up)
         {
-            playerGO.GetComponent<PlayerMovement>().TargetPosition = new Vector3(-2, 0.5f, 11);
+            positionToGo.x = -2 + (playerGO.GetComponent<PlayerMovement>().currentRoom.gridPos.x * 24);
+            Debug.Log(positionToGo.x);
+            positionToGo.z = 10.5f + (playerGO.GetComponent<PlayerMovement>().currentRoom.gridPos.y * 24);
+            Debug.Log(positionToGo.z);
+            positionToGo.y = 0.5f;
+            playerGO.GetComponent<NavMeshAgent>().destination = positionToGo;
+            playerGO.GetComponent<PlayerMovement>().TargetPosition = positionToGo;
         }
         else if (roomDirection == Vector2.down)
         {
-            playerGO.GetComponent<PlayerMovement>().TargetPosition = new Vector3(-2, 0.5f, -11);
+            positionToGo.x = -2 + (playerGO.GetComponent<PlayerMovement>().currentRoom.gridPos.x * 24);
+            Debug.Log(positionToGo.x);
+            positionToGo.z = -10.5f + (playerGO.GetComponent<PlayerMovement>().currentRoom.gridPos.y * 24);
+            Debug.Log(positionToGo.z);
+            positionToGo.y = 0.5f;
+            playerGO.GetComponent<NavMeshAgent>().destination = positionToGo;
+            playerGO.GetComponent<PlayerMovement>().TargetPosition = positionToGo;
         }
         else if (roomDirection == Vector2.left)
         {
-            playerGO.GetComponent<PlayerMovement>().TargetPosition = new Vector3(-13, 0.5f, 0);
+            positionToGo.x = -12.5f + (playerGO.GetComponent<PlayerMovement>().currentRoom.gridPos.x * 24);
+            Debug.Log(positionToGo.x);
+            positionToGo.z = 0 + (playerGO.GetComponent<PlayerMovement>().currentRoom.gridPos.y * 24);
+            Debug.Log(positionToGo.z);
+            positionToGo.y = 0.5f;
+            playerGO.GetComponent<NavMeshAgent>().destination = positionToGo;
+            playerGO.GetComponent<PlayerMovement>().TargetPosition = positionToGo;
         }
         else if (roomDirection == Vector2.right)
         {
-            playerGO.GetComponent<PlayerMovement>().TargetPosition = new Vector3(9, 0.5f, 0);
+            positionToGo.x = 8.5f + (playerGO.GetComponent<PlayerMovement>().currentRoom.gridPos.x * 24);
+            Debug.Log(positionToGo.x);
+            positionToGo.z = 0 + (playerGO.GetComponent<PlayerMovement>().currentRoom.gridPos.y * 24);
+            Debug.Log(positionToGo.z);
+            positionToGo.y = 0.5f;
+            playerGO.GetComponent<NavMeshAgent>().destination = positionToGo;
+            playerGO.GetComponent<PlayerMovement>().TargetPosition = positionToGo;
         }
         else
         {
@@ -62,9 +90,11 @@ public class PlayManager : MonoBehaviour {
 
     public void ChangeRoom(Room targhetRoom)
     {
+        Room oldRoom = playerGO.GetComponent<PlayerMovement>().currentRoom;
         playerGO.transform.parent = GameObject.Find("/" + targhetRoom.nomeStanza).transform;
-        GoToDoor(RoomDirection(targhetRoom, playerGO.GetComponent<PlayerMovement>().currentRoom));
         playerGO.GetComponent<PlayerMovement>().currentRoom = targhetRoom;
+        GoToDoor(RoomDirection(playerGO.GetComponent<PlayerMovement>().currentRoom, oldRoom));
+        
         Camera.main.transform.parent = GameObject.Find("/" + targhetRoom.nomeStanza).transform;
     }
 
@@ -74,17 +104,19 @@ public class PlayManager : MonoBehaviour {
         playerGO.GetComponent<PlayerMovement>().BlockedMovement = true;
         playerGO.GetComponent<PlayerMovement>().WantToChangeRoom = false;
         yield return new WaitForSeconds(sec);
-
+        Debug.Log(":)");
         playerGO.transform.parent = GameObject.Find("/" + playerGO.GetComponent<PlayerMovement>().TarghetRoom.nomeStanza).transform;
 
         playerGO.transform.localPosition = oldLocalPosition;
         playerGO.GetComponent<PlayerMovement>().TargetPosition = oldLocalPosition;
         playerGO.GetComponent<PlayerMovement>().currentRoom = playerGO.GetComponent<PlayerMovement>().TarghetRoom;
+        playerGO.GetComponent<NavMeshAgent>().destination = playerGO.transform.position;
         playerGO.GetComponent<PlayerMovement>().BlockedMovement = false;
+        Debug.Log("SONONELMEZZO");
         Camera.main.transform.parent = GameObject.Find("/" + playerGO.GetComponent<PlayerMovement>().TarghetRoom.nomeStanza).transform;
         Camera.main.transform.localPosition = new Vector3(-2, 31.87f, 0);
         yield return new WaitForSeconds(1);
         playerGO.transform.GetChild(0).GetComponent<ParticleSystem>().Stop(true, ParticleSystemStopBehavior.StopEmittingAndClear);
-        
+        Debug.Log("FINE");
     }
 }

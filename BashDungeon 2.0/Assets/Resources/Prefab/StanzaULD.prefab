@@ -235,7 +235,6 @@ GameObject:
   - component: {fileID: 4901818442844966}
   - component: {fileID: 33797336938363904}
   - component: {fileID: 23403996402358990}
-  - component: {fileID: 114515859280235380}
   m_Layer: 0
   m_Name: Porta (5)
   m_TagString: Untagged
@@ -685,7 +684,6 @@ GameObject:
   - component: {fileID: 4058031101344498}
   - component: {fileID: 33356683320206780}
   - component: {fileID: 23144938514476956}
-  - component: {fileID: 114531083750122490}
   m_Layer: 0
   m_Name: Porta (3)
   m_TagString: Untagged
@@ -811,7 +809,6 @@ GameObject:
   - component: {fileID: 4818270830993474}
   - component: {fileID: 33779218870989382}
   - component: {fileID: 23121965173593406}
-  - component: {fileID: 114461007626658604}
   m_Layer: 0
   m_Name: Porta (4)
   m_TagString: Untagged
@@ -3775,17 +3772,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 763aaff5ba28970429cc02dededdf87a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
---- !u!114 &114461007626658604
-MonoBehaviour:
-  m_ObjectHideFlags: 1
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1907609763230324}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 763aaff5ba28970429cc02dededdf87a, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!114 &114466748924727130
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -3825,28 +3811,6 @@ MonoBehaviour:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1890688929656802}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 763aaff5ba28970429cc02dededdf87a, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
---- !u!114 &114515859280235380
-MonoBehaviour:
-  m_ObjectHideFlags: 1
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1136964562674582}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 763aaff5ba28970429cc02dededdf87a, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
---- !u!114 &114531083750122490
-MonoBehaviour:
-  m_ObjectHideFlags: 1
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1723026724287348}
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 763aaff5ba28970429cc02dededdf87a, type: 3}

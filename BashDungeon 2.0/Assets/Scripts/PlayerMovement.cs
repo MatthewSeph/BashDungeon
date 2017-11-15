@@ -77,33 +77,33 @@ public class PlayerMovement : MonoBehaviour {
         gameManager = GameObject.Find("GameManager");
         m_Agent = GetComponent<NavMeshAgent>();
 
-    } 
-	
-	// Update is called once per frame
-	void Update () {
-        if((transform.localPosition == TargetPosition) && WantToChangeRoom && targhetRoom!=null && targhetRoom!=currentRoom)
+    }
+
+    // Update is called once per frame
+    void Update()
+    {
+        if ((transform.position.x == TargetPosition.x) && (transform.position.z == TargetPosition.z) && WantToChangeRoom )
         {
-            
+            m_Agent.enabled = false;
             gameManager.GetComponent<PlayManager>().ChangeRoom(targhetRoom);
             WantToChangeRoom = false;
         }
 
         if (!WantToChangeRoom)
         {
-            if (Input.GetMouseButtonDown(0))
+            if (Input.GetMouseButtonDown(0) && (!EventSystem.current.IsPointerOverGameObject()) && (Camera.main.ScreenToViewportPoint(Input.mousePosition).x > 0.1f) 
+                && (Camera.main.ScreenToViewportPoint(Input.mousePosition).x < 0.9f) && (Camera.main.ScreenToViewportPoint(Input.mousePosition).y > 0.1f) 
+                && (Camera.main.ScreenToViewportPoint(Input.mousePosition).y < 0.9f))
             {
-                RaycastHit hit;
+                Debug.Log(Camera.main.ScreenToViewportPoint(Input.mousePosition).x + " " + Camera.main.ScreenToViewportPoint(Input.mousePosition).y + " " + Camera.main.ScreenToViewportPoint(Input.mousePosition).z);
 
-                if (Physics.Raycast(Camera.main.ScreenPointToRay(Input.mousePosition), out hit, 100))
-                {
-                    m_Agent.destination = hit.point;
-                }
+                Vector3 mousePos = Input.mousePosition;
+                mousePos.z = Camera.main.transform.position.y;
+                Vector3 clickedPosition = Camera.main.ScreenToWorldPoint(mousePos);
+
+                    GetComponent<NavMeshAgent>().destination = clickedPosition;
+
             }
-        }
-
-        if (!BlockedMovement)
-        {
-            transform.localPosition = Vector3.MoveTowards(transform.localPosition, TargetPosition, Time.deltaTime * speed);
         }
     }
 }
