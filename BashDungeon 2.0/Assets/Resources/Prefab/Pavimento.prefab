@@ -21,6 +21,7 @@ GameObject:
   - component: {fileID: 4703430191091792}
   - component: {fileID: 33669043725282234}
   - component: {fileID: 23571805448213064}
+  - component: {fileID: 114587657721700322}
   m_Layer: 0
   m_Name: Pavimento
   m_TagString: Untagged
@@ -82,3 +83,14 @@ MeshFilter:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1857992905659036}
   m_Mesh: {fileID: 4300004, guid: c254095d286070e4f8956ec7e781a46b, type: 3}
+--- !u!114 &114587657721700322
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1857992905659036}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 763aaff5ba28970429cc02dededdf87a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 

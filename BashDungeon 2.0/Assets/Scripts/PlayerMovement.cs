@@ -1,10 +1,12 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.AI;
 using UnityEngine.EventSystems;
 
 public class PlayerMovement : MonoBehaviour {
 
+    NavMeshAgent m_Agent;
     Vector3 targetPosition;
     float speed = 10f;
     public Room currentRoom;
@@ -12,6 +14,7 @@ public class PlayerMovement : MonoBehaviour {
     bool wantToChangeRoom = false;
     GameObject gameManager;
     bool blockedMovement = false;
+ 
 
     public Vector3 TargetPosition
     {
@@ -68,9 +71,12 @@ public class PlayerMovement : MonoBehaviour {
 
     // Use this for initialization
     void Start () {
+
         transform.GetChild(0).GetComponent<ParticleSystem>().Stop();
         TargetPosition = transform.position;
         gameManager = GameObject.Find("GameManager");
+        m_Agent = GetComponent<NavMeshAgent>();
+
     } 
 	
 	// Update is called once per frame
@@ -84,22 +90,14 @@ public class PlayerMovement : MonoBehaviour {
 
         if (!WantToChangeRoom)
         {
-            if (Input.GetMouseButtonDown(0) && (!EventSystem.current.IsPointerOverGameObject()))
+            if (Input.GetMouseButtonDown(0))
             {
-                Vector3 mousePos = Input.mousePosition;
-                mousePos.z = Camera.main.transform.position.y;
-                Vector3 clickedPosition = Camera.main.ScreenToWorldPoint(mousePos);
-                Debug.Log(clickedPosition.x + " " + clickedPosition.y + " " + " " + clickedPosition.z);
+                RaycastHit hit;
 
-                if ((clickedPosition.x < 9) && (clickedPosition.x > -13) && (clickedPosition.z > -11) && (clickedPosition.z < 11))
+                if (Physics.Raycast(Camera.main.ScreenPointToRay(Input.mousePosition), out hit, 100))
                 {
-                    
-                    TargetPosition = clickedPosition;
-                    targetPosition.y = 0.5f;
-                    
+                    m_Agent.destination = hit.point;
                 }
-
-
             }
         }
 
