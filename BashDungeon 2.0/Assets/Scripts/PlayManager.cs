@@ -104,19 +104,19 @@ public class PlayManager : MonoBehaviour {
         playerGO.GetComponent<PlayerMovement>().BlockedMovement = true;
         playerGO.GetComponent<PlayerMovement>().WantToChangeRoom = false;
         yield return new WaitForSeconds(sec);
-        Debug.Log(":)");
+
         playerGO.transform.parent = GameObject.Find("/" + playerGO.GetComponent<PlayerMovement>().TarghetRoom.nomeStanza).transform;
 
         playerGO.transform.localPosition = oldLocalPosition;
-        playerGO.GetComponent<PlayerMovement>().TargetPosition = oldLocalPosition;
+        //playerGO.GetComponent<PlayerMovement>().TargetPosition = oldLocalPosition;
         playerGO.GetComponent<PlayerMovement>().currentRoom = playerGO.GetComponent<PlayerMovement>().TarghetRoom;
         playerGO.GetComponent<NavMeshAgent>().destination = playerGO.transform.position;
         playerGO.GetComponent<PlayerMovement>().BlockedMovement = false;
-        Debug.Log("SONONELMEZZO");
+
         Camera.main.transform.parent = GameObject.Find("/" + playerGO.GetComponent<PlayerMovement>().TarghetRoom.nomeStanza).transform;
         Camera.main.transform.localPosition = new Vector3(-2, 31.87f, 0);
         yield return new WaitForSeconds(1);
         playerGO.transform.GetChild(0).GetComponent<ParticleSystem>().Stop(true, ParticleSystemStopBehavior.StopEmittingAndClear);
-        Debug.Log("FINE");
+
     }
 }
