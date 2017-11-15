@@ -30,7 +30,6 @@ public class ConsoleScript : MonoBehaviour {
 
     void Update()
     {
-
         foreach (char c in Input.inputString)
         {
             if (c == '\b')
@@ -135,7 +134,7 @@ public class ConsoleScript : MonoBehaviour {
 			{
 				if (i == 0) 
 				{
-					if (!(gameManager.GetComponent<LevelGeneration> ().GetRoomByName ("/").childrenRooms.Exists (x => x.nomeStanza == path [0]))) 
+					if (!(gameManager.GetComponent<LevelGeneration> ().GetRoomByName ("/").childrenRooms.Exists (x => x.nomeStanza == path [0]) || !(gameManager.GetComponent<LevelGeneration>().GetRoomByName(path[i]).childrenRooms.Exists(x => x.nomeStanza == path[i + 1])) )) 
 					{
 						isPathCorrect = false;
 						break;

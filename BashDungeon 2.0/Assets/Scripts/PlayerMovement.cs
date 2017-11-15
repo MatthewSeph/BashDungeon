@@ -11,6 +11,7 @@ public class PlayerMovement : MonoBehaviour {
     Room targhetRoom;
     bool wantToChangeRoom = false;
     GameObject gameManager;
+    bool blockedMovement = false;
 
     public Vector3 TargetPosition
     {
@@ -51,10 +52,23 @@ public class PlayerMovement : MonoBehaviour {
         }
     }
 
+    public bool BlockedMovement
+    {
+        get
+        {
+            return blockedMovement;
+        }
+
+        set
+        {
+            blockedMovement = value;
+        }
+    }
+
 
     // Use this for initialization
     void Start () {
-
+        transform.GetChild(0).GetComponent<ParticleSystem>().Stop();
         TargetPosition = transform.position;
         gameManager = GameObject.Find("GameManager");
     } 
@@ -75,22 +89,23 @@ public class PlayerMovement : MonoBehaviour {
                 Vector3 mousePos = Input.mousePosition;
                 mousePos.z = Camera.main.transform.position.y;
                 Vector3 clickedPosition = Camera.main.ScreenToWorldPoint(mousePos);
+                Debug.Log(clickedPosition.x + " " + clickedPosition.y + " " + " " + clickedPosition.z);
 
-                if ((clickedPosition.x % 24 < 9) && (clickedPosition.x % 24 > -13) && (clickedPosition.z % 24 > -11) && (clickedPosition.z % 24 < 11))
+                if ((clickedPosition.x < 9) && (clickedPosition.x > -13) && (clickedPosition.z > -11) && (clickedPosition.z < 11))
                 {
+                    
                     TargetPosition = clickedPosition;
                     targetPosition.y = 0.5f;
-                    Debug.Log(TargetPosition.x + " " + TargetPosition.y + " " + TargetPosition.z);
-                    Debug.Log(transform.position.x + " " + transform.position.y + " " + transform.position.z);
-                    Debug.Log(Input.mousePosition.x + " " + Input.mousePosition.y + " " + Input.mousePosition.z);
+                    
                 }
 
 
             }
         }
 
-
-        transform.localPosition = Vector3.MoveTowards(transform.localPosition, TargetPosition, Time.deltaTime * speed);
-        
+        if (!BlockedMovement)
+        {
+            transform.localPosition = Vector3.MoveTowards(transform.localPosition, TargetPosition, Time.deltaTime * speed);
+        }
     }
 }
