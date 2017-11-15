@@ -126,38 +126,49 @@ public class ConsoleScript : MonoBehaviour {
 	bool CheckPath(string[] splittedMessage) 
 	{
 		bool isPathCorrect = true;
-		string[] path = splittedMessage[1].Split(new char[] {'/'}, StringSplitOptions.RemoveEmptyEntries);
+        if (splittedMessage[1].ToCharArray().First() == '/')
+        {
 
-		if (path.Length >= 1) 
-		{
-			for (int i = 0; i <= path.Length - 1; i++) 
-			{
-				if (i == 0) 
-				{
-					if (!(gameManager.GetComponent<LevelGeneration> ().GetRoomByName ("/").childrenRooms.Exists (x => x.nomeStanza == path [0]) || !(gameManager.GetComponent<LevelGeneration>().GetRoomByName(path[i]).childrenRooms.Exists(x => x.nomeStanza == path[i + 1])) )) 
-					{
-						isPathCorrect = false;
-						break;
-					}
-				}
-                else if (i == path.Length - 1)
+
+            string[] path = splittedMessage[1].Split(new char[] { '/' }, StringSplitOptions.RemoveEmptyEntries);
+
+            if (path.Length >= 2)
+            {
+                for (int i = 0; i <= path.Length - 1; i++)
                 {
-                    break;
-                }
-                else if (!(gameManager.GetComponent<LevelGeneration> ().GetRoomByName (path [i]).childrenRooms.Exists (x => x.nomeStanza == path [i + 1]))) 
-				{
-					isPathCorrect = false;
-					break;
-				}
-                
-			}
-		} 
-		else 
-		{
-			isPathCorrect = false;
-		}
 
-		return isPathCorrect;
+                    if (i == path.Length - 1)
+                    {
+                        break;
+                    }
+                    else if (!(gameManager.GetComponent<LevelGeneration>().GetRoomByName(path[i]).childrenRooms.Exists(x => x.nomeStanza == path[i + 1])))
+                    {
+                        isPathCorrect = false;
+                        break;
+                    }
+
+                }
+            }
+            else if (path.Length == 1)
+            {
+                if (!(gameManager.GetComponent<LevelGeneration>().GetRoomByName("/").childrenRooms.Exists(x => x.nomeStanza == path[0])))
+                {
+                    isPathCorrect = false;
+
+                }
+            }
+            else
+            {
+                isPathCorrect = false;
+            }
+
+        }
+        else
+        {
+            isPathCorrect = false;
+        }
+
+        return isPathCorrect;
 	}
 
 
