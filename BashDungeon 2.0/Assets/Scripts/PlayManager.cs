@@ -111,7 +111,7 @@ public class PlayManager : MonoBehaviour {
         //playerGO.GetComponent<PlayerMovement>().TargetPosition = oldLocalPosition;
         playerGO.GetComponent<PlayerMovement>().currentRoom = playerGO.GetComponent<PlayerMovement>().TarghetRoom;
         playerGO.GetComponent<NavMeshAgent>().destination = playerGO.transform.position;
-        //playerGO.GetComponent<PlayerMovement>().BlockedMovement = false;
+        playerGO.GetComponent<PlayerMovement>().BlockedMovement = false;
 
         Camera.main.transform.parent = GameObject.Find("/" + playerGO.GetComponent<PlayerMovement>().TarghetRoom.nomeStanza).transform;
         Camera.main.transform.localPosition = new Vector3(-2, 31.87f, 0);

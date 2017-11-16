@@ -82,10 +82,6 @@ public class PlayerMovement : MonoBehaviour {
     // Update is called once per frame
     void Update()
     {
-        if(BlockedMovement && transform.position == GetComponent<NavMeshAgent>().destination)
-        {
-            BlockedMovement = false;
-        }
         if ((transform.position.x == TargetPosition.x) && (transform.position.z == TargetPosition.z) && WantToChangeRoom )
         {
             m_Agent.enabled = false;
@@ -93,7 +89,7 @@ public class PlayerMovement : MonoBehaviour {
             WantToChangeRoom = false;
         }
 
-        if (!WantToChangeRoom && !BlockedMovement)
+        if (!WantToChangeRoom)
         {
             if (Input.GetMouseButtonDown(0) && (!EventSystem.current.IsPointerOverGameObject()) && (Camera.main.ScreenToViewportPoint(Input.mousePosition).x > 0.1f) 
                 && (Camera.main.ScreenToViewportPoint(Input.mousePosition).x < 0.9f) && (Camera.main.ScreenToViewportPoint(Input.mousePosition).y > 0.1f) 

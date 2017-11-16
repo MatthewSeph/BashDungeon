@@ -30,43 +30,40 @@ public class ConsoleScript : MonoBehaviour {
 
     void Update()
     {
-        if (!playerGO.GetComponent<PlayerMovement>().WantToChangeRoom && !playerGO.GetComponent<PlayerMovement>().BlockedMovement)
+        foreach (char c in Input.inputString)
         {
-            foreach (char c in Input.inputString)
+            if (c == '\b')
             {
-                if (c == '\b')
+                
+                if (messaggio.Length != 0)
                 {
+                    messaggio = messaggio.Substring(0, messaggio.Length - 1);
 
-                    if (messaggio.Length != 0)
+                    if (textObj.text.Length != 0)
                     {
-                        messaggio = messaggio.Substring(0, messaggio.Length - 1);
+                        textObj.text = textObj.text.Substring(0, textObj.text.Length - 1);
 
-                        if (textObj.text.Length != 0)
-                        {
-                            textObj.text = textObj.text.Substring(0, textObj.text.Length - 1);
-
-                        }
                     }
                 }
-                else if ((c == '\n') || (c == '\r'))
-                {
-                    textObj.text += "\n";
-
-                    SplitMessage(messaggio);
-
-                    messaggio = "";
-                    textObj.text += "User@linux:~$ ";
-
-                }
-
-                else
-                {
-                    textObj.text += c;
-                    messaggio += c;
-                }
-
-                CancellatoreDiRiga();
             }
+            else if ((c == '\n') || (c == '\r'))
+            {
+                textObj.text += "\n";
+                
+				SplitMessage(messaggio);
+                
+                messaggio = "";
+                textObj.text += "User@linux:~$ ";
+
+            }
+
+            else
+            {
+                textObj.text += c;
+                messaggio += c;
+            }
+
+            CancellatoreDiRiga();
         }
 
         CancellatoreDiRiga();
