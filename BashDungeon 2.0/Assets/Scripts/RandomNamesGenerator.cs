@@ -53,7 +53,7 @@ public class RandomNamesGenerator : MonoBehaviour {
             "Art",     "Band",   "Bar",       "Base", "Bird", "Block", "Boat", "Bonus",
             "Bread",   "Breeze", "Brook",     "Bush", "Butterfly", "Cake", "Cell", "Cherry",
             "Cloud",   "Credit", "Darkness",  "Dawn", "Dew", "Disk", "Dream", "Dust",
-            "Feather", "Field",  "Fire",      "Firefly", "Flower", "Fog", "Forest", "frog",
+            "Feather", "Field",  "Fire",      "Firefly", "Flower", "Fog", "Forest", "Frog",
             "Frost",   "Glade",  "Glitter",   "Grass", "Hall", "Hat", "Haze", "Heart",
             "Hill",    "King",   "Lab",       "Lake", "Leaf", "Limit", "Math", "Meadow",
             "Mode",    "Moon",   "Morning",   "Mountain", "Mouse", "Mud", "Night", "Paper",

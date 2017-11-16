@@ -9,6 +9,7 @@ public class Room {
     public int distance;
     public string nomeStanza;
 	public List<Room> childrenRooms = new List<Room> ();
+    public List<Oggetto> oggetti = new List<Oggetto> ();
 
 	public bool doorTop = false, doorBot = false, doorLeft = false, doorRight = false;
 

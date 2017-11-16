@@ -12,6 +12,7 @@ public class LevelGeneration : MonoBehaviour {
     List<Room> roomsOrderByDistance = new List<Room>();
 	List<Room> roomsWithNoChildren = new List<Room>();
     public GameObject player;
+    List<Oggetto> oggettiCreati = new List<Oggetto>();
 
 	public List<GameObject> LootPrefabs = new List<GameObject>(); 
 
@@ -31,6 +32,8 @@ public class LevelGeneration : MonoBehaviour {
 		CheckRoomWithNoChildrenSorted();
 		DrawMap();
         SetLootRooms();
+        OggettiNelleStanze();
+        SpawnOggetti();
         SpawnPlayer();
 
     }
@@ -310,6 +313,40 @@ public class LevelGeneration : MonoBehaviour {
 			SceneManager.LoadScene(SceneManager.GetActiveScene().name);
 		}
 	}
+
+    void OggettiNelleStanze()
+    {
+        Oggetto oggetto = new Oggetto((roomsOrderByDistance[roomsOrderByDistance.Count - 1]), "cassa");
+        Oggetto oggetto1 = new Oggetto((roomsOrderByDistance[roomsOrderByDistance.Count -2]), "cassa");
+
+        roomsOrderByDistance[roomsOrderByDistance.Count - 1].oggetti.Add(oggetto);
+        roomsOrderByDistance[roomsOrderByDistance.Count - 2].oggetti.Add(oggetto1);
+
+        oggettiCreati.Add(oggetto);
+        oggettiCreati.Add(oggetto1);
+    }
+
+    void SpawnOggetti()
+    {
+        Vector3 oggettoPosition = Vector3.zero;
+
+        foreach (Oggetto oggetto in oggettiCreati)
+        {
+
+            GameObject selectedPrefab = gameObject.GetComponent<ObjectPrefabSelector>().PickObjectPrefab(oggetto.nomeOggetto);
+
+            GameObject oggettoIstanziato = Instantiate(selectedPrefab) as GameObject;
+
+            oggettoPosition.y = oggettoIstanziato.transform.position.y;
+            oggettoPosition.x = oggettoIstanziato.transform.position.x + (oggetto.currentRoom.gridPos.x * 24);
+            oggettoPosition.z = oggettoIstanziato.transform.position.z + (oggetto.currentRoom.gridPos.y * 24);
+
+            oggettoIstanziato.transform.position = oggettoPosition;
+
+            oggettoIstanziato.name = oggetto.nomeOggetto;
+
+        }
+    }
 
 
     void SpawnPlayer()

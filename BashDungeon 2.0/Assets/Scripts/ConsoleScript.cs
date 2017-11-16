@@ -262,6 +262,14 @@ public class ConsoleScript : MonoBehaviour {
                 }
             }
 
+            if (playerGO.GetComponent<PlayerMovement>().currentRoom.oggetti != null)
+            {
+                foreach (Oggetto o in playerGO.GetComponent<PlayerMovement>().currentRoom.oggetti)
+                {
+                    textObj.text += (o.nomeOggetto + "\n");
+                }
+            }
+
         }
         else
         {
