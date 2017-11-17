@@ -351,13 +351,13 @@ public class LevelGeneration : MonoBehaviour {
             GameObject oggettoIstanziato = Instantiate(selectedPrefab) as GameObject;
 
             oggettoPosition.y = oggettoIstanziato.transform.position.y;
-            oggettoPosition.x = oggettoIstanziato.transform.position.x + (oggetto.currentRoom.gridPos.x * 24);
-            oggettoPosition.z = oggettoIstanziato.transform.position.z + (oggetto.currentRoom.gridPos.y * 24);
+            oggettoPosition.x = oggettoIstanziato.transform.position.x + (oggetto.CurrentRoom.gridPos.x * 24);
+            oggettoPosition.z = oggettoIstanziato.transform.position.z + (oggetto.CurrentRoom.gridPos.y * 24);
 
             oggettoIstanziato.transform.position = oggettoPosition;
 
             oggettoIstanziato.name = oggetto.nomeOggetto;
-            oggettoIstanziato.transform.parent = GameObject.Find("/" + oggetto.currentRoom.nomeStanza).transform;
+            oggettoIstanziato.transform.parent = GameObject.Find("/" + oggetto.CurrentRoom.nomeStanza).transform;
 
         }
     }

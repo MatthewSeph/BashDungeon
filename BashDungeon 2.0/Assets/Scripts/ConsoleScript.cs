@@ -270,12 +270,13 @@ public class ConsoleScript : MonoBehaviour {
                     oldLocalPos = selectedObj.transform.localPosition;
                     selectedOggetto = playerGO.GetComponent<PlayerMovement>().currentRoom.oggetti.Find(x => x.nomeOggetto == splittedMessage[1]);
 
-                    selectedOggetto.currentRoom = gameManager.GetComponent<LevelGeneration>().GetRoomByName(splittedMessage[2]); //cambio currentRoom in oggetto
+                    selectedOggetto.CurrentRoom = gameManager.GetComponent<LevelGeneration>().GetRoomByName(splittedMessage[2]); //cambio currentRoom in oggetto
                     playerGO.GetComponent<PlayerMovement>().currentRoom.oggetti.Remove(selectedOggetto); // lo elimino dalla sua vecchia stanza
                     gameManager.GetComponent<LevelGeneration>().GetRoomByName(splittedMessage[2]).oggetti.Add(selectedOggetto); // lo aggiungo tra gli oggetti della nuova stanza
 
                     selectedObj.transform.parent = GameObject.Find("/" + splittedMessage[2]).transform;
                     selectedObj.transform.localPosition = oldLocalPos;
+                    selectedObj.name = selectedOggetto.nomeOggetto;
                     
                 }
                 else if (CheckPath(splittedMessage[2]))
@@ -290,12 +291,13 @@ public class ConsoleScript : MonoBehaviour {
                     oldLocalPos = selectedObj.transform.localPosition;
                     selectedOggetto = playerGO.GetComponent<PlayerMovement>().currentRoom.oggetti.Find(x => x.nomeOggetto == splittedMessage[1]);
 
-                    selectedOggetto.currentRoom = gameManager.GetComponent<LevelGeneration>().GetRoomByName(path[path.Length - 1]); //cambio currentRoom in oggetto
+                    selectedOggetto.CurrentRoom = gameManager.GetComponent<LevelGeneration>().GetRoomByName(path[path.Length - 1]); //cambio currentRoom in oggetto
                     playerGO.GetComponent<PlayerMovement>().currentRoom.oggetti.Remove(selectedOggetto); // lo elimino dalla sua vecchia stanza
                     gameManager.GetComponent<LevelGeneration>().GetRoomByName(path[path.Length - 1]).oggetti.Add(selectedOggetto); // lo aggiungo tra gli oggetti della nuova stanza
 
                     selectedObj.transform.parent = GameObject.Find("/" + path[path.Length-1]).transform;
                     selectedObj.transform.localPosition = oldLocalPos;
+                    selectedObj.name = selectedOggetto.nomeOggetto;
 
                 }
                 else
