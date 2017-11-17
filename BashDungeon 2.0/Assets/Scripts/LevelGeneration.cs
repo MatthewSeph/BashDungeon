@@ -1,5 +1,6 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
+using System.Text.RegularExpressions;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
@@ -336,6 +337,9 @@ public class LevelGeneration : MonoBehaviour {
         Oggetto oggetto = new Oggetto((roomsOrderByDistance[roomsOrderByDistance.Count - 1]), "cassa");
         roomsOrderByDistance[roomsOrderByDistance.Count - 1].oggetti.Add(oggetto);
         oggettiCreati.Add(oggetto);
+        Oggetto oggetto1 = new Oggetto((roomsOrderByDistance[roomsOrderByDistance.Count - 1]), "cassa");
+        roomsOrderByDistance[roomsOrderByDistance.Count - 1].oggetti.Add(oggetto1);
+        oggettiCreati.Add(oggetto1);
         // Dovremo controllare la lista levelRooms e a seconda del tipo e della difficoltà del livello creare oggetti adeguati
     }
 
@@ -346,7 +350,7 @@ public class LevelGeneration : MonoBehaviour {
         foreach (Oggetto oggetto in oggettiCreati)
         {
 
-            GameObject selectedPrefab = gameObject.GetComponent<ObjectPrefabSelector>().PickObjectPrefab(oggetto.nomeOggetto);
+            GameObject selectedPrefab = gameObject.GetComponent<ObjectPrefabSelector>().PickObjectPrefab(Regex.Replace(oggetto.nomeOggetto, "[0-9]", ""));
 
             GameObject oggettoIstanziato = Instantiate(selectedPrefab) as GameObject;
 

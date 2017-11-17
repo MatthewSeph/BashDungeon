@@ -119,4 +119,5 @@ public class PlayManager : MonoBehaviour {
         playerGO.transform.GetChild(0).GetComponent<ParticleSystem>().Stop(true, ParticleSystemStopBehavior.StopEmittingAndClear);
 
     }
+
 }
