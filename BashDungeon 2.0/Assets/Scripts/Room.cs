@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class Room {
 	public Vector2 gridPos;
-	public int type;
+	public int type; // 0 = default ; 1 = root ; 2 = stanza-livello
 	public Room parentRoom;
     public int distance;
     public string nomeStanza;

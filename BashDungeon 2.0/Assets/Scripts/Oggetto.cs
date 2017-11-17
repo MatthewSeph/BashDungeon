@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Oggetto : MonoBehaviour {
+public class Oggetto {
 
     public Room currentRoom;
     public string nomeOggetto;

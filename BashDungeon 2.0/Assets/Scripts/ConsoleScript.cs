@@ -116,6 +116,10 @@ public class ConsoleScript : MonoBehaviour {
                 Ls(splittedMessage);
                 break;
 
+            case "mv":
+                Mv(splittedMessage);
+                break;
+
             default:
 				textObj.text += (splittedMessage[0] + " non e' un comando riconosciuto." + "\n");
 				break;
@@ -123,14 +127,14 @@ public class ConsoleScript : MonoBehaviour {
 
     }
 
-	bool CheckPath(string[] splittedMessage) 
+	bool CheckPath(string pathToCheck) 
 	{
 		bool isPathCorrect = true;
-        if (splittedMessage[1].ToCharArray().First() == '/')
+        if (pathToCheck.ToCharArray().First() == '/')
         {
 
 
-            string[] path = splittedMessage[1].Split(new char[] { '/' }, StringSplitOptions.RemoveEmptyEntries);
+            string[] path = pathToCheck.Split(new char[] { '/' }, StringSplitOptions.RemoveEmptyEntries);
 
             if (path.Length >= 2)
             {
@@ -192,51 +196,23 @@ public class ConsoleScript : MonoBehaviour {
 			if ((playerGO.GetComponent<PlayerMovement> ().currentRoom.childrenRooms.Exists (x => x.nomeStanza == splittedMessage [1]))) 
 			{
                 gameManager.GetComponent<PlayManager>().MoveBeforeChangeRoom(gameManager.GetComponent<LevelGeneration>().GetRoomByName(splittedMessage[1]));
-               // gameManager.GetComponent<PlayManager>().GoToDoor(gameManager.GetComponent<PlayManager>().RoomDirection(playerGO.GetComponent<PlayerMovement>().currentRoom, gameManager.GetComponent<LevelGeneration>().GetRoomByName(splittedMessage[1])));
-                //playerGO.transform.parent = GameObject.Find ("/" + splittedMessage [1]).transform;
-				Debug.Log (GameObject.Find ("Player").transform.parent.name);
-                
-
-                //playerGO.GetComponent<PlayerMovement> ().currentRoom = gameManager.GetComponent<LevelGeneration> ().GetRoomByName (splittedMessage [1]);
-                //Camera.main.transform.parent = GameObject.Find("/" + splittedMessage[1]).transform;
                 
             } 
 			else if ((splittedMessage [1] == "..") && (playerGO.GetComponent<PlayerMovement> ().currentRoom.nomeStanza != "/")) 
 			{
                 gameManager.GetComponent<PlayManager>().MoveBeforeChangeRoom(gameManager.GetComponent<LevelGeneration>().GetRoomByName(playerGO.GetComponent<PlayerMovement>().currentRoom.parentRoom.nomeStanza));
-               // gameManager.GetComponent<PlayManager>().GoToDoor(gameManager.GetComponent<PlayManager>().RoomDirection(playerGO.GetComponent<PlayerMovement>().currentRoom, gameManager.GetComponent<LevelGeneration>().GetRoomByName(playerGO.GetComponent<PlayerMovement>().currentRoom.parentRoom.nomeStanza)));
-               // playerGO.transform.parent = GameObject.Find ("/" + playerGO.GetComponent<PlayerMovement> ().currentRoom.parentRoom.nomeStanza).transform;
-				Debug.Log (GameObject.Find ("Player").transform.parent.name);
-                
-                //Camera.main.transform.parent = GameObject.Find("/" + playerGO.GetComponent<PlayerMovement>().currentRoom.parentRoom.nomeStanza).transform;
-
-                //playerGO.GetComponent<PlayerMovement> ().currentRoom = gameManager.GetComponent<LevelGeneration> ().GetRoomByName (playerGO.GetComponent<PlayerMovement> ().currentRoom.parentRoom.nomeStanza);
-                
-               
+             
             }
 			else if ((splittedMessage [1] == "/")) 
 			{
                 gameManager.GetComponent<PlayManager>().MoveBeforeChangeRoom(gameManager.GetComponent<LevelGeneration>().GetRoomByName("/"));
-               // gameManager.GetComponent<PlayManager>().GoToDoor(gameManager.GetComponent<PlayManager>().RoomDirection(playerGO.GetComponent<PlayerMovement>().currentRoom, gameManager.GetComponent<LevelGeneration>().GetRoomByName("/")));
-               // playerGO.transform.parent = GameObject.Find ("/" + "/").transform;
-				Debug.Log (GameObject.Find ("Player").transform.parent.name);
-                
-                //playerGO.GetComponent<PlayerMovement> ().currentRoom = gameManager.GetComponent<LevelGeneration> ().GetRoomByName ("/");
-                //Camera.main.transform.parent = GameObject.Find("/" + "/").transform;
-               
+
             }
-			else if (CheckPath (splittedMessage)) 
+			else if (CheckPath (splittedMessage[1])) 
 			{
 				string[] path = splittedMessage[1].Split(new char[] {'/'}, StringSplitOptions.RemoveEmptyEntries);
                 gameManager.GetComponent<PlayManager>().MoveBeforeChangeRoom(gameManager.GetComponent<LevelGeneration>().GetRoomByName(path[path.Length - 1]));
-                //gameManager.GetComponent<PlayManager>().GoToDoor(gameManager.GetComponent<PlayManager>().RoomDirection(playerGO.GetComponent<PlayerMovement>().currentRoom, gameManager.GetComponent<LevelGeneration>().GetRoomByName(path[path.Length - 1])));
 
-               // playerGO.transform.parent = GameObject.Find ("/" + path[path.Length-1]).transform;
-				Debug.Log (GameObject.Find ("Player").transform.parent.name);
-                
-                //playerGO.GetComponent<PlayerMovement> ().currentRoom = gameManager.GetComponent<LevelGeneration> ().GetRoomByName (path[path.Length-1]);
-                //Camera.main.transform.parent = GameObject.Find("/" + path[path.Length - 1]).transform;
-              
             }
 			else 
 			{
@@ -274,6 +250,69 @@ public class ConsoleScript : MonoBehaviour {
         else
         {
             textObj.text += ("ls non prevede parametri." + "\n");
+        }
+    }
+
+    void Mv(String[] splittedMessage)
+    {
+        if(splittedMessage.Length == 3)
+        {
+
+            if(playerGO.GetComponent<PlayerMovement>().currentRoom.oggetti.Exists(x => x.nomeOggetto == splittedMessage[1]))
+            {
+                if ((splittedMessage[2] == "/"))
+                {
+                    GameObject selectedObj;
+                    Vector3 oldLocalPos;
+                    Oggetto selectedOggetto;
+
+                    selectedObj = GameObject.Find("/" + playerGO.GetComponent<PlayerMovement>().currentRoom.nomeStanza + "/" + splittedMessage[1]);
+                    oldLocalPos = selectedObj.transform.localPosition;
+                    selectedOggetto = playerGO.GetComponent<PlayerMovement>().currentRoom.oggetti.Find(x => x.nomeOggetto == splittedMessage[1]);
+
+                    selectedOggetto.currentRoom = gameManager.GetComponent<LevelGeneration>().GetRoomByName(splittedMessage[2]); //cambio currentRoom in oggetto
+                    playerGO.GetComponent<PlayerMovement>().currentRoom.oggetti.Remove(selectedOggetto); // lo elimino dalla sua vecchia stanza
+                    gameManager.GetComponent<LevelGeneration>().GetRoomByName(splittedMessage[2]).oggetti.Add(selectedOggetto); // lo aggiungo tra gli oggetti della nuova stanza
+
+                    selectedObj.transform.parent = GameObject.Find("/" + splittedMessage[2]).transform;
+                    selectedObj.transform.localPosition = oldLocalPos;
+                    
+                }
+                else if (CheckPath(splittedMessage[2]))
+                {
+                    string[] path = splittedMessage[2].Split(new char[] { '/' }, StringSplitOptions.RemoveEmptyEntries);
+                    GameObject selectedObj;
+                    Vector3 oldLocalPos;
+                    Oggetto selectedOggetto;
+
+
+                    selectedObj = GameObject.Find("/" + playerGO.GetComponent<PlayerMovement>().currentRoom.nomeStanza + "/" + splittedMessage[1]);
+                    oldLocalPos = selectedObj.transform.localPosition;
+                    selectedOggetto = playerGO.GetComponent<PlayerMovement>().currentRoom.oggetti.Find(x => x.nomeOggetto == splittedMessage[1]);
+
+                    selectedOggetto.currentRoom = gameManager.GetComponent<LevelGeneration>().GetRoomByName(path[path.Length - 1]); //cambio currentRoom in oggetto
+                    playerGO.GetComponent<PlayerMovement>().currentRoom.oggetti.Remove(selectedOggetto); // lo elimino dalla sua vecchia stanza
+                    gameManager.GetComponent<LevelGeneration>().GetRoomByName(path[path.Length - 1]).oggetti.Add(selectedOggetto); // lo aggiungo tra gli oggetti della nuova stanza
+
+                    selectedObj.transform.parent = GameObject.Find("/" + path[path.Length-1]).transform;
+                    selectedObj.transform.localPosition = oldLocalPos;
+
+                }
+                else
+                {
+                    textObj.text += (splittedMessage[2] + " non è un path corretto." + "\n");
+                }
+            }
+
+            else
+            {
+                textObj.text += ("Non è presente nessun oggetto col nome di " + splittedMessage[1] + "in questa stanza :o\n");
+            }
+
+        }
+        else
+        {
+            textObj.text += ("mv prevede due parametri." + "\n");
         }
     }
 

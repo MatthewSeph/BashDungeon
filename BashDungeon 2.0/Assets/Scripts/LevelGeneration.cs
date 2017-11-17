@@ -13,8 +13,9 @@ public class LevelGeneration : MonoBehaviour {
 	List<Room> roomsWithNoChildren = new List<Room>();
     public GameObject player;
     List<Oggetto> oggettiCreati = new List<Oggetto>();
+    List<Room> levelRooms = new List<Room>();
 
-	public List<GameObject> LootPrefabs = new List<GameObject>(); 
+    public List<GameObject> LootPrefabs = new List<GameObject>(); 
 
 	void Start () {
 		player = GameObject.Find ("Player");
@@ -31,7 +32,7 @@ public class LevelGeneration : MonoBehaviour {
         RoomsOrderByDistance();
 		CheckRoomWithNoChildrenSorted();
 		DrawMap();
-        SetLootRooms();
+        SetLevelTypeRooms();
         OggettiNelleStanze();
         SpawnOggetti();
         SpawnPlayer();
@@ -292,22 +293,37 @@ public class LevelGeneration : MonoBehaviour {
         return r2.distance.CompareTo(r1.distance);
     }
 
-	void SetLootRooms()
+	void SetLevelTypeRooms()
 	{
 		if ( !(roomsWithNoChildren.Count <= LootPrefabs.Count)) { //se ho abbastanza stanze terminali setto le stanze con loot, altrimenti rigenero il dungeon
 			Vector3 lootPosition = Vector3.zero;
+            
 
-			for (int i = 0; i < LootPrefabs.Count; i++) {
-			
-				GameObject loot = Instantiate (LootPrefabs [i]) as GameObject;
+			for (int i = 0; i < roomsWithNoChildren.Count; i++) {
 
-				lootPosition.y = loot.transform.position.y;
-				lootPosition.x = loot.transform.position.x + (roomsWithNoChildren [i].gridPos.x * 24);
-				lootPosition.z = loot.transform.position.z + (roomsWithNoChildren [i].gridPos.y * 24);
+                if (!levelRooms.Contains(roomsWithNoChildren[i].parentRoom) && roomsWithNoChildren[i].parentRoom.type != 1)
+                {
+                    levelRooms.Add(roomsWithNoChildren[i].parentRoom);
+                    roomsWithNoChildren[i].parentRoom.type = 2;
 
-				loot.transform.position = lootPosition;
-			}
-		} else 
+                    //Creo un oggetto nelle stanze-Livello tanto per vedere se funziona.. andrà rimosso e andrà fatto un controllo con il type della room.
+                    Oggetto oggetto = new Oggetto(roomsWithNoChildren[i].parentRoom, "cassa");
+                    roomsWithNoChildren[i].parentRoom.oggetti.Add(oggetto);
+                    oggettiCreati.Add(oggetto);
+                }
+                if (levelRooms.Count == 5)
+                {
+                    break;
+                }
+
+            }
+            if(levelRooms.Count < 5)
+            {
+                Debug.Log("Dungeon rigenerato per mancanza di ''stanze terminali'' utili");
+                SceneManager.LoadScene(SceneManager.GetActiveScene().name);
+            }
+		}
+        else 
 		{
 			Debug.Log ("Dungeon rigenerato per mancanza di ''stanze terminali''");
 			SceneManager.LoadScene(SceneManager.GetActiveScene().name);
@@ -316,14 +332,11 @@ public class LevelGeneration : MonoBehaviour {
 
     void OggettiNelleStanze()
     {
+        //Creo un oggetto in root per testing.
         Oggetto oggetto = new Oggetto((roomsOrderByDistance[roomsOrderByDistance.Count - 1]), "cassa");
-        Oggetto oggetto1 = new Oggetto((roomsOrderByDistance[roomsOrderByDistance.Count -2]), "cassa");
-
         roomsOrderByDistance[roomsOrderByDistance.Count - 1].oggetti.Add(oggetto);
-        roomsOrderByDistance[roomsOrderByDistance.Count - 2].oggetti.Add(oggetto1);
-
         oggettiCreati.Add(oggetto);
-        oggettiCreati.Add(oggetto1);
+        // Dovremo controllare la lista levelRooms e a seconda del tipo e della difficoltà del livello creare oggetti adeguati
     }
 
     void SpawnOggetti()
@@ -344,6 +357,7 @@ public class LevelGeneration : MonoBehaviour {
             oggettoIstanziato.transform.position = oggettoPosition;
 
             oggettoIstanziato.name = oggetto.nomeOggetto;
+            oggettoIstanziato.transform.parent = GameObject.Find("/" + oggetto.currentRoom.nomeStanza).transform;
 
         }
     }
