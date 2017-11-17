@@ -8,7 +8,6 @@ public class PlayerMovement : MonoBehaviour {
 
     NavMeshAgent m_Agent;
     Vector3 targetPosition;
-    float speed = 10f;
     public Room currentRoom;
     Room targhetRoom;
     bool wantToChangeRoom = false;
@@ -89,7 +88,7 @@ public class PlayerMovement : MonoBehaviour {
             WantToChangeRoom = false;
         }
 
-        if (!WantToChangeRoom)
+        if (!WantToChangeRoom && !blockedMovement)
         {
             if (Input.GetMouseButtonDown(0) && (!EventSystem.current.IsPointerOverGameObject()) && (Camera.main.ScreenToViewportPoint(Input.mousePosition).x > 0.1f) 
                 && (Camera.main.ScreenToViewportPoint(Input.mousePosition).x < 0.9f) && (Camera.main.ScreenToViewportPoint(Input.mousePosition).y > 0.1f) 

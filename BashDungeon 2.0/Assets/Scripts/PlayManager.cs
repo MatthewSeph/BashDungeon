@@ -24,11 +24,12 @@ public class PlayManager : MonoBehaviour {
 
     public void GoToDoor(Vector2 roomDirection)
     {
-        playerGO.GetComponent<NavMeshAgent>().enabled = true;
+        
         
         Vector3 positionToGo = new Vector3();
         if (roomDirection == Vector2.up)
         {
+            playerGO.GetComponent<NavMeshAgent>().enabled = true;
             positionToGo.x = -2 + (playerGO.GetComponent<PlayerMovement>().currentRoom.gridPos.x * 24);
             Debug.Log(positionToGo.x);
             positionToGo.z = 10.5f + (playerGO.GetComponent<PlayerMovement>().currentRoom.gridPos.y * 24);
@@ -39,6 +40,7 @@ public class PlayManager : MonoBehaviour {
         }
         else if (roomDirection == Vector2.down)
         {
+            playerGO.GetComponent<NavMeshAgent>().enabled = true;
             positionToGo.x = -2 + (playerGO.GetComponent<PlayerMovement>().currentRoom.gridPos.x * 24);
             Debug.Log(positionToGo.x);
             positionToGo.z = -10.5f + (playerGO.GetComponent<PlayerMovement>().currentRoom.gridPos.y * 24);
@@ -49,6 +51,7 @@ public class PlayManager : MonoBehaviour {
         }
         else if (roomDirection == Vector2.left)
         {
+            playerGO.GetComponent<NavMeshAgent>().enabled = true;
             positionToGo.x = -12.5f + (playerGO.GetComponent<PlayerMovement>().currentRoom.gridPos.x * 24);
             Debug.Log(positionToGo.x);
             positionToGo.z = 0 + (playerGO.GetComponent<PlayerMovement>().currentRoom.gridPos.y * 24);
@@ -59,6 +62,7 @@ public class PlayManager : MonoBehaviour {
         }
         else if (roomDirection == Vector2.right)
         {
+            playerGO.GetComponent<NavMeshAgent>().enabled = true;
             positionToGo.x = 8.5f + (playerGO.GetComponent<PlayerMovement>().currentRoom.gridPos.x * 24);
             Debug.Log(positionToGo.x);
             positionToGo.z = 0 + (playerGO.GetComponent<PlayerMovement>().currentRoom.gridPos.y * 24);
@@ -100,17 +104,25 @@ public class PlayManager : MonoBehaviour {
 
     IEnumerator ChangeRoomWithCooldown(int sec)
     {
-        Vector3 oldLocalPosition = playerGO.transform.localPosition;
+        Vector3 oldLocalPosition = playerGO.transform.position;
+
+        oldLocalPosition.x = oldLocalPosition.x - (playerGO.GetComponent<PlayerMovement>().currentRoom.gridPos.x * 24);
+        oldLocalPosition.z = oldLocalPosition.z - (playerGO.GetComponent<PlayerMovement>().currentRoom.gridPos.y * 24);
+
+        oldLocalPosition.x = oldLocalPosition.x + (playerGO.GetComponent<PlayerMovement>().TarghetRoom.gridPos.x * 24);
+        oldLocalPosition.z = oldLocalPosition.z + (playerGO.GetComponent<PlayerMovement>().TarghetRoom.gridPos.y * 24);
+
         playerGO.GetComponent<PlayerMovement>().BlockedMovement = true;
         playerGO.GetComponent<PlayerMovement>().WantToChangeRoom = false;
         yield return new WaitForSeconds(sec);
 
+        playerGO.GetComponent<NavMeshAgent>().Warp(oldLocalPosition);
         playerGO.transform.parent = GameObject.Find("/" + playerGO.GetComponent<PlayerMovement>().TarghetRoom.nomeStanza).transform;
+        playerGO.GetComponent<NavMeshAgent>().enabled = true;
+        playerGO.transform.position = oldLocalPosition;
 
-        playerGO.transform.localPosition = oldLocalPosition;
-        //playerGO.GetComponent<PlayerMovement>().TargetPosition = oldLocalPosition;
         playerGO.GetComponent<PlayerMovement>().currentRoom = playerGO.GetComponent<PlayerMovement>().TarghetRoom;
-        playerGO.GetComponent<NavMeshAgent>().destination = playerGO.transform.position;
+        //playerGO.GetComponent<NavMeshAgent>().destination = playerGO.transform.position;
         playerGO.GetComponent<PlayerMovement>().BlockedMovement = false;
 
         Camera.main.transform.parent = GameObject.Find("/" + playerGO.GetComponent<PlayerMovement>().TarghetRoom.nomeStanza).transform;
