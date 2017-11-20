@@ -8,7 +8,7 @@ public class ObjectPrefabSelector : MonoBehaviour {
 
     public GameObject PickObjectPrefab(string nomeOggetto)
     {
-        if (nomeOggetto == "cassa")
+        if (nomeOggetto.Contains("cassa"))
         {
             return cassa;
         }

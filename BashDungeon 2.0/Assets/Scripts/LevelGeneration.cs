@@ -335,10 +335,13 @@ public class LevelGeneration : MonoBehaviour {
     {
         //Creo un oggetto in root per testing.
         Oggetto oggetto = new Oggetto((roomsOrderByDistance[roomsOrderByDistance.Count - 1]), "cassa");
+        oggetto.IsMovable = true;
         roomsOrderByDistance[roomsOrderByDistance.Count - 1].oggetti.Add(oggetto);
         oggettiCreati.Add(oggetto);
         Oggetto oggetto1 = new Oggetto((roomsOrderByDistance[roomsOrderByDistance.Count - 1]), "cassa");
+        oggetto1.IsInvisible = true;
         roomsOrderByDistance[roomsOrderByDistance.Count - 1].oggetti.Add(oggetto1);
+        
         oggettiCreati.Add(oggetto1);
         // Dovremo controllare la lista levelRooms e a seconda del tipo e della difficoltà del livello creare oggetti adeguati
     }

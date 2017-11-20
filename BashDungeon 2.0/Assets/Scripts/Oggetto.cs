@@ -26,10 +26,33 @@ public class Oggetto {
             {
                 this.nomeOggetto = nomeOggetto + currentRoom.oggetti.FindAll(x => x.nomeOggetto.StartsWith(nomeOggetto)).Count;
             }
-            else
-            {
-                this.nomeOggetto = nomeOggetto;
-            }
+        }
+    }
+
+    public bool IsMovable
+    {
+        get
+        {
+            return isMovable;
+        }
+
+        set
+        {
+            isMovable = value;
+        }
+    }
+
+    public bool IsInvisible
+    {
+        get
+        {
+            return isInvisible;
+        }
+
+        set
+        {
+            isInvisible = value;
+            this.nomeOggetto = "." + this.nomeOggetto;
         }
     }
 

@@ -12,7 +12,8 @@ public class ConsoleScript : MonoBehaviour {
     public Text textObj;
     public GameObject playerGO;
     public GameObject gameManager;
-
+    List<String> oldMessages = new List<string>();
+    int contatoreOldMessaggi = 0;
     GameObject consoleText;
     //GameObject consoleCanvas;
 
@@ -24,6 +25,8 @@ public class ConsoleScript : MonoBehaviour {
         playerGO = GameObject.Find("Player");
         //consoleCanvas = GameObject.Find("ConsoleCanvas");
         gameManager = GameObject.Find("GameManager");
+
+        oldMessages.Insert(0, "");
 
         textObj = consoleText.GetComponent<Text>();
     }
@@ -51,7 +54,7 @@ public class ConsoleScript : MonoBehaviour {
                 textObj.text += "\n";
                 
 				SplitMessage(messaggio);
-                
+                oldMessages.Insert(1, messaggio);
                 messaggio = "";
                 textObj.text += "User@linux:~$ ";
 
@@ -64,6 +67,33 @@ public class ConsoleScript : MonoBehaviour {
             }
 
             CancellatoreDiRiga();
+        }
+
+        //Se premo freccia su voglio usare l ultimo commando inserito
+        if (Input.GetKeyUp(KeyCode.UpArrow) && oldMessages.Count > contatoreOldMessaggi + 1 )
+        {
+            textObj.text = textObj.text.Substring(0, textObj.text.Length - messaggio.Length);
+            contatoreOldMessaggi += 1;
+            messaggio = oldMessages[contatoreOldMessaggi];
+            textObj.text += messaggio;
+        }
+
+        //torno indietro di una posizione nella lista dei commandi
+        if (Input.GetKeyUp(KeyCode.DownArrow))
+        {
+            textObj.text = textObj.text.Substring(0, textObj.text.Length - messaggio.Length);
+            if (contatoreOldMessaggi > 0)
+            {
+                contatoreOldMessaggi -= 1;
+            }
+            messaggio = oldMessages[contatoreOldMessaggi];
+            textObj.text += messaggio;
+        }
+
+        //tengo la lista dei comandi a max 25 messaggi
+        if(oldMessages.Count > 25)
+        {
+            oldMessages.RemoveAt(oldMessages.Count - 1);
         }
 
         CancellatoreDiRiga();
@@ -242,10 +272,36 @@ public class ConsoleScript : MonoBehaviour {
             {
                 foreach (Oggetto o in playerGO.GetComponent<PlayerMovement>().currentRoom.oggetti)
                 {
-                    textObj.text += (o.nomeOggetto + "\n");
+                    if (!o.IsInvisible)
+                    {
+                        textObj.text += (o.nomeOggetto + "\n");
+                    }
                 }
             }
 
+        }
+        else if(splittedMessage.Length == 2 && splittedMessage[1] == "-a")
+        {
+            if (playerGO.GetComponent<PlayerMovement>().currentRoom.childrenRooms != null)
+            {
+                foreach (Room r in playerGO.GetComponent<PlayerMovement>().currentRoom.childrenRooms)
+                {
+                    textObj.text += ("<color=#7F9FCDFF>" + r.nomeStanza + "</color>\n");
+                }
+            }
+
+            if (playerGO.GetComponent<PlayerMovement>().currentRoom.oggetti != null)
+            {
+                foreach (Oggetto o in playerGO.GetComponent<PlayerMovement>().currentRoom.oggetti)
+                {
+                    textObj.text += (o.nomeOggetto + "\n");
+
+                    if (o.IsInvisible)
+                    {
+                        GameObject.Find("/" + playerGO.GetComponent<PlayerMovement>().currentRoom.nomeStanza + "/" + o.nomeOggetto).GetComponent<ObjectBehavior>().isMadeVisible = true;
+                    }
+                }
+            }
         }
         else
         {
@@ -260,49 +316,56 @@ public class ConsoleScript : MonoBehaviour {
 
             if(playerGO.GetComponent<PlayerMovement>().currentRoom.oggetti.Exists(x => x.nomeOggetto == splittedMessage[1]))
             {
-                if ((splittedMessage[2] == "/"))
+                if (playerGO.GetComponent<PlayerMovement>().currentRoom.oggetti.Find(x => x.nomeOggetto == splittedMessage[1]).IsMovable)
                 {
-                    GameObject selectedObj;
-                    Vector3 oldLocalPos;
-                    Oggetto selectedOggetto;
+                    if ((splittedMessage[2] == "/"))
+                    {
+                        GameObject selectedObj;
+                        Vector3 oldLocalPos;
+                        Oggetto selectedOggetto;
 
-                    selectedObj = GameObject.Find("/" + playerGO.GetComponent<PlayerMovement>().currentRoom.nomeStanza + "/" + splittedMessage[1]);
-                    oldLocalPos = selectedObj.transform.localPosition;
-                    selectedOggetto = playerGO.GetComponent<PlayerMovement>().currentRoom.oggetti.Find(x => x.nomeOggetto == splittedMessage[1]);
+                        selectedObj = GameObject.Find("/" + playerGO.GetComponent<PlayerMovement>().currentRoom.nomeStanza + "/" + splittedMessage[1]);
+                        oldLocalPos = selectedObj.transform.localPosition;
+                        selectedOggetto = playerGO.GetComponent<PlayerMovement>().currentRoom.oggetti.Find(x => x.nomeOggetto == splittedMessage[1]);
 
-                    selectedOggetto.CurrentRoom = gameManager.GetComponent<LevelGeneration>().GetRoomByName(splittedMessage[2]); //cambio currentRoom in oggetto
-                    playerGO.GetComponent<PlayerMovement>().currentRoom.oggetti.Remove(selectedOggetto); // lo elimino dalla sua vecchia stanza
-                    gameManager.GetComponent<LevelGeneration>().GetRoomByName(splittedMessage[2]).oggetti.Add(selectedOggetto); // lo aggiungo tra gli oggetti della nuova stanza
+                        selectedOggetto.CurrentRoom = gameManager.GetComponent<LevelGeneration>().GetRoomByName(splittedMessage[2]); //cambio currentRoom in oggetto
+                        playerGO.GetComponent<PlayerMovement>().currentRoom.oggetti.Remove(selectedOggetto); // lo elimino dalla sua vecchia stanza
+                        gameManager.GetComponent<LevelGeneration>().GetRoomByName(splittedMessage[2]).oggetti.Add(selectedOggetto); // lo aggiungo tra gli oggetti della nuova stanza
 
-                    selectedObj.transform.parent = GameObject.Find("/" + splittedMessage[2]).transform;
-                    selectedObj.transform.localPosition = oldLocalPos;
-                    selectedObj.name = selectedOggetto.nomeOggetto;
-                    
-                }
-                else if (CheckPath(splittedMessage[2]))
-                {
-                    string[] path = splittedMessage[2].Split(new char[] { '/' }, StringSplitOptions.RemoveEmptyEntries);
-                    GameObject selectedObj;
-                    Vector3 oldLocalPos;
-                    Oggetto selectedOggetto;
+                        selectedObj.transform.parent = GameObject.Find("/" + splittedMessage[2]).transform;
+                        selectedObj.transform.localPosition = oldLocalPos;
+                        selectedObj.name = selectedOggetto.nomeOggetto;
+
+                    }
+                    else if (CheckPath(splittedMessage[2]))
+                    {
+                        string[] path = splittedMessage[2].Split(new char[] { '/' }, StringSplitOptions.RemoveEmptyEntries);
+                        GameObject selectedObj;
+                        Vector3 oldLocalPos;
+                        Oggetto selectedOggetto;
 
 
-                    selectedObj = GameObject.Find("/" + playerGO.GetComponent<PlayerMovement>().currentRoom.nomeStanza + "/" + splittedMessage[1]);
-                    oldLocalPos = selectedObj.transform.localPosition;
-                    selectedOggetto = playerGO.GetComponent<PlayerMovement>().currentRoom.oggetti.Find(x => x.nomeOggetto == splittedMessage[1]);
+                        selectedObj = GameObject.Find("/" + playerGO.GetComponent<PlayerMovement>().currentRoom.nomeStanza + "/" + splittedMessage[1]);
+                        oldLocalPos = selectedObj.transform.localPosition;
+                        selectedOggetto = playerGO.GetComponent<PlayerMovement>().currentRoom.oggetti.Find(x => x.nomeOggetto == splittedMessage[1]);
 
-                    selectedOggetto.CurrentRoom = gameManager.GetComponent<LevelGeneration>().GetRoomByName(path[path.Length - 1]); //cambio currentRoom in oggetto
-                    playerGO.GetComponent<PlayerMovement>().currentRoom.oggetti.Remove(selectedOggetto); // lo elimino dalla sua vecchia stanza
-                    gameManager.GetComponent<LevelGeneration>().GetRoomByName(path[path.Length - 1]).oggetti.Add(selectedOggetto); // lo aggiungo tra gli oggetti della nuova stanza
+                        selectedOggetto.CurrentRoom = gameManager.GetComponent<LevelGeneration>().GetRoomByName(path[path.Length - 1]); //cambio currentRoom in oggetto
+                        playerGO.GetComponent<PlayerMovement>().currentRoom.oggetti.Remove(selectedOggetto); // lo elimino dalla sua vecchia stanza
+                        gameManager.GetComponent<LevelGeneration>().GetRoomByName(path[path.Length - 1]).oggetti.Add(selectedOggetto); // lo aggiungo tra gli oggetti della nuova stanza
 
-                    selectedObj.transform.parent = GameObject.Find("/" + path[path.Length-1]).transform;
-                    selectedObj.transform.localPosition = oldLocalPos;
-                    selectedObj.name = selectedOggetto.nomeOggetto;
+                        selectedObj.transform.parent = GameObject.Find("/" + path[path.Length - 1]).transform;
+                        selectedObj.transform.localPosition = oldLocalPos;
+                        selectedObj.name = selectedOggetto.nomeOggetto;
 
+                    }
+                    else
+                    {
+                        textObj.text += (splittedMessage[2] + " non è un path corretto." + "\n");
+                    }
                 }
                 else
                 {
-                    textObj.text += (splittedMessage[2] + " non è un path corretto." + "\n");
+                    textObj.text += (splittedMessage[1] + " non è spostabile." + "\n");
                 }
             }
 
