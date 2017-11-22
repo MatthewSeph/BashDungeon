@@ -8,6 +8,7 @@ public class ObjectBehavior : MonoBehaviour {
     bool isVisible;
     Color myColorAlphaZero;
     Color myColorFullAlpha;
+    List<GameObject> oggettiArchiviati;
 
     void Start()
     {
@@ -37,5 +38,12 @@ public class ObjectBehavior : MonoBehaviour {
             }
         }
     }
+
+    public void SettaOff()
+    {
+        this.enabled = false;
+    }
+
+
 
 }

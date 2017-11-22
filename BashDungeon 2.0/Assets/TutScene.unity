@@ -471,6 +471,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   cassa: {fileID: 1503735970864470, guid: ad1af6d112b0a6a4cb57e4e4a190b454, type: 2}
+  archivio: {fileID: 100000, guid: aac30bb5ddf43cc4a82060a402507a13, type: 2}
 --- !u!1001 &689088239
 Prefab:
   m_ObjectHideFlags: 0

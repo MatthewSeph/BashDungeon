@@ -2,6 +2,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
+using System.Text.RegularExpressions;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -150,6 +151,10 @@ public class ConsoleScript : MonoBehaviour {
                 Mv(splittedMessage);
                 break;
 
+            case "tar":
+                Tar(splittedMessage);
+                break;
+
             default:
 				textObj.text += (splittedMessage[0] + " non e' un comando riconosciuto." + "\n");
 				break;
@@ -205,8 +210,79 @@ public class ConsoleScript : MonoBehaviour {
         return isPathCorrect;
 	}
 
+    bool CheckOggetti(string[] splittedMessage)
+    {
+        bool ciSonoTutti = true;
+        string[] listaOggetti = splittedMessage.Skip(3).Take(splittedMessage.Length - 3).ToArray();
 
-	void Pwd(string[] splittedMessage)
+        foreach (string s in listaOggetti)
+        {
+            if(!playerGO.GetComponent<PlayerMovement>().currentRoom.oggetti.Exists(x => x.nomeOggetto == s))
+            {
+                ciSonoTutti = false;
+                break;
+            }
+        }
+
+        return ciSonoTutti;
+    }
+
+    void RemoveOggetti(string[] splittedMessage)
+    {
+        
+        string[] listaOggetti = splittedMessage.Skip(3).Take(splittedMessage.Length - 3).ToArray();
+
+        foreach (string s in listaOggetti)
+        {
+            
+            playerGO.GetComponent<PlayerMovement>().currentRoom.oggetti.RemoveAll(x => x.nomeOggetto == s);
+            GameObject.Find("/" + playerGO.GetComponent<PlayerMovement>().currentRoom.nomeStanza + "/" + s).SetActive(false);
+
+        }
+    }
+
+    List<GameObject> GetGameObjectsList(string[] splittedMessage)
+    {
+        string[] listaOggetti = splittedMessage.Skip(3).Take(splittedMessage.Length - 3).ToArray();
+        List<GameObject> listOfGameObj = new List<GameObject>();
+        foreach (string s in listaOggetti)
+        {
+
+            listOfGameObj.Add(GameObject.Find("/" + playerGO.GetComponent<PlayerMovement>().currentRoom.nomeStanza + "/" + s));
+
+        }
+        return listOfGameObj;
+    }
+
+    void SpawnOggetto(string nomeOggetto, Vector3 spawnAtPosition)
+    {
+        Oggetto oggetto = new Oggetto(playerGO.GetComponent<PlayerMovement>().currentRoom, nomeOggetto);
+        playerGO.GetComponent<PlayerMovement>().currentRoom.oggetti.Add(oggetto);
+
+        GameObject selectedPrefab = gameManager.GetComponent<ObjectPrefabSelector>().PickObjectPrefab(Regex.Replace(nomeOggetto, "[0-9]", ""));
+        GameObject oggettoIstanziato = Instantiate(selectedPrefab) as GameObject;
+        oggettoIstanziato.transform.parent = GameObject.Find("/" + oggetto.CurrentRoom.nomeStanza).transform;
+        oggettoIstanziato.transform.position = spawnAtPosition;
+        oggettoIstanziato.transform.name = oggetto.nomeOggetto;
+
+    }
+
+    List<Vector3> GetObjPositionList(string[] splittedMessage)
+    {
+        string[] listaOggetti = splittedMessage.Skip(3).Take(splittedMessage.Length - 3).ToArray();
+        List<Vector3> objPositionList = new List<Vector3>();
+        foreach (string s in listaOggetti)
+        {
+
+            objPositionList.Add(GameObject.Find("/" + playerGO.GetComponent<PlayerMovement>().currentRoom.nomeStanza + "/" + s).transform.position);
+            
+        }
+        return objPositionList;
+
+    }
+
+
+    void Pwd(string[] splittedMessage)
 	{
 		if (splittedMessage.Length==1)
 		{
@@ -378,6 +454,26 @@ public class ConsoleScript : MonoBehaviour {
         else
         {
             textObj.text += ("mv prevede due parametri." + "\n");
+        }
+    }
+
+    void Tar(String[] splittedMessage)
+    {
+        if(splittedMessage.Length >= 3)
+        {
+            if(splittedMessage.Length >= 4 && (splittedMessage[1] == "-cf" || splittedMessage[1] == "-fc") && splittedMessage[2].EndsWith(".tar"))
+            {
+                if(CheckOggetti(splittedMessage))
+                {
+                    Vector3 spawnTarPosition = gameManager.GetComponent<PlayManager>().CenterOfVectors(GetObjPositionList(splittedMessage));
+                    SpawnOggetto(splittedMessage[2], spawnTarPosition);
+                    RemoveOggetti(splittedMessage);
+                }
+            }
+        }
+        else
+        {
+            textObj.text += ("tar prevede almeno due parametri." + "\n");
         }
     }
 
