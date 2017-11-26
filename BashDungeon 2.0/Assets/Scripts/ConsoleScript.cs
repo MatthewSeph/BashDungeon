@@ -155,6 +155,14 @@ public class ConsoleScript : MonoBehaviour {
                 Tar(splittedMessage);
                 break;
 
+            case "rm":
+                Rm(splittedMessage);
+                break;
+
+            case "grep":
+                Grep(splittedMessage);
+                break;
+
             default:
 				textObj.text += (splittedMessage[0] + " non e' un comando riconosciuto." + "\n");
 				break;
@@ -210,10 +218,10 @@ public class ConsoleScript : MonoBehaviour {
         return isPathCorrect;
 	}
 
-    bool CheckOggetti(string[] splittedMessage)
+    bool CheckOggetti(string[] splittedMessage, int positionToSkip)
     {
         bool ciSonoTutti = true;
-        string[] listaOggetti = splittedMessage.Skip(3).Take(splittedMessage.Length - 3).ToArray();
+        string[] listaOggetti = splittedMessage.Skip(positionToSkip).Take(splittedMessage.Length - positionToSkip).ToArray();
 
         foreach (string s in listaOggetti)
         {
@@ -234,16 +242,16 @@ public class ConsoleScript : MonoBehaviour {
 
         foreach (string s in listaOggetti)
         {
-            
-            playerGO.GetComponent<PlayerMovement>().currentRoom.oggetti.RemoveAll(x => x.nomeOggetto == s);
+
+            playerGO.GetComponent<PlayerMovement>().currentRoom.oggetti.Find(x => x.nomeOggetto == s).IsActive = false;
             GameObject.Find("/" + playerGO.GetComponent<PlayerMovement>().currentRoom.nomeStanza + "/" + s).SetActive(false);
 
         }
     }
 
-    List<GameObject> GetGameObjectsList(string[] splittedMessage)
+    List<GameObject> GetGameObjectsList(string[] splittedMessage, int positionToSkip)
     {
-        string[] listaOggetti = splittedMessage.Skip(3).Take(splittedMessage.Length - 3).ToArray();
+        string[] listaOggetti = splittedMessage.Skip(positionToSkip).Take(splittedMessage.Length - positionToSkip).ToArray();
         List<GameObject> listOfGameObj = new List<GameObject>();
         foreach (string s in listaOggetti)
         {
@@ -254,7 +262,20 @@ public class ConsoleScript : MonoBehaviour {
         return listOfGameObj;
     }
 
-    void SpawnOggetto(string nomeOggetto, Vector3 spawnAtPosition)
+    List<Oggetto> GetOggettiFromList(string[] splittedMessage, int positionToSkip)
+    {
+        string[] listaOggetti = splittedMessage.Skip(positionToSkip).Take(splittedMessage.Length - positionToSkip).ToArray();
+        List<Oggetto> listOfOggetti = new List<Oggetto>();
+        foreach (string s in listaOggetti)
+        {
+
+            listOfOggetti.Add(playerGO.GetComponent<PlayerMovement>().currentRoom.oggetti.Find(x => x.nomeOggetto == s));
+
+        }
+        return listOfOggetti;
+    }
+
+    void SpawnArchivio(string nomeOggetto, Vector3 spawnAtPosition, List<GameObject> oggettiContenuti)
     {
         Oggetto oggetto = new Oggetto(playerGO.GetComponent<PlayerMovement>().currentRoom, nomeOggetto);
         playerGO.GetComponent<PlayerMovement>().currentRoom.oggetti.Add(oggetto);
@@ -264,6 +285,7 @@ public class ConsoleScript : MonoBehaviour {
         oggettoIstanziato.transform.parent = GameObject.Find("/" + oggetto.CurrentRoom.nomeStanza).transform;
         oggettoIstanziato.transform.position = spawnAtPosition;
         oggettoIstanziato.transform.name = oggetto.nomeOggetto;
+        oggettoIstanziato.GetComponent<ObjectBehavior>().oggettiArchiviati = oggettiContenuti;
 
     }
 
@@ -348,7 +370,7 @@ public class ConsoleScript : MonoBehaviour {
             {
                 foreach (Oggetto o in playerGO.GetComponent<PlayerMovement>().currentRoom.oggetti)
                 {
-                    if (!o.IsInvisible)
+                    if (!o.IsInvisible && o.IsActive)
                     {
                         textObj.text += (o.nomeOggetto + "\n");
                     }
@@ -370,11 +392,14 @@ public class ConsoleScript : MonoBehaviour {
             {
                 foreach (Oggetto o in playerGO.GetComponent<PlayerMovement>().currentRoom.oggetti)
                 {
-                    textObj.text += (o.nomeOggetto + "\n");
-
-                    if (o.IsInvisible)
+                    if (o.IsActive)
                     {
-                        GameObject.Find("/" + playerGO.GetComponent<PlayerMovement>().currentRoom.nomeStanza + "/" + o.nomeOggetto).GetComponent<ObjectBehavior>().isMadeVisible = true;
+                        textObj.text += (o.nomeOggetto + "\n");
+
+                        if (o.IsInvisible)
+                        {
+                            GameObject.Find("/" + playerGO.GetComponent<PlayerMovement>().currentRoom.nomeStanza + "/" + o.nomeOggetto).GetComponent<ObjectBehavior>().isMadeVisible = true;
+                        }
                     }
                 }
             }
@@ -447,7 +472,7 @@ public class ConsoleScript : MonoBehaviour {
 
             else
             {
-                textObj.text += ("Non è presente nessun oggetto col nome di " + splittedMessage[1] + "in questa stanza :o\n");
+                textObj.text += ("Non è presente nessun oggetto col nome di " + splittedMessage[1] + " in questa stanza :o\n");
             }
 
         }
@@ -461,19 +486,160 @@ public class ConsoleScript : MonoBehaviour {
     {
         if(splittedMessage.Length >= 3)
         {
-            if(splittedMessage.Length >= 4 && (splittedMessage[1] == "-cf" || splittedMessage[1] == "-fc") && splittedMessage[2].EndsWith(".tar"))
+            if(splittedMessage.Length >= 4 && splittedMessage[1] == "-cf" && splittedMessage[2].EndsWith(".tar"))
             {
-                if(CheckOggetti(splittedMessage))
+                if(CheckOggetti(splittedMessage, 3))
                 {
                     Vector3 spawnTarPosition = gameManager.GetComponent<PlayManager>().CenterOfVectors(GetObjPositionList(splittedMessage));
-                    SpawnOggetto(splittedMessage[2], spawnTarPosition);
+                    SpawnArchivio(splittedMessage[2], spawnTarPosition, GetGameObjectsList(splittedMessage, 3));
                     RemoveOggetti(splittedMessage);
+                }
+                else
+                {
+                    textObj.text += ("non trovo tutti gli oggetti :c" + "\n");
+                }
+            }
+            else if(splittedMessage.Length == 3 && splittedMessage[1] == "-xf" && splittedMessage[2].EndsWith(".tar"))
+            {
+                if (playerGO.GetComponent<PlayerMovement>().currentRoom.oggetti.Exists(x => x.nomeOggetto == splittedMessage[2] && x.IsActive))
+                {
+                    GameObject oggettoSelezionato = GameObject.Find("/" + playerGO.GetComponent<PlayerMovement>().currentRoom.nomeStanza + "/" + splittedMessage[2]);
+                    foreach (GameObject oggetto in oggettoSelezionato.GetComponent<ObjectBehavior>().oggettiArchiviati)
+                    {
+                        oggetto.SetActive(true);
+                        playerGO.GetComponent<PlayerMovement>().currentRoom.oggetti.Find(x => x.nomeOggetto == oggetto.transform.name).IsActive = true;
+                    }
+                    playerGO.GetComponent<PlayerMovement>().currentRoom.oggetti.Find(x => x.nomeOggetto == splittedMessage[2]).IsActive = false;
+                    oggettoSelezionato.SetActive(false);
+                }
+                else
+                {
+                    textObj.text += ("non trovo un archivio con quel nome :c" + "\n");
+                }
+            }
+            else if (splittedMessage.Length >= 4 && (splittedMessage[1] == "-czf" || splittedMessage[1] == "-zcf") && splittedMessage[2].EndsWith(".tar.gz"))
+            {
+                if (CheckOggetti(splittedMessage, 3))
+                {
+                    Vector3 spawnTarPosition = gameManager.GetComponent<PlayManager>().CenterOfVectors(GetObjPositionList(splittedMessage));
+                    SpawnArchivio(splittedMessage[2], spawnTarPosition, GetGameObjectsList(splittedMessage, 3));
+                    RemoveOggetti(splittedMessage);
+                }
+                else
+                {
+                    textObj.text += ("non trovo tutti gli oggetti :c" + "\n");
+                }
+            }
+            else if (splittedMessage.Length == 3 && (splittedMessage[1] == "-xzf" || splittedMessage[1] == "-zxf") && splittedMessage[2].EndsWith(".tar.gz"))
+            {
+                if (playerGO.GetComponent<PlayerMovement>().currentRoom.oggetti.Exists(x => x.nomeOggetto == splittedMessage[2] && x.IsActive))
+                {
+                    GameObject oggettoSelezionato = GameObject.Find("/" + playerGO.GetComponent<PlayerMovement>().currentRoom.nomeStanza + "/" + splittedMessage[2]);
+                    foreach (GameObject oggetto in oggettoSelezionato.GetComponent<ObjectBehavior>().oggettiArchiviati)
+                    {
+                        oggetto.SetActive(true);
+                        playerGO.GetComponent<PlayerMovement>().currentRoom.oggetti.Find(x => x.nomeOggetto == oggetto.transform.name).IsActive = true;
+                    }
+                    playerGO.GetComponent<PlayerMovement>().currentRoom.oggetti.Find(x => x.nomeOggetto == splittedMessage[2]).IsActive = false;
+                    oggettoSelezionato.SetActive(false);
+                }
+                else
+                {
+                    textObj.text += ("non trovo un archivio con quel nome :c" + "\n");
                 }
             }
         }
         else
         {
             textObj.text += ("tar prevede almeno due parametri." + "\n");
+        }
+    }
+
+    void Rm(String[] splittedMessage)
+    {
+
+        if (splittedMessage.Length == 2)
+        {
+            if (playerGO.GetComponent<PlayerMovement>().currentRoom.oggetti.Exists(x => x.nomeOggetto == splittedMessage[1]))
+            {
+                if (playerGO.GetComponent<PlayerMovement>().currentRoom.oggetti.Find(x => x.nomeOggetto == splittedMessage[1]).IsRemovable)
+                {
+                    GameObject selectedObj;
+                    Oggetto selectedOggetto;
+
+                    selectedObj = GameObject.Find("/" + playerGO.GetComponent<PlayerMovement>().currentRoom.nomeStanza + "/" + splittedMessage[1]);
+                    selectedOggetto = playerGO.GetComponent<PlayerMovement>().currentRoom.oggetti.Find(x => x.nomeOggetto == splittedMessage[1]);
+
+                    playerGO.GetComponent<PlayerMovement>().currentRoom.oggetti.Remove(selectedOggetto);
+                    Destroy(selectedObj);
+
+                }
+                else
+                {
+                    textObj.text += ("Non posso eliminarlo !" + "\n");
+                }
+            }
+            else
+            {
+                textObj.text += ("Non è presente nessun oggetto col nome di " + splittedMessage[1] + " in questa stanza :o\n");
+            }
+        }
+        else
+        {
+            textObj.text += ("rm prevede un parametro." + "\n");
+        }
+
+
+    }
+
+    void Grep(String[] splittedMessage)
+    {
+        if (splittedMessage.Length == 3)
+        {
+            if (splittedMessage[2] == "." || splittedMessage[2] == "*")
+            {
+                List<Oggetto> oggettiSelezionati = playerGO.GetComponent<PlayerMovement>().currentRoom.oggetti;
+
+                if (splittedMessage[1].Contains("*"))
+                {
+                    splittedMessage[1] = splittedMessage[1].Replace("*", ".{1,}");
+                }
+
+                foreach (Oggetto o in oggettiSelezionati)
+                {
+                    
+                    if (o.IsTxt)
+                    {
+                        
+                        if (Regex.IsMatch(o.TextoTxt, splittedMessage[1]))
+                        {
+                            textObj.text += (o.nomeOggetto + ":\n" + o.TextoTxt + "\n");
+                        }
+                    }
+                    
+                }
+            }
+            else if(CheckOggetti(splittedMessage, 2))
+            {
+                Oggetto oggettoSelezionato = playerGO.GetComponent<PlayerMovement>().currentRoom.oggetti.Find(x => x.nomeOggetto == splittedMessage[2]);
+
+                if (oggettoSelezionato.IsTxt)
+                {
+                    if (splittedMessage[1].Contains("*"))
+                    {
+                        splittedMessage[1] = splittedMessage[1].Replace("*", ".{1,}");
+                    }
+
+                    if (Regex.IsMatch(oggettoSelezionato.TextoTxt, @splittedMessage[1]))
+                    {
+                        textObj.text += (oggettoSelezionato.nomeOggetto + ":\n" + oggettoSelezionato.TextoTxt + "\n");
+                    }
+                }
+            }
+            else
+            {
+                textObj.text += ("Uno o piu' oggetti non sono stati trovati\n");
+            }
         }
     }
 
