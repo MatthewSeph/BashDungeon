@@ -13,6 +13,7 @@ public class PlayerMovement : MonoBehaviour {
     bool wantToChangeRoom = false;
     GameObject gameManager;
     bool blockedMovement = false;
+    Animator anim;
  
 
     public Vector3 TargetPosition
@@ -70,7 +71,7 @@ public class PlayerMovement : MonoBehaviour {
 
     // Use this for initialization
     void Start () {
-
+        anim = transform.GetComponent<Animator>();
         transform.GetChild(0).GetComponent<ParticleSystem>().Stop();
         TargetPosition = transform.position;
         gameManager = GameObject.Find("GameManager");
@@ -81,6 +82,21 @@ public class PlayerMovement : MonoBehaviour {
     // Update is called once per frame
     void Update()
     {
+        
+        if (Vector3.Distance(m_Agent.destination, m_Agent.transform.position) <= m_Agent.stoppingDistance)
+        {
+            if (!m_Agent.hasPath || m_Agent.velocity.sqrMagnitude == 0f)
+            {
+                anim.SetFloat("MoveSpeed", 0f);
+
+            }
+
+        }
+        else if ((transform.position.x != TargetPosition.x) || (transform.position.z != TargetPosition.z))
+        {
+            anim.SetFloat("MoveSpeed", 0.5f);
+        }
+
         if ((transform.position.x == TargetPosition.x) && (transform.position.z == TargetPosition.z) && WantToChangeRoom )
         {
             m_Agent.enabled = false;
