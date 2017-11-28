@@ -346,6 +346,7 @@ public class LevelGeneration : MonoBehaviour {
         oggetto1.IsTxt = true;
         oggetto1.TextoTxt = "Una bella stringa per questa cassa :)\n12345566363626229991";
         roomsOrderByDistance[roomsOrderByDistance.Count - 1].oggetti.Add(oggetto1);
+        oggettiCreati.Add(oggetto1);
         Oggetto oggetto2 = new Oggetto((roomsOrderByDistance[roomsOrderByDistance.Count - 1]), "pergamena");
         oggetto2.IsMovable = true;
         oggetto2.IsTxt = true;

@@ -18,7 +18,7 @@ public class ConsoleScript : MonoBehaviour {
     GameObject consoleText;
     //GameObject consoleCanvas;
 
-    int righeMax = 14;
+    int righeMax = 29;
 
     void Start()
     {
@@ -603,6 +603,11 @@ public class ConsoleScript : MonoBehaviour {
                 if (splittedMessage[1].Contains("*"))
                 {
                     splittedMessage[1] = splittedMessage[1].Replace("*", ".{1,}");
+                }
+
+                if (splittedMessage[1].Contains(")"))
+                {
+                    splittedMessage[1] = splittedMessage[1].Replace(")", "/)");
                 }
 
                 foreach (Oggetto o in oggettiSelezionati)
