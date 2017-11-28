@@ -6,7 +6,7 @@ public class CameraManager : MonoBehaviour {
 
 	// Use this for initialization
 	void Start () {
-        transform.localPosition = new Vector3(-2, 31.87f, 0);
+        transform.localPosition = new Vector3(-2, 31.87f, 0.06f);
 
     }
 	
