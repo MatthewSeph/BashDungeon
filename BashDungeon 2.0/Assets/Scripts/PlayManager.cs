@@ -59,7 +59,7 @@ public class PlayManager : MonoBehaviour {
     private void Update()
     {
 
-        if(ClickedObject != null && Vector3.Distance(playerGO.transform.position, ClickedObject.transform.position) <= 2)
+        if(ClickedObject != null && Vector3.Distance(playerGO.transform.position, ClickedObject.transform.position) <= 2 && !pergamenaPanel.activeSelf && !dialoguePanel.activeSelf)
         {
             if (playerGO.GetComponent<PlayerMovement>().currentRoom.oggetti.Find(x => x.nomeOggetto == ClickedObject.name).IsTxt)
             {
@@ -78,7 +78,7 @@ public class PlayManager : MonoBehaviour {
 
                 string testoDialogo = playerGO.GetComponent<PlayerMovement>().currentRoom.oggetti.Find(x => x.nomeOggetto == ClickedObject.transform.name).TestoTxT;
                 
-                dialogueText.GetComponent<Text>().text = testoDialogo;
+                dialogueText.GetComponent<DialogueController>().SetText(testoDialogo);
 
                 dialoguePanel.SetActive(true);
                 playerGO.GetComponent<PlayerMovement>().BlockedMovement = true;
@@ -93,6 +93,8 @@ public class PlayManager : MonoBehaviour {
     {
         ClickedObject = null;
         playerGO.GetComponent<PlayerMovement>().BlockedMovement = false;
+        dialoguePanel.SetActive(false);
+        pergamenaPanel.SetActive(false);
     }
 
     public Vector2 RoomDirection(Room currentRoom, Room roomToGo)
