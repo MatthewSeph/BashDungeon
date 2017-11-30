@@ -352,7 +352,7 @@ public class LevelGeneration : MonoBehaviour {
         Oggetto oggetto3 = new Oggetto((roomsOrderByDistance[roomsOrderByDistance.Count - 1]), "GianniNPC");
         oggetto3.IsMovable = false;
         oggetto3.IsNPC = true;
-        oggetto3.TestoTxT = "Ciao sono il tuo primo NPC :)\nOgni riga divisa da un 'a capo' verrà mostrata in un altro messaggio.\nNella riga finale il bottone chiude la dialogue Box...\nFai una prova! ci si sente tra poco ^^";
+        oggetto3.TestoTxT = "Ciao sono il tuo primo NPC :)\nOgni riga divisa da un 'a capo' verrà mostrata in un altro messaggio.\nNella riga finale il bottone chiude la dialogue Box... Fai una prova! ci si sente tra poco ^^";
         roomsOrderByDistance[roomsOrderByDistance.Count - 1].oggetti.Add(oggetto3);
         oggettiCreati.Add(oggetto3);
         // Dovremo controllare la lista levelRooms e a seconda del tipo e della difficoltà del livello creare oggetti adeguati
