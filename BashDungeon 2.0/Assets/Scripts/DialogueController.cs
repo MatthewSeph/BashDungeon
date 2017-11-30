@@ -9,6 +9,8 @@ public class DialogueController : MonoBehaviour {
     int dialogueCount;
     GameObject gameManager;
 
+    public GameObject dialogueButtonText;
+
     public string[] DialogueMessages
     {
         get
@@ -32,6 +34,7 @@ public class DialogueController : MonoBehaviour {
         dialogueMessages = fullText.Split('\n');
         gameObject.GetComponent<Text>().text = dialogueMessages[0];
         dialogueCount = 0;
+        ButtonTextManage();
     }
 
     public void ButtonNext()
@@ -41,11 +44,24 @@ public class DialogueController : MonoBehaviour {
             
             dialogueCount++;
             gameObject.GetComponent<Text>().text = dialogueMessages[dialogueCount];
+            ButtonTextManage();
 
         }
         else
         {
             gameManager.GetComponent<PlayManager>().OnCloseDialogues();
+        }
+    }
+
+    public void ButtonTextManage()
+    {
+        if (dialogueCount == DialogueMessages.Length - 1)
+        {
+            dialogueButtonText.GetComponent<Text>().text = "OK!";
+        }
+        else
+        {
+            dialogueButtonText.GetComponent<Text>().text = "AVANTI";
         }
     }
 
