@@ -7,6 +7,7 @@ public class ObjectPrefabSelector : MonoBehaviour {
     public GameObject cassa;
     public GameObject archivio;
     public GameObject pergamena;
+    public GameObject npc;
 
     public GameObject PickObjectPrefab(string nomeOggetto)
     {
@@ -26,7 +27,12 @@ public class ObjectPrefabSelector : MonoBehaviour {
             return pergamena;
         }
 
-       
+        if (nomeOggetto.Contains("NPC"))
+        {
+            return npc;
+        }
+
+
         return null;
     }
 

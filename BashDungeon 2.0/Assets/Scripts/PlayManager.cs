@@ -2,14 +2,97 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.AI;
+using UnityEngine.UI;
 
 public class PlayManager : MonoBehaviour {
 
     GameObject playerGO;
+    GameObject clickedObject;
+    bool isMouseOverObj;
+
+    public GameObject pergamenaPanel;
+    public GameObject pergamenaText;
+
+    public GameObject dialoguePanel;
+    public GameObject dialogueText;
+
+
+    public GameObject ClickedObject
+    {
+        get
+        {
+            return clickedObject;
+        }
+
+        set
+        {
+            if (clickedObject != null)
+            {
+                clickedObject.GetComponent<Renderer>().material.SetColor("_EmissionColor", Color.white * 0f);
+            }
+            clickedObject = value;
+            if (clickedObject != null)
+            {
+                clickedObject.GetComponent<Renderer>().material.SetColor("_EmissionColor", Color.white * 0.3f);
+            }
+        }
+    }
+
+    public bool IsMouseOverObj
+    {
+        get
+        {
+            return isMouseOverObj;
+        }
+
+        set
+        {
+            isMouseOverObj = value;
+        }
+    }
 
     void Start()
     {
         playerGO = GameObject.Find("Player");
+    }
+
+    private void Update()
+    {
+
+        if(ClickedObject != null && Vector3.Distance(playerGO.transform.position, ClickedObject.transform.position) <= 2)
+        {
+            if (playerGO.GetComponent<PlayerMovement>().currentRoom.oggetti.Find(x => x.nomeOggetto == ClickedObject.name).IsTxt)
+            {
+
+                string testoPergamena = playerGO.GetComponent<PlayerMovement>().currentRoom.oggetti.Find(x => x.nomeOggetto == ClickedObject.transform.name).TestoTxT;
+
+                pergamenaText.GetComponent<Text>().text = testoPergamena;
+
+                pergamenaPanel.SetActive(true);
+                playerGO.GetComponent<PlayerMovement>().BlockedMovement = true;
+                playerGO.transform.LookAt(new Vector3(ClickedObject.transform.position.x, playerGO.transform.position.y, ClickedObject.transform.position.z));
+                playerGO.GetComponent<NavMeshAgent>().ResetPath();
+            }
+            else if (playerGO.GetComponent<PlayerMovement>().currentRoom.oggetti.Find(x => x.nomeOggetto == ClickedObject.name).IsNPC)
+            {
+
+                string testoDialogo = playerGO.GetComponent<PlayerMovement>().currentRoom.oggetti.Find(x => x.nomeOggetto == ClickedObject.transform.name).TestoTxT;
+                
+                dialogueText.GetComponent<Text>().text = testoDialogo;
+
+                dialoguePanel.SetActive(true);
+                playerGO.GetComponent<PlayerMovement>().BlockedMovement = true;
+                playerGO.transform.LookAt(new Vector3(ClickedObject.transform.position.x, playerGO.transform.position.y, ClickedObject.transform.position.z));
+                playerGO.GetComponent<NavMeshAgent>().ResetPath();
+                
+            }
+        }
+    }
+
+    public void OnCloseDialogues()
+    {
+        ClickedObject = null;
+        playerGO.GetComponent<PlayerMovement>().BlockedMovement = false;
     }
 
     public Vector2 RoomDirection(Room currentRoom, Room roomToGo)

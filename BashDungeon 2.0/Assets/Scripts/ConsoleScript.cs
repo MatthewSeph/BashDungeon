@@ -616,9 +616,9 @@ public class ConsoleScript : MonoBehaviour {
                     if (o.IsTxt)
                     {
                         
-                        if (Regex.IsMatch(o.TextoTxt, splittedMessage[1]))
+                        if (Regex.IsMatch(o.TestoTxT, splittedMessage[1]))
                         {
-                            textObj.text += (o.nomeOggetto + ":\n" + o.TextoTxt + "\n");
+                            textObj.text += (o.nomeOggetto + ":\n" + o.TestoTxT + "\n");
                         }
                     }
                     
@@ -635,9 +635,9 @@ public class ConsoleScript : MonoBehaviour {
                         splittedMessage[1] = splittedMessage[1].Replace("*", ".{1,}");
                     }
 
-                    if (Regex.IsMatch(oggettoSelezionato.TextoTxt, @splittedMessage[1]))
+                    if (Regex.IsMatch(oggettoSelezionato.TestoTxT, @splittedMessage[1]))
                     {
-                        textObj.text += (oggettoSelezionato.nomeOggetto + ":\n" + oggettoSelezionato.TextoTxt + "\n");
+                        textObj.text += (oggettoSelezionato.nomeOggetto + ":\n" + oggettoSelezionato.TestoTxT + "\n");
                     }
                 }
             }

@@ -71,6 +71,7 @@ public class PlayerMovement : MonoBehaviour {
 
     // Use this for initialization
     void Start () {
+
         anim = transform.GetComponent<Animator>();
         transform.GetChild(0).GetComponent<ParticleSystem>().Stop();
         TargetPosition = transform.position;
@@ -82,21 +83,21 @@ public class PlayerMovement : MonoBehaviour {
     // Update is called once per frame
     void Update()
     {
-        
-        if (Vector3.Distance(m_Agent.destination, m_Agent.transform.position) <= m_Agent.stoppingDistance)
+        //Check to see if the Player should move
+        if (Vector3.Distance(m_Agent.destination, m_Agent.transform.position) <= m_Agent.stoppingDistance && m_Agent.velocity.sqrMagnitude <= 0.1f && !m_Agent.pathPending && !m_Agent.hasPath)
         {
-            if (!m_Agent.hasPath || m_Agent.velocity.sqrMagnitude == 0f)
-            {
+             
                 anim.SetFloat("MoveSpeed", 0f);
-
-            }
+                m_Agent.ResetPath();
 
         }
-        else if ((transform.position.x != TargetPosition.x) || (transform.position.z != TargetPosition.z))
+        else if ((transform.position.x != TargetPosition.x) || (transform.position.z != TargetPosition.z) && !m_Agent.pathPending && m_Agent.hasPath) //Can move and is moving
         {
             anim.SetFloat("MoveSpeed", 0.5f);
         }
 
+
+        //The player is in front of a door and want to change room
         if ((transform.position.x == TargetPosition.x) && (transform.position.z == TargetPosition.z) && WantToChangeRoom )
         {
             m_Agent.enabled = false;
@@ -104,9 +105,10 @@ public class PlayerMovement : MonoBehaviour {
             WantToChangeRoom = false;
         }
 
+        //Can move inside a room
         if (!WantToChangeRoom && !blockedMovement)
         {
-            if (Input.GetMouseButtonDown(0) && (!EventSystem.current.IsPointerOverGameObject()) && (Camera.main.ScreenToViewportPoint(Input.mousePosition).x > 0.1f) 
+            if (Input.GetMouseButtonDown(0) && (!EventSystem.current.IsPointerOverGameObject()) && (Camera.main.ScreenToViewportPoint(Input.mousePosition).x > 0.1f) //Are my clicks on the Left Camera and not on a UI Element?
                 && (Camera.main.ScreenToViewportPoint(Input.mousePosition).x < 0.9f) && (Camera.main.ScreenToViewportPoint(Input.mousePosition).y > 0.1f) 
                 && (Camera.main.ScreenToViewportPoint(Input.mousePosition).y < 0.9f))
             {
@@ -116,8 +118,12 @@ public class PlayerMovement : MonoBehaviour {
                 mousePos.z = Camera.main.transform.position.y;
                 Vector3 clickedPosition = Camera.main.ScreenToWorldPoint(mousePos);
 
-                    GetComponent<NavMeshAgent>().destination = clickedPosition;
+                m_Agent.destination = clickedPosition;
 
+                if (!gameManager.GetComponent<PlayManager>().IsMouseOverObj)
+                {
+                    gameManager.GetComponent<PlayManager>().ClickedObject = null;
+                }
             }
         }
     }

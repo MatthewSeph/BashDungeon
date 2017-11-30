@@ -112,11 +112,21 @@ NavMeshSettings:
     debug:
       m_Flags: 0
   m_NavMeshData: {fileID: 0}
+--- !u!1 &119318086 stripped
+GameObject:
+  m_PrefabParentObject: {fileID: 1206936292155684, guid: aacfba5b1b29b0b4dafe6420c7a4cc73,
+    type: 2}
+  m_PrefabInternal: {fileID: 1681220556}
 --- !u!1 &225269724 stripped
 GameObject:
   m_PrefabParentObject: {fileID: 1832351996891242, guid: 92172980b6cc57f48b85ae679a088eb8,
     type: 2}
   m_PrefabInternal: {fileID: 474671755}
+--- !u!1 &389695163 stripped
+GameObject:
+  m_PrefabParentObject: {fileID: 1545565393342274, guid: aacfba5b1b29b0b4dafe6420c7a4cc73,
+    type: 2}
+  m_PrefabInternal: {fileID: 1681220556}
 --- !u!1001 &474671755
 Prefab:
   m_ObjectHideFlags: 0
@@ -155,6 +165,11 @@ Prefab:
     - target: {fileID: 4604969075026456, guid: 92172980b6cc57f48b85ae679a088eb8, type: 2}
       propertyPath: m_RootOrder
       value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 54538303142208692, guid: 92172980b6cc57f48b85ae679a088eb8,
+        type: 2}
+      propertyPath: m_Constraints
+      value: 4
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 92172980b6cc57f48b85ae679a088eb8, type: 2}
@@ -449,6 +464,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7b8bee42e029cbb40ac27549f48e606e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  pergamenaPanel: {fileID: 1215858566}
+  pergamenaText: {fileID: 986707294}
+  dialoguePanel: {fileID: 389695163}
+  dialogueText: {fileID: 119318086}
 --- !u!114 &678893745
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -463,6 +482,7 @@ MonoBehaviour:
   cassa: {fileID: 1503735970864470, guid: ad1af6d112b0a6a4cb57e4e4a190b454, type: 2}
   archivio: {fileID: 100000, guid: 0476e50c33a88044baa2d564a75b656d, type: 2}
   pergamena: {fileID: 1778275587633466, guid: 6ffea145107e2d94f802b17d5d09152f, type: 2}
+  npc: {fileID: 1041145099448102, guid: a6d341b48ad8642459701818d8119555, type: 2}
 --- !u!1001 &710430593
 Prefab:
   m_ObjectHideFlags: 0
@@ -525,7 +545,7 @@ Prefab:
     - target: {fileID: 224427447104673820, guid: 9f918ffb4e183f24dac3711819148acc,
         type: 2}
       propertyPath: m_LocalPosition.y
-      value: -1
+      value: -1.0000305
       objectReference: {fileID: 0}
     - target: {fileID: 20060332833827936, guid: 9f918ffb4e183f24dac3711819148acc,
         type: 2}
@@ -635,7 +655,7 @@ Light:
   m_SpotAngle: 30
   m_CookieSize: 10
   m_Shadows:
-    m_Type: 0
+    m_Type: 2
     m_Resolution: -1
     m_CustomResolution: -1
     m_Strength: 1
@@ -669,6 +689,16 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 6
   m_LocalEulerAnglesHint: {x: 50, y: -120, z: 0}
+--- !u!1 &986707294 stripped
+GameObject:
+  m_PrefabParentObject: {fileID: 1737116325624600, guid: aacfba5b1b29b0b4dafe6420c7a4cc73,
+    type: 2}
+  m_PrefabInternal: {fileID: 1681220556}
+--- !u!1 &1215858566 stripped
+GameObject:
+  m_PrefabParentObject: {fileID: 1302154542387312, guid: aacfba5b1b29b0b4dafe6420c7a4cc73,
+    type: 2}
+  m_PrefabInternal: {fileID: 1681220556}
 --- !u!1001 &1493152084
 Prefab:
   m_ObjectHideFlags: 0
@@ -851,6 +881,73 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 763aaff5ba28970429cc02dededdf87a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!1001 &1681220556
+Prefab:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    m_TransformParent: {fileID: 0}
+    m_Modifications:
+    - target: {fileID: 4819961796026366, guid: aacfba5b1b29b0b4dafe6420c7a4cc73, type: 2}
+      propertyPath: m_LocalPosition.x
+      value: -2
+      objectReference: {fileID: 0}
+    - target: {fileID: 4819961796026366, guid: aacfba5b1b29b0b4dafe6420c7a4cc73, type: 2}
+      propertyPath: m_LocalPosition.y
+      value: 31.87
+      objectReference: {fileID: 0}
+    - target: {fileID: 4819961796026366, guid: aacfba5b1b29b0b4dafe6420c7a4cc73, type: 2}
+      propertyPath: m_LocalPosition.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4819961796026366, guid: aacfba5b1b29b0b4dafe6420c7a4cc73, type: 2}
+      propertyPath: m_LocalRotation.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4819961796026366, guid: aacfba5b1b29b0b4dafe6420c7a4cc73, type: 2}
+      propertyPath: m_LocalRotation.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4819961796026366, guid: aacfba5b1b29b0b4dafe6420c7a4cc73, type: 2}
+      propertyPath: m_LocalRotation.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4819961796026366, guid: aacfba5b1b29b0b4dafe6420c7a4cc73, type: 2}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 4819961796026366, guid: aacfba5b1b29b0b4dafe6420c7a4cc73, type: 2}
+      propertyPath: m_RootOrder
+      value: 9
+      objectReference: {fileID: 0}
+    - target: {fileID: 114449529885995750, guid: aacfba5b1b29b0b4dafe6420c7a4cc73,
+        type: 2}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[1].m_Target
+      value: 
+      objectReference: {fileID: 678893744}
+    - target: {fileID: 224901460742104188, guid: aacfba5b1b29b0b4dafe6420c7a4cc73,
+        type: 2}
+      propertyPath: m_LocalPosition.y
+      value: -1
+      objectReference: {fileID: 0}
+    - target: {fileID: 223883491555933868, guid: aacfba5b1b29b0b4dafe6420c7a4cc73,
+        type: 2}
+      propertyPath: m_Camera
+      value: 
+      objectReference: {fileID: 1986897930}
+    - target: {fileID: 114759873568740788, guid: aacfba5b1b29b0b4dafe6420c7a4cc73,
+        type: 2}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[1].m_Target
+      value: 
+      objectReference: {fileID: 678893744}
+    - target: {fileID: 224954190049511054, guid: aacfba5b1b29b0b4dafe6420c7a4cc73,
+        type: 2}
+      propertyPath: m_LocalPosition.y
+      value: -125.000015
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+  m_ParentPrefab: {fileID: 100100000, guid: aacfba5b1b29b0b4dafe6420c7a4cc73, type: 2}
+  m_IsPrefabParent: 0
 --- !u!1 &1984339080
 GameObject:
   m_ObjectHideFlags: 0
@@ -882,10 +979,10 @@ Light:
   m_SpotAngle: 30
   m_CookieSize: 10
   m_Shadows:
-    m_Type: 0
+    m_Type: 2
     m_Resolution: -1
     m_CustomResolution: -1
-    m_Strength: 1
+    m_Strength: 0.413
     m_Bias: 0.05
     m_NormalBias: 0.4
     m_NearPlane: 0.2

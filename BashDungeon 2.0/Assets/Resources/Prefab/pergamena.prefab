@@ -21,6 +21,10 @@ GameObject:
   - component: {fileID: 4294416227476156}
   - component: {fileID: 33633821593469036}
   - component: {fileID: 23736200586817992}
+  - component: {fileID: 114446011075569120}
+  - component: {fileID: 54979693930983914}
+  - component: {fileID: 114142552108734130}
+  - component: {fileID: 65094910721869788}
   m_Layer: 0
   m_Name: pergamena
   m_TagString: Untagged
@@ -35,7 +39,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1778275587633466}
   m_LocalRotation: {x: 0.00000008146034, y: 0, z: -0, w: 1}
-  m_LocalPosition: {x: 0, y: 0.3, z: 0}
+  m_LocalPosition: {x: 0, y: 0.57, z: 0}
   m_LocalScale: {x: 30, y: 30, z: 90}
   m_Children: []
   m_Father: {fileID: 0}
@@ -82,3 +86,54 @@ MeshFilter:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1778275587633466}
   m_Mesh: {fileID: 4300000, guid: 245ff04b3ce9c624a93e343677e67c42, type: 3}
+--- !u!54 &54979693930983914
+Rigidbody:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1778275587633466}
+  serializedVersion: 2
+  m_Mass: 5
+  m_Drag: 1000
+  m_AngularDrag: 0
+  m_UseGravity: 1
+  m_IsKinematic: 0
+  m_Interpolate: 0
+  m_Constraints: 122
+  m_CollisionDetection: 0
+--- !u!65 &65094910721869788
+BoxCollider:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1778275587633466}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 1
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Size: {x: 0.019498557, y: 0.019009689, z: 0.020585148}
+  m_Center: {x: 0, y: 0.00049515534, z: 0.00029257542}
+--- !u!114 &114142552108734130
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1778275587633466}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 34780e57c45c68b46a829f8ca712d86a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  isMadeVisible: 0
+  oggettiArchiviati: []
+--- !u!114 &114446011075569120
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1778275587633466}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 763aaff5ba28970429cc02dededdf87a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 

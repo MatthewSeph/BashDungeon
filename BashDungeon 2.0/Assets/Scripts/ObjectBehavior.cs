@@ -7,21 +7,28 @@ public class ObjectBehavior : MonoBehaviour {
     public bool isMadeVisible;
     bool isBeingCompressed;
     bool isVisible;
+   
     Color myColorAlphaZero;
     Color myColorFullAlpha;
+    Color emissiveColor = Color.white;
     public List<GameObject> oggettiArchiviati;
+
+    GameObject gameManager;
 
     void Start()
     {
+        transform.GetComponent<MeshRenderer>().material.EnableKeyword("_EMISSION");
         myColorAlphaZero = transform.GetComponent<MeshRenderer>().material.color;
         myColorAlphaZero.a = 0;
         myColorFullAlpha = transform.GetComponent<MeshRenderer>().material.color;
         myColorFullAlpha.a = 75;
-        
+        gameManager = GameObject.Find("GameManager");
+
     }
 
     private void Update()
     {
+
         if (!isVisible)
         {
             if (transform.name.Contains(".") && !isMadeVisible)
@@ -56,6 +63,19 @@ public class ObjectBehavior : MonoBehaviour {
         this.enabled = false;
     }
 
+    private void OnMouseDown()
+    {
+        gameManager.GetComponent<PlayManager>().ClickedObject = gameObject;
+    }
+
+    private void OnMouseEnter()
+    {
+        gameManager.GetComponent<PlayManager>().IsMouseOverObj = true;
+    }
+    private void OnMouseExit()
+    {
+        gameManager.GetComponent<PlayManager>().IsMouseOverObj = false;
+    }
 
 
 }

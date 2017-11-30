@@ -337,22 +337,24 @@ public class LevelGeneration : MonoBehaviour {
         Oggetto oggetto = new Oggetto((roomsOrderByDistance[roomsOrderByDistance.Count - 1]), "cassa");
         oggetto.IsMovable = true;
         oggetto.IsRemovable = true;
-        oggetto.IsTxt = true;
-        oggetto.TextoTxt = "Una bella stringa per una cassa :)\n12345566363626229990";
         roomsOrderByDistance[roomsOrderByDistance.Count - 1].oggetti.Add(oggetto);
         oggettiCreati.Add(oggetto);
         Oggetto oggetto1 = new Oggetto((roomsOrderByDistance[roomsOrderByDistance.Count - 1]), "cassa");
         oggetto1.IsInvisible = true;
-        oggetto1.IsTxt = true;
-        oggetto1.TextoTxt = "Una bella stringa per questa cassa :)\n12345566363626229991";
         roomsOrderByDistance[roomsOrderByDistance.Count - 1].oggetti.Add(oggetto1);
         oggettiCreati.Add(oggetto1);
         Oggetto oggetto2 = new Oggetto((roomsOrderByDistance[roomsOrderByDistance.Count - 1]), "pergamena");
         oggetto2.IsMovable = true;
         oggetto2.IsTxt = true;
-        oggetto2.TextoTxt = "Il comando grep con c# e' un po' stronzetto con gli asterischi";
+        oggetto2.TestoTxT = "Il comando grep con c# e' un po' stronzetto con gli asterischi";
         roomsOrderByDistance[roomsOrderByDistance.Count - 1].oggetti.Add(oggetto2);
         oggettiCreati.Add(oggetto2);
+        Oggetto oggetto3 = new Oggetto((roomsOrderByDistance[roomsOrderByDistance.Count - 1]), "GianniNPC");
+        oggetto3.IsMovable = false;
+        oggetto3.IsNPC = true;
+        oggetto3.TestoTxT = "Ciao sono il tuo primo NPC :)";
+        roomsOrderByDistance[roomsOrderByDistance.Count - 1].oggetti.Add(oggetto3);
+        oggettiCreati.Add(oggetto3);
         // Dovremo controllare la lista levelRooms e a seconda del tipo e della difficoltà del livello creare oggetti adeguati
     }
 

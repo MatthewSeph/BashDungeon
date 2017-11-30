@@ -7,8 +7,8 @@ public class Oggetto {
 
     private Room currentRoom;
     public string nomeOggetto;
-    bool isTar, isZip, isInvisible, isMovable, isTxt, isRemovable;
-    string textoTxt;
+    bool isTar, isZip, isInvisible, isMovable, isTxt, isRemovable, isNPC;
+    string testoTxT;
     bool isActive = true;
 
     public Room CurrentRoom
@@ -96,16 +96,29 @@ public class Oggetto {
         }
     }
 
-    public string TextoTxt
+    public string TestoTxT
     {
         get
         {
-            return textoTxt;
+            return testoTxT;
         }
 
         set
         {
-            textoTxt = value;
+            testoTxT = value;
+        }
+    }
+
+    public bool IsNPC
+    {
+        get
+        {
+            return isNPC;
+        }
+
+        set
+        {
+            isNPC = value;
         }
     }
 
