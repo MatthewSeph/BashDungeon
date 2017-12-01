@@ -2,15 +2,17 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class RandomNamesGenerator : MonoBehaviour {
+public class RandomNamesGenerator : MonoBehaviour
+{
 
 
     public List<string> listaNomi = new List<string>();
 
 
-    public string GenerateName(){
+    public string GenerateName()
+    {
 
-        string nomeScelto="";
+        string nomeScelto = "";
         int tempRandom;
 
         tempRandom = (int)Random.Range(0, adjectives.Length);
@@ -21,7 +23,8 @@ public class RandomNamesGenerator : MonoBehaviour {
 
         nomeScelto += nouns[tempRandom];
 
-        if (listaNomi.Contains(nomeScelto)) {
+        if (listaNomi.Contains(nomeScelto))
+        {
             return GenerateName();
         }
 

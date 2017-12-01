@@ -7,7 +7,8 @@ using UnityEngine;
 using UnityEngine.UI;
 
 
-public class ConsoleScript : MonoBehaviour {
+public class ConsoleScript : MonoBehaviour
+{
 
     public string messaggio;
     public Text textObj;
@@ -38,7 +39,7 @@ public class ConsoleScript : MonoBehaviour {
         {
             if (c == '\b')
             {
-                
+
                 if (messaggio.Length != 0)
                 {
                     messaggio = messaggio.Substring(0, messaggio.Length - 1);
@@ -53,8 +54,8 @@ public class ConsoleScript : MonoBehaviour {
             else if ((c == '\n') || (c == '\r'))
             {
                 textObj.text += "\n";
-                
-				SplitMessage(messaggio);
+
+                SplitMessage(messaggio);
                 oldMessages.Insert(1, messaggio);
                 messaggio = "";
                 textObj.text += "User@linux:~$ ";
@@ -71,7 +72,7 @@ public class ConsoleScript : MonoBehaviour {
         }
 
         //Se premo freccia su voglio usare l ultimo commando inserito
-        if (Input.GetKeyUp(KeyCode.UpArrow) && oldMessages.Count > contatoreOldMessaggi + 1 )
+        if (Input.GetKeyUp(KeyCode.UpArrow) && oldMessages.Count > contatoreOldMessaggi + 1)
         {
             textObj.text = textObj.text.Substring(0, textObj.text.Length - messaggio.Length);
             contatoreOldMessaggi += 1;
@@ -92,7 +93,7 @@ public class ConsoleScript : MonoBehaviour {
         }
 
         //tengo la lista dei comandi a max 25 messaggi
-        if(oldMessages.Count > 25)
+        if (oldMessages.Count > 25)
         {
             oldMessages.RemoveAt(oldMessages.Count - 1);
         }
@@ -114,16 +115,16 @@ public class ConsoleScript : MonoBehaviour {
     }
 
 
-    void SplitMessage (string message)
+    void SplitMessage(string message)
     {
         string[] splittedMessage;
 
-        splittedMessage = message.Split(new char[] {' '}, StringSplitOptions.RemoveEmptyEntries);
+        splittedMessage = message.Split(new char[] { ' ' }, StringSplitOptions.RemoveEmptyEntries);
         if (splittedMessage.Length != 0)
         {
             ControlloMessaggio(splittedMessage);
         }
-        
+
     }
 
 
@@ -134,13 +135,13 @@ public class ConsoleScript : MonoBehaviour {
 
         switch (comando)
         {
-			case "pwd":
-				Pwd (splittedMessage);
+            case "pwd":
+                Pwd(splittedMessage);
                 break;
 
 
-			case "cd":
-				Cd (splittedMessage);
+            case "cd":
+                Cd(splittedMessage);
                 break;
 
             case "ls":
@@ -164,15 +165,15 @@ public class ConsoleScript : MonoBehaviour {
                 break;
 
             default:
-				textObj.text += (splittedMessage[0] + " non e' un comando riconosciuto." + "\n");
-				break;
+                textObj.text += (splittedMessage[0] + " non e' un comando riconosciuto." + "\n");
+                break;
         }
 
     }
 
-	bool CheckPath(string pathToCheck) 
-	{
-		bool isPathCorrect = true;
+    bool CheckPath(string pathToCheck)
+    {
+        bool isPathCorrect = true;
         if (pathToCheck.ToCharArray().First() == '/')
         {
 
@@ -216,7 +217,7 @@ public class ConsoleScript : MonoBehaviour {
         }
 
         return isPathCorrect;
-	}
+    }
 
     bool CheckOggetti(string[] splittedMessage, int positionToSkip)
     {
@@ -225,7 +226,7 @@ public class ConsoleScript : MonoBehaviour {
 
         foreach (string s in listaOggetti)
         {
-            if(!playerGO.GetComponent<PlayerMovement>().currentRoom.oggetti.Exists(x => x.nomeOggetto == s))
+            if (!playerGO.GetComponent<PlayerMovement>().currentRoom.oggetti.Exists(x => x.nomeOggetto == s))
             {
                 ciSonoTutti = false;
                 break;
@@ -237,7 +238,7 @@ public class ConsoleScript : MonoBehaviour {
 
     void RemoveOggetti(string[] splittedMessage)
     {
-        
+
         string[] listaOggetti = splittedMessage.Skip(3).Take(splittedMessage.Length - 3).ToArray();
 
         foreach (string s in listaOggetti)
@@ -297,7 +298,7 @@ public class ConsoleScript : MonoBehaviour {
         {
 
             objPositionList.Add(GameObject.Find("/" + playerGO.GetComponent<PlayerMovement>().currentRoom.nomeStanza + "/" + s).transform.position);
-            
+
         }
         return objPositionList;
 
@@ -305,57 +306,57 @@ public class ConsoleScript : MonoBehaviour {
 
 
     void Pwd(string[] splittedMessage)
-	{
-		if (splittedMessage.Length==1)
-		{
-			textObj.text += playerGO.transform.parent.name + "\n";
-		}
+    {
+        if (splittedMessage.Length == 1)
+        {
+            textObj.text += playerGO.transform.parent.name + "\n";
+        }
 
-		else
-		{
-			textObj.text += ("pwd non prevede parametri." + "\n");
-		}
-	}
+        else
+        {
+            textObj.text += ("pwd non prevede parametri." + "\n");
+        }
+    }
 
-	void Cd(string[] splittedMessage) 
-	{
-		if (splittedMessage.Length == 2)
-		{
-			if ((playerGO.GetComponent<PlayerMovement> ().currentRoom.childrenRooms.Exists (x => x.nomeStanza == splittedMessage [1]))) 
-			{
+    void Cd(string[] splittedMessage)
+    {
+        if (splittedMessage.Length == 2)
+        {
+            if ((playerGO.GetComponent<PlayerMovement>().currentRoom.childrenRooms.Exists(x => x.nomeStanza == splittedMessage[1])))
+            {
                 gameManager.GetComponent<PlayManager>().MoveBeforeChangeRoom(gameManager.GetComponent<LevelGeneration>().GetRoomByName(splittedMessage[1]));
-                
-            } 
-			else if ((splittedMessage [1] == "..") && (playerGO.GetComponent<PlayerMovement> ().currentRoom.nomeStanza != "/")) 
-			{
-                gameManager.GetComponent<PlayManager>().MoveBeforeChangeRoom(gameManager.GetComponent<LevelGeneration>().GetRoomByName(playerGO.GetComponent<PlayerMovement>().currentRoom.parentRoom.nomeStanza));
-             
+
             }
-			else if ((splittedMessage [1] == "/")) 
-			{
+            else if ((splittedMessage[1] == "..") && (playerGO.GetComponent<PlayerMovement>().currentRoom.nomeStanza != "/"))
+            {
+                gameManager.GetComponent<PlayManager>().MoveBeforeChangeRoom(gameManager.GetComponent<LevelGeneration>().GetRoomByName(playerGO.GetComponent<PlayerMovement>().currentRoom.parentRoom.nomeStanza));
+
+            }
+            else if ((splittedMessage[1] == "/"))
+            {
                 gameManager.GetComponent<PlayManager>().MoveBeforeChangeRoom(gameManager.GetComponent<LevelGeneration>().GetRoomByName("/"));
 
             }
-			else if (CheckPath (splittedMessage[1])) 
-			{
-				string[] path = splittedMessage[1].Split(new char[] {'/'}, StringSplitOptions.RemoveEmptyEntries);
+            else if (CheckPath(splittedMessage[1]))
+            {
+                string[] path = splittedMessage[1].Split(new char[] { '/' }, StringSplitOptions.RemoveEmptyEntries);
                 gameManager.GetComponent<PlayManager>().MoveBeforeChangeRoom(gameManager.GetComponent<LevelGeneration>().GetRoomByName(path[path.Length - 1]));
 
             }
-			else 
-			{
-				textObj.text += (splittedMessage[1] + " non è un path corretto." + "\n");
-			}
-		}
-		else
-		{
-			textObj.text += ("cd prevede un parametro." + "\n");
-		}
-	}
+            else
+            {
+                textObj.text += (splittedMessage[1] + " non è un path corretto." + "\n");
+            }
+        }
+        else
+        {
+            textObj.text += ("cd prevede un parametro." + "\n");
+        }
+    }
 
     void Ls(String[] splittedMessage)
     {
-        if(splittedMessage.Length == 1)
+        if (splittedMessage.Length == 1)
         {
 
             if (playerGO.GetComponent<PlayerMovement>().currentRoom.childrenRooms != null)
@@ -378,7 +379,7 @@ public class ConsoleScript : MonoBehaviour {
             }
 
         }
-        else if(splittedMessage.Length == 2 && splittedMessage[1] == "-a")
+        else if (splittedMessage.Length == 2 && splittedMessage[1] == "-a")
         {
             if (playerGO.GetComponent<PlayerMovement>().currentRoom.childrenRooms != null)
             {
@@ -412,10 +413,10 @@ public class ConsoleScript : MonoBehaviour {
 
     void Mv(String[] splittedMessage)
     {
-        if(splittedMessage.Length == 3)
+        if (splittedMessage.Length == 3)
         {
 
-            if(playerGO.GetComponent<PlayerMovement>().currentRoom.oggetti.Exists(x => x.nomeOggetto == splittedMessage[1]))
+            if (playerGO.GetComponent<PlayerMovement>().currentRoom.oggetti.Exists(x => x.nomeOggetto == splittedMessage[1]))
             {
                 if (playerGO.GetComponent<PlayerMovement>().currentRoom.oggetti.Find(x => x.nomeOggetto == splittedMessage[1]).IsMovable)
                 {
@@ -484,11 +485,11 @@ public class ConsoleScript : MonoBehaviour {
 
     void Tar(String[] splittedMessage)
     {
-        if(splittedMessage.Length >= 3)
+        if (splittedMessage.Length >= 3)
         {
-            if(splittedMessage.Length >= 4 && splittedMessage[1] == "-cf" && splittedMessage[2].EndsWith(".tar"))
+            if (splittedMessage.Length >= 4 && splittedMessage[1] == "-cf" && splittedMessage[2].EndsWith(".tar"))
             {
-                if(CheckOggetti(splittedMessage, 3))
+                if (CheckOggetti(splittedMessage, 3))
                 {
                     Vector3 spawnTarPosition = gameManager.GetComponent<PlayManager>().CenterOfVectors(GetObjPositionList(splittedMessage));
                     SpawnArchivio(splittedMessage[2], spawnTarPosition, GetGameObjectsList(splittedMessage, 3));
@@ -499,7 +500,7 @@ public class ConsoleScript : MonoBehaviour {
                     textObj.text += ("non trovo tutti gli oggetti :c" + "\n");
                 }
             }
-            else if(splittedMessage.Length == 3 && splittedMessage[1] == "-xf" && splittedMessage[2].EndsWith(".tar"))
+            else if (splittedMessage.Length == 3 && splittedMessage[1] == "-xf" && splittedMessage[2].EndsWith(".tar"))
             {
                 if (playerGO.GetComponent<PlayerMovement>().currentRoom.oggetti.Exists(x => x.nomeOggetto == splittedMessage[2] && x.IsActive))
                 {
@@ -612,19 +613,19 @@ public class ConsoleScript : MonoBehaviour {
 
                 foreach (Oggetto o in oggettiSelezionati)
                 {
-                    
+
                     if (o.IsTxt)
                     {
-                        
+
                         if (Regex.IsMatch(o.TestoTxT, splittedMessage[1]))
                         {
                             textObj.text += (o.nomeOggetto + ":\n" + o.TestoTxT + "\n");
                         }
                     }
-                    
+
                 }
             }
-            else if(CheckOggetti(splittedMessage, 2))
+            else if (CheckOggetti(splittedMessage, 2))
             {
                 Oggetto oggettoSelezionato = playerGO.GetComponent<PlayerMovement>().currentRoom.oggetti.Find(x => x.nomeOggetto == splittedMessage[2]);
 

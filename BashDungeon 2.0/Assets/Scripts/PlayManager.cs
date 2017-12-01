@@ -4,7 +4,8 @@ using UnityEngine;
 using UnityEngine.AI;
 using UnityEngine.UI;
 
-public class PlayManager : MonoBehaviour {
+public class PlayManager : MonoBehaviour
+{
 
     GameObject playerGO;
     GameObject clickedObject;
@@ -59,7 +60,7 @@ public class PlayManager : MonoBehaviour {
     private void Update()
     {
 
-        if(ClickedObject != null && Vector3.Distance(playerGO.transform.position, ClickedObject.transform.position) <= 2 && !pergamenaPanel.activeSelf && !dialoguePanel.activeSelf)
+        if (ClickedObject != null && Vector3.Distance(playerGO.transform.position, ClickedObject.transform.position) <= 2 && !pergamenaPanel.activeSelf && !dialoguePanel.activeSelf)
         {
             if (playerGO.GetComponent<PlayerMovement>().currentRoom.oggetti.Find(x => x.nomeOggetto == ClickedObject.name).IsTxt)
             {
@@ -77,14 +78,14 @@ public class PlayManager : MonoBehaviour {
             {
 
                 string testoDialogo = playerGO.GetComponent<PlayerMovement>().currentRoom.oggetti.Find(x => x.nomeOggetto == ClickedObject.transform.name).TestoTxT;
-                
+
                 dialogueText.GetComponent<DialogueController>().SetText(testoDialogo);
 
                 dialoguePanel.SetActive(true);
                 playerGO.GetComponent<PlayerMovement>().BlockedMovement = true;
                 playerGO.transform.LookAt(new Vector3(ClickedObject.transform.position.x, playerGO.transform.position.y, ClickedObject.transform.position.z));
                 playerGO.GetComponent<NavMeshAgent>().ResetPath();
-                
+
             }
         }
     }
@@ -109,8 +110,8 @@ public class PlayManager : MonoBehaviour {
 
     public void GoToDoor(Vector2 roomDirection)
     {
-        
-        
+
+
         Vector3 positionToGo = new Vector3();
         if (roomDirection == Vector2.up)
         {
@@ -158,10 +159,10 @@ public class PlayManager : MonoBehaviour {
         }
         else
         {
-            
+
             playerGO.transform.GetChild(0).GetComponent<ParticleSystem>().Play();
             StartCoroutine(ChangeRoomWithCooldown(3));
-            
+
 
         }
 
@@ -183,7 +184,7 @@ public class PlayManager : MonoBehaviour {
         playerGO.transform.parent = GameObject.Find("/" + targhetRoom.nomeStanza).transform;
         playerGO.GetComponent<PlayerMovement>().currentRoom = targhetRoom;
         GoToDoor(RoomDirection(playerGO.GetComponent<PlayerMovement>().currentRoom, oldRoom));
-        
+
         Camera.main.transform.parent = GameObject.Find("/" + targhetRoom.nomeStanza).transform;
     }
 

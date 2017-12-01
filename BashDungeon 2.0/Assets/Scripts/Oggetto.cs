@@ -3,7 +3,8 @@ using System.Collections.Generic;
 using System.Text.RegularExpressions;
 using UnityEngine;
 
-public class Oggetto {
+public class Oggetto
+{
 
     private Room currentRoom;
     public string nomeOggetto;
@@ -25,7 +26,7 @@ public class Oggetto {
 
             if (currentRoom.oggetti.FindAll(x => x.nomeOggetto.StartsWith(nomeOggetto) && x.IsActive).Count >= 1)
             {
-                this.nomeOggetto =  currentRoom.oggetti.FindAll(x => x.nomeOggetto.StartsWith(nomeOggetto) && x.IsActive).Count + nomeOggetto;
+                this.nomeOggetto = currentRoom.oggetti.FindAll(x => x.nomeOggetto.StartsWith(nomeOggetto) && x.IsActive).Count + nomeOggetto;
             }
         }
     }
@@ -124,13 +125,13 @@ public class Oggetto {
 
     public Oggetto(Room currentRoom, string nomeOggetto)
     {
-        
+
         this.currentRoom = currentRoom;
-        if(currentRoom.oggetti.FindAll(x => x.nomeOggetto.StartsWith(nomeOggetto) && x.IsActive).Count >= 1)
+        if (currentRoom.oggetti.FindAll(x => x.nomeOggetto.StartsWith(nomeOggetto) && x.IsActive).Count >= 1)
         {
-            this.nomeOggetto = currentRoom.oggetti.FindAll(x => x.nomeOggetto.StartsWith(nomeOggetto) && x.IsActive).Count + nomeOggetto ;
+            this.nomeOggetto = currentRoom.oggetti.FindAll(x => x.nomeOggetto.StartsWith(nomeOggetto) && x.IsActive).Count + nomeOggetto;
         }
-       else
+        else
         {
             this.nomeOggetto = nomeOggetto;
         }
