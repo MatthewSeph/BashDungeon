@@ -35,6 +35,7 @@ public class DialogueController : MonoBehaviour {
         gameObject.GetComponent<Text>().text = dialogueMessages[0];
         dialogueCount = 0;
         ButtonTextManage();
+        
     }
 
     public void ButtonNext()
@@ -55,6 +56,7 @@ public class DialogueController : MonoBehaviour {
 
     public void ButtonTextManage()
     {
+
         if (dialogueCount == DialogueMessages.Length - 1)
         {
             dialogueButtonText.GetComponent<Text>().text = "OK!";
@@ -64,6 +66,5 @@ public class DialogueController : MonoBehaviour {
             dialogueButtonText.GetComponent<Text>().text = "AVANTI";
         }
     }
-
 
 }
