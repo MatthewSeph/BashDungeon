@@ -24,9 +24,9 @@ public class Oggetto
             this.nomeOggetto = Regex.Replace(this.nomeOggetto, "[0-9]", "");
             currentRoom = value;
 
-            if (currentRoom.oggetti.FindAll(x => x.nomeOggetto.StartsWith(nomeOggetto) && x.IsActive).Count >= 1)
+            if (currentRoom.oggetti.FindAll(x => x.nomeOggetto.Contains(nomeOggetto) && x.IsActive).Count >= 1)
             {
-                this.nomeOggetto = currentRoom.oggetti.FindAll(x => x.nomeOggetto.StartsWith(nomeOggetto) && x.IsActive).Count + nomeOggetto;
+                this.nomeOggetto = currentRoom.oggetti.FindAll(x => x.nomeOggetto.Contains(nomeOggetto) && x.IsActive).Count + nomeOggetto;
             }
         }
     }
@@ -67,6 +67,7 @@ public class Oggetto
 
         set
         {
+            CurrentRoom = CurrentRoom;
             isActive = value;
         }
     }
@@ -127,9 +128,9 @@ public class Oggetto
     {
 
         this.currentRoom = currentRoom;
-        if (currentRoom.oggetti.FindAll(x => x.nomeOggetto.StartsWith(nomeOggetto) && x.IsActive).Count >= 1)
+        if (currentRoom.oggetti.FindAll(x => x.nomeOggetto.Contains(nomeOggetto) && x.IsActive).Count >= 1)
         {
-            this.nomeOggetto = currentRoom.oggetti.FindAll(x => x.nomeOggetto.StartsWith(nomeOggetto) && x.IsActive).Count + nomeOggetto;
+            this.nomeOggetto = currentRoom.oggetti.FindAll(x => x.nomeOggetto.Contains(nomeOggetto) && x.IsActive).Count + nomeOggetto;
         }
         else
         {

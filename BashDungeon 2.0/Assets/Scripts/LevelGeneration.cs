@@ -1,8 +1,10 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
+using System.Xml;
 using System.Text.RegularExpressions;
 using UnityEngine;
 using UnityEngine.SceneManagement;
+using System.IO;
 
 public class LevelGeneration : MonoBehaviour
 {
@@ -18,6 +20,9 @@ public class LevelGeneration : MonoBehaviour
     List<Room> levelRooms = new List<Room>();
 
     public List<GameObject> LootPrefabs = new List<GameObject>();
+
+    public TextAsset xmlPergamene;
+    string dataToParse;
 
     void Start()
     {
@@ -38,6 +43,10 @@ public class LevelGeneration : MonoBehaviour
         DrawMap();
         SetLevelTypeRooms();
         OggettiNelleStanze();
+
+        dataToParse = xmlPergamene.text;
+        SpawnRandomPergamene(dataToParse);
+
         SpawnOggetti();
         SpawnPlayer();
 
@@ -399,6 +408,39 @@ public class LevelGeneration : MonoBehaviour
         // Dovremo controllare la lista levelRooms e a seconda del tipo e della difficoltà del livello creare oggetti adeguati
     }
 
+    void SpawnRandomPergamene(string xmlData)
+    {
+        XmlDocument xmlDoc = new XmlDocument();
+        xmlDoc.Load(new StringReader(xmlData));
+
+        string pergameneXmlPath = "//bashdungeon/pergamena";
+        XmlNodeList listOfPergameneStrings = xmlDoc.SelectNodes(pergameneXmlPath);
+
+        foreach(XmlNode node in listOfPergameneStrings)
+        {
+            Room randomRoom = RandomRoomNoLevelOrRoot();
+            Oggetto pergamena = new Oggetto(randomRoom, "pergamena");
+            pergamena.IsTxt = true;
+            pergamena.TestoTxT = node.FirstChild.InnerXml;
+            randomRoom.oggetti.Add(pergamena);
+
+            GameObject pergamenaPrefab = gameObject.GetComponent<ObjectPrefabSelector>().PickObjectPrefab(Regex.Replace(pergamena.nomeOggetto, "[0-9]", ""));
+
+            GameObject pergamenaIstanziata = Instantiate(pergamenaPrefab) as GameObject;
+            Vector3 oggettoPosition = Vector3.zero;
+
+            oggettoPosition.y = pergamenaIstanziata.transform.position.y;
+            oggettoPosition.x = Random.Range(-8, 5) + (pergamena.CurrentRoom.gridPos.x * 24);
+            oggettoPosition.z = Random.Range(-6, 6) + (pergamena.CurrentRoom.gridPos.y * 24);
+
+            pergamenaIstanziata.transform.position = oggettoPosition;
+            pergamenaIstanziata.transform.Rotate(Vector3.up, Random.Range(-180.0f, 180.0f));
+
+            pergamenaIstanziata.name = pergamena.nomeOggetto;
+            pergamenaIstanziata.transform.parent = GameObject.Find("/" + pergamena.CurrentRoom.nomeStanza).transform;
+        }
+    }
+
     void SpawnOggetti()
     {
         Vector3 oggettoPosition = Vector3.zero;
@@ -439,5 +481,20 @@ public class LevelGeneration : MonoBehaviour
         Room foundRoom = roomsOrderByDistance.Find(x => x.nomeStanza == name);
 
         return foundRoom;
+    }
+
+    public Room RandomRoomNoLevelOrRoot()
+    {
+        Room chosenRoom;
+        chosenRoom = roomsOrderByDistance[Random.Range(0, roomsOrderByDistance.Count - 2)]; //Root si trova in roomsOrderByDistance.Count -1, dunque lo escludo
+
+        if (levelRooms.Contains(chosenRoom) || levelRooms.Exists(x => x.childrenRooms.Contains(chosenRoom))) //se la stanza scelta random è un livello o un suo figlio la scarto e ne cerco un altra
+        {
+            return RandomRoomNoLevelOrRoot();
+        }
+        else
+        {
+            return chosenRoom;
+        }
     }
 }

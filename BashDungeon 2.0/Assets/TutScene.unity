@@ -198,7 +198,7 @@ Prefab:
     m_Modifications:
     - target: {fileID: 4604969075026456, guid: 92172980b6cc57f48b85ae679a088eb8, type: 2}
       propertyPath: m_LocalPosition.x
-      value: 0
+      value: -7.38
       objectReference: {fileID: 0}
     - target: {fileID: 4604969075026456, guid: 92172980b6cc57f48b85ae679a088eb8, type: 2}
       propertyPath: m_LocalPosition.y
@@ -206,7 +206,7 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 4604969075026456, guid: 92172980b6cc57f48b85ae679a088eb8, type: 2}
       propertyPath: m_LocalPosition.z
-      value: 1.99
+      value: 7.91
       objectReference: {fileID: 0}
     - target: {fileID: 4604969075026456, guid: 92172980b6cc57f48b85ae679a088eb8, type: 2}
       propertyPath: m_LocalRotation.x
@@ -279,6 +279,7 @@ MonoBehaviour:
   - {fileID: 100000, guid: 7d2a57ce5a5d872468761f0c1ebd12f2, type: 2}
   - {fileID: 100000, guid: 049e8d68e8c5185458036ff43ee644c7, type: 2}
   - {fileID: 100000, guid: 0476e50c33a88044baa2d564a75b656d, type: 2}
+  xmlPergamene: {fileID: 4900000, guid: 39c84a36190309243a4bcf4173328717, type: 3}
 --- !u!4 &678893741
 Transform:
   m_ObjectHideFlags: 0

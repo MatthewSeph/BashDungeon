@@ -1,0 +1,38 @@
+<bashdungeon>
+	
+	<pergamena>
+		<testo>Affianca al comando "ls" il parametro "-a" per visualizzare tutti gli oggetti all'interno della stanza, compresi quelli... invisibili!?</testo>
+	</pergamena>
+
+	<pergamena>
+		<testo>Scrivendo il comando "cd .." ti sposterai nella stanza adiacente più vicina a quella principale.</testo>
+	</pergamena>
+
+	<pergamena>
+		<testo>Affianca al comando "cd" il path della stanza nella quale desideri spostarti.\nEsempio:\nla stanza principale si trova al path "/".</testo>
+	</pergamena>
+
+	<pergamena>
+		<testo>Per spostare un oggetto presente nella tua stanza in un'altra è possibile utilizzare il comando "mv" seguito dal nome dell'oggetto da muovere e dal path della stanza scelta. Potresti non essere in grado di spostare tutto...</testo>
+	</pergamena>
+
+	<pergamena>
+		<testo>Per rimuovere alcuni oggetti puoi utilizzare il comando "rm" seguito dal nome dell'oggetto. Non potrai rimuovere tutto, e no, neanche gli npc.</testo>
+	</pergamena>
+
+	<pergamena>
+		<testo>Puoi unire alcuni oggetti utilizzando il comando "tar" seguito da "-cf" e dal nome degli oggetti che vuoi unire.</testo>
+	</pergamena>
+	<pergamena>
+		<testo>Puoi unire e comprimere alcuni oggetti utilizzando il comando "tar" seguito da "-zcf" e dal nome degli oggetti che vuoi unire e comprimere.</testo>
+	</pergamena>
+	
+	<pergamena>
+		<testo>Puoi separare gli oggetti contenuti in un archivio utilizzando il comando "tar" seguito da "-xf" e dal suo nome.</testo>
+	</pergamena>
+	
+	<pergamena>
+		<testo>Puoi separare gli oggetti contenuti in un archivio compresso utilizzando il comando "tar" seguito da "-zxf" e dal suo nome.</testo>
+	</pergamena>
+
+</bashdungeon>
