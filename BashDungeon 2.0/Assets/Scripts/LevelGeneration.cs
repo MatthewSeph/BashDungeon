@@ -20,6 +20,7 @@ public class LevelGeneration : MonoBehaviour
     List<Room> levelRooms = new List<Room>();
 
     public List<GameObject> LootPrefabs = new List<GameObject>();
+    public GameObject rootPrefab;
 
     public TextAsset xmlPergamene;
     string dataToParse;
@@ -406,6 +407,27 @@ public class LevelGeneration : MonoBehaviour
         roomsOrderByDistance[roomsOrderByDistance.Count - 1].oggetti.Add(oggetto3);
         oggettiCreati.Add(oggetto3);
         // Dovremo controllare la lista levelRooms e a seconda del tipo e della difficoltà del livello creare oggetti adeguati
+
+
+        //Scelgo una stanza e la prefab degli item che voglio inserirci
+        GameObject rootPrefabInstanziata = Instantiate(rootPrefab) as GameObject;
+        rootPrefabInstanziata.transform.parent = GameObject.Find("//").transform;
+        List<GameObject> itemsInPref = new List<GameObject>();
+
+        Transform[] allChildren = rootPrefabInstanziata.GetComponentsInChildren<Transform>(); //prendo tutti gli oggetti
+
+        foreach (Transform child in allChildren)
+        {
+            child.transform.parent = GameObject.Find("//").transform;
+            Oggetto item = new Oggetto(GetRoomByName(rootPrefabInstanziata.transform.parent.name), Regex.Replace(child.name, "[0-9]", ""));
+            item.IsMovable = false;
+            GetRoomByName(rootPrefabInstanziata.transform.parent.name).oggetti.Add(item);
+            child.name = item.nomeOggetto;
+        }
+
+       Destroy(rootPrefabInstanziata);
+
+        
     }
 
     void SpawnRandomPergamene(string xmlData)

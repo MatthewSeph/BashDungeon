@@ -8,6 +8,11 @@ public class ObjectPrefabSelector : MonoBehaviour {
     public GameObject archivio;
     public GameObject pergamena;
     public GameObject npc;
+    public GameObject tappeto;
+    public GameObject barile;
+    public GameObject tavolino;
+    public GameObject libreria;
+    public GameObject pozione;
 
     public GameObject PickObjectPrefab(string nomeOggetto)
     {
@@ -22,6 +27,29 @@ public class ObjectPrefabSelector : MonoBehaviour {
             return cassa;
         }
 
+        if (nomeOggetto.Contains("tappeto"))
+        {
+            return tappeto;
+        }
+        if (nomeOggetto.Contains("barile"))
+        {
+            return barile;
+        }
+        if (nomeOggetto.Contains("tavolino"))
+        {
+            return tavolino;
+        }
+
+        if (nomeOggetto.Contains("libreria"))
+        {
+            return libreria;
+        }
+
+        if (nomeOggetto.Contains("pozione"))
+        {
+            return pozione;
+        }
+
         if (nomeOggetto.Contains("pergamena"))
         {
             return pergamena;
@@ -31,6 +59,8 @@ public class ObjectPrefabSelector : MonoBehaviour {
         {
             return npc;
         }
+
+
 
 
         return null;
