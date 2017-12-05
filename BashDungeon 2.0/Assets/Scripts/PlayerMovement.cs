@@ -117,11 +117,12 @@ public class PlayerMovement : MonoBehaviour
                 mousePos.z = Camera.main.transform.position.y;
                 Vector3 clickedPosition = Camera.main.ScreenToWorldPoint(mousePos);
 
-                m_Agent.destination = clickedPosition;
+                
 
                 if (!gameManager.GetComponent<PlayManager>().IsMouseOverObj)
                 {
                     gameManager.GetComponent<PlayManager>().ClickedObject = null;
+                    m_Agent.destination = clickedPosition;
                 }
             }
         }

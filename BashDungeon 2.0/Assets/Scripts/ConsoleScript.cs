@@ -35,37 +35,42 @@ public class ConsoleScript : MonoBehaviour
 
     void Update()
     {
+        
         foreach (char c in Input.inputString)
         {
-            if (c == '\b')
+            if (!playerGO.GetComponent<PlayerMovement>().BlockedMovement)
             {
 
-                if (messaggio.Length != 0)
+                if (c == '\b')
                 {
-                    messaggio = messaggio.Substring(0, messaggio.Length - 1);
 
-                    if (textObj.text.Length != 0)
+                    if (messaggio.Length != 0)
                     {
-                        textObj.text = textObj.text.Substring(0, textObj.text.Length - 1);
+                        messaggio = messaggio.Substring(0, messaggio.Length - 1);
 
+                        if (textObj.text.Length != 0)
+                        {
+                            textObj.text = textObj.text.Substring(0, textObj.text.Length - 1);
+
+                        }
                     }
                 }
-            }
-            else if ((c == '\n') || (c == '\r'))
-            {
-                textObj.text += "\n";
+                else if ((c == '\n') || (c == '\r'))
+                {
+                    textObj.text += "\n";
 
-                SplitMessage(messaggio);
-                oldMessages.Insert(1, messaggio);
-                messaggio = "";
-                textObj.text += "User@linux:~$ ";
+                    SplitMessage(messaggio);
+                    oldMessages.Insert(1, messaggio);
+                    messaggio = "";
+                    textObj.text += "User@linux:~$ ";
 
-            }
+                }
 
-            else
-            {
-                textObj.text += c;
-                messaggio += c;
+                else
+                {
+                    textObj.text += c;
+                    messaggio += c;
+                }
             }
 
             CancellatoreDiRiga();

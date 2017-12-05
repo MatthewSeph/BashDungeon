@@ -161,25 +161,25 @@ Prefab:
       propertyPath: m_RootOrder
       value: 7
       objectReference: {fileID: 0}
-    - target: {fileID: 224901460742104188, guid: aacfba5b1b29b0b4dafe6420c7a4cc73,
-        type: 2}
-      propertyPath: m_LocalPosition.y
-      value: -1
-      objectReference: {fileID: 0}
-    - target: {fileID: 223883491555933868, guid: aacfba5b1b29b0b4dafe6420c7a4cc73,
-        type: 2}
-      propertyPath: m_Camera
-      value: 
-      objectReference: {fileID: 1986897930}
     - target: {fileID: 114759873568740788, guid: aacfba5b1b29b0b4dafe6420c7a4cc73,
         type: 2}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Target
       value: 
       objectReference: {fileID: 678893744}
+    - target: {fileID: 223883491555933868, guid: aacfba5b1b29b0b4dafe6420c7a4cc73,
+        type: 2}
+      propertyPath: m_Camera
+      value: 
+      objectReference: {fileID: 1986897930}
+    - target: {fileID: 224901460742104188, guid: aacfba5b1b29b0b4dafe6420c7a4cc73,
+        type: 2}
+      propertyPath: m_LocalPosition.y
+      value: -1
+      objectReference: {fileID: 0}
     - target: {fileID: 224954190049511054, guid: aacfba5b1b29b0b4dafe6420c7a4cc73,
         type: 2}
       propertyPath: m_LocalPosition.y
-      value: -125.00001
+      value: -124.999985
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: aacfba5b1b29b0b4dafe6420c7a4cc73, type: 2}
@@ -198,7 +198,7 @@ Prefab:
     m_Modifications:
     - target: {fileID: 4604969075026456, guid: 92172980b6cc57f48b85ae679a088eb8, type: 2}
       propertyPath: m_LocalPosition.x
-      value: -7.38
+      value: 3.45
       objectReference: {fileID: 0}
     - target: {fileID: 4604969075026456, guid: 92172980b6cc57f48b85ae679a088eb8, type: 2}
       propertyPath: m_LocalPosition.y
@@ -206,7 +206,7 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 4604969075026456, guid: 92172980b6cc57f48b85ae679a088eb8, type: 2}
       propertyPath: m_LocalPosition.z
-      value: 7.91
+      value: 5.86
       objectReference: {fileID: 0}
     - target: {fileID: 4604969075026456, guid: 92172980b6cc57f48b85ae679a088eb8, type: 2}
       propertyPath: m_LocalRotation.x
@@ -274,11 +274,10 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   player: {fileID: 225269724}
   LootPrefabs:
-  - {fileID: 100000, guid: 4a894a1d1a2f1334a8f7d9315830db3d, type: 2}
-  - {fileID: 100000, guid: aac30bb5ddf43cc4a82060a402507a13, type: 2}
-  - {fileID: 100000, guid: 7d2a57ce5a5d872468761f0c1ebd12f2, type: 2}
-  - {fileID: 100000, guid: 049e8d68e8c5185458036ff43ee644c7, type: 2}
-  - {fileID: 100000, guid: 0476e50c33a88044baa2d564a75b656d, type: 2}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
   rootPrefab: {fileID: 1399195080153628, guid: 0735d7fa7a7ea0844bf516994b13dc01, type: 2}
   xmlPergamene: {fileID: 4900000, guid: 39c84a36190309243a4bcf4173328717, type: 3}
 --- !u!4 &678893741

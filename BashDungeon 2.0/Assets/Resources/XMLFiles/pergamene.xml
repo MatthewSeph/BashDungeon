@@ -34,5 +34,25 @@
 	<pergamena>
 		<testo>Puoi separare gli oggetti contenuti in un archivio compresso utilizzando il comando "tar" seguito da "-zxf" e dal suo nome.</testo>
 	</pergamena>
+  
+  	<pergamenaTutorial>
+      <nome>Cd</nome>
+		<testo>Se vuoi spostarti in una stanza adiacente puoi usare il comando "cd" seguito dal suo nome.</testo>
+	</pergamenaTutorial>
+  
+  <pergamenaTutorial>
+    <nome>Ls</nome>
+		<testo>Utilizza il comando "ls" per vedere tutti gli oggetti e i personaggi della stanza in cui ti trovi.
+Il nome delle stanze adiacenti viene segnato in blu.. Sarà possibile potersi spostare in qualche modo?</testo>
+	</pergamenaTutorial>
+
+  <npc>
+    <nome>SirGiorgioNPC</nome>
+    <testoDialogo>Finalmente ti sei svegliato!
+Non ti ho mai visto da queste parti, io sono Sir Giorgio, piacere di conoscerti!
+Sembra che tu abbia battuto la testa, riesci a camminare? Lascia che ti aiuti, ti basta cliccare su un punto della stanza per spostarti.. 
+..e visto che ci sei puoi anche provare ad interagire con alcuni oggetti..
+..Per esempio, hai notato le pergamene qui in giro? Raggiungile e prova a leggerle!</testoDialogo>
+  </npc>
 
 </bashdungeon>

@@ -384,45 +384,64 @@ public class LevelGeneration : MonoBehaviour
 
     void OggettiNelleStanze()
     {
-        //Creo un oggetto in root per testing.
-        Oggetto oggetto = new Oggetto((roomsOrderByDistance[roomsOrderByDistance.Count - 1]), "cassa");
-        oggetto.IsMovable = true;
-        oggetto.IsRemovable = true;
-        roomsOrderByDistance[roomsOrderByDistance.Count - 1].oggetti.Add(oggetto);
-        oggettiCreati.Add(oggetto);
-        Oggetto oggetto1 = new Oggetto((roomsOrderByDistance[roomsOrderByDistance.Count - 1]), "cassa");
-        oggetto1.IsInvisible = true;
-        roomsOrderByDistance[roomsOrderByDistance.Count - 1].oggetti.Add(oggetto1);
-        oggettiCreati.Add(oggetto1);
-        Oggetto oggetto2 = new Oggetto((roomsOrderByDistance[roomsOrderByDistance.Count - 1]), "pergamena");
-        oggetto2.IsMovable = true;
-        oggetto2.IsTxt = true;
-        oggetto2.TestoTxT = "Il comando grep con c# e' un po' stronzetto con gli asterischi";
-        roomsOrderByDistance[roomsOrderByDistance.Count - 1].oggetti.Add(oggetto2);
-        oggettiCreati.Add(oggetto2);
-        Oggetto oggetto3 = new Oggetto((roomsOrderByDistance[roomsOrderByDistance.Count - 1]), "GianniNPC");
-        oggetto3.IsMovable = false;
-        oggetto3.IsNPC = true;
-        oggetto3.TestoTxT = "Ciao sono il tuo primo NPC :)\nOgni riga divisa da un 'a capo' verrà mostrata in un altro messaggio.\nNella riga finale il bottone chiude la dialogue Box... Fai una prova! ci si sente tra poco ^^";
-        roomsOrderByDistance[roomsOrderByDistance.Count - 1].oggetti.Add(oggetto3);
-        oggettiCreati.Add(oggetto3);
         // Dovremo controllare la lista levelRooms e a seconda del tipo e della difficoltà del livello creare oggetti adeguati
-
 
         //Scelgo una stanza e la prefab degli item che voglio inserirci
         GameObject rootPrefabInstanziata = Instantiate(rootPrefab) as GameObject;
         rootPrefabInstanziata.transform.parent = GameObject.Find("//").transform;
-        List<GameObject> itemsInPref = new List<GameObject>();
 
         Transform[] allChildren = rootPrefabInstanziata.GetComponentsInChildren<Transform>(); //prendo tutti gli oggetti
 
-        foreach (Transform child in allChildren)
+        foreach (Transform child in allChildren )
         {
-            child.transform.parent = GameObject.Find("//").transform;
-            Oggetto item = new Oggetto(GetRoomByName(rootPrefabInstanziata.transform.parent.name), Regex.Replace(child.name, "[0-9]", ""));
-            item.IsMovable = false;
-            GetRoomByName(rootPrefabInstanziata.transform.parent.name).oggetti.Add(item);
-            child.name = item.nomeOggetto;
+            if (!child.name.Contains("Prefab"))
+            {
+                child.transform.parent = GameObject.Find("//").transform;
+                Oggetto item = new Oggetto(GetRoomByName(rootPrefabInstanziata.transform.parent.name), Regex.Replace(child.name, "[0-9]", ""));
+                item.IsMovable = false;
+                GetRoomByName(rootPrefabInstanziata.transform.parent.name).oggetti.Add(item);
+                child.name = item.nomeOggetto;
+                if (child.name.Contains("NPC"))
+                {
+                    item.IsNPC = true;
+                    XmlDocument xmlDoc = new XmlDocument();
+                    xmlDoc.Load(new StringReader(xmlPergamene.text));
+
+                    string npcXmlPath = "//bashdungeon/npc";
+                    XmlNodeList listOfNPCStrings = xmlDoc.SelectNodes(npcXmlPath);
+                    foreach (XmlNode node in listOfNPCStrings)
+                    {
+
+                        if (child.name.Contains(node.FirstChild.InnerXml))
+                        {
+                            
+                            item.TestoTxT = node.LastChild.InnerXml;
+                            break;
+                        }
+                    }
+                }
+                if (child.name.Contains("pergamena") && !child.name.Contains("frammento"))
+                {
+                    item.IsTxt = true;
+
+                    XmlDocument xmlDoc = new XmlDocument();
+                    xmlDoc.Load(new StringReader(xmlPergamene.text));
+
+                    string npcXmlPath = "//bashdungeon/pergamenaTutorial";
+                    XmlNodeList listOfNPCStrings = xmlDoc.SelectNodes(npcXmlPath);
+                    foreach (XmlNode node in listOfNPCStrings)
+                    {
+
+                        if (child.name.Contains(node.FirstChild.InnerXml))
+                        {
+                            
+                            item.TestoTxT = node.LastChild.InnerXml;
+                            break;
+                        }
+                    }
+                }
+            }
+
         }
 
        Destroy(rootPrefabInstanziata);
@@ -490,12 +509,9 @@ public class LevelGeneration : MonoBehaviour
     void SpawnPlayer()
     {
 
-
         player.GetComponent<PlayerMovement>().currentRoom = roomsOrderByDistance[roomsOrderByDistance.Count - 1];
         player.transform.parent = (GameObject.Find("//").transform);
         player.transform.localPosition = player.transform.position;
-
-
     }
 
     public Room GetRoomByName(string name)

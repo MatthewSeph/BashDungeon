@@ -10,7 +10,6 @@ public class ObjectBehavior : MonoBehaviour {
    
     Color myColorAlphaZero;
     Color myColorFullAlpha;
-    Color emissiveColor = Color.white;
     public List<GameObject> oggettiArchiviati;
 
     GameObject gameManager;

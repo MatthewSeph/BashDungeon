@@ -27,14 +27,19 @@ public class PlayManager : MonoBehaviour
 
         set
         {
-            if (clickedObject != null)
+            if (!playerGO.GetComponent<PlayerMovement>().BlockedMovement)
             {
-                clickedObject.GetComponent<Renderer>().material.SetColor("_EmissionColor", Color.white * 0f);
-            }
-            clickedObject = value;
-            if (clickedObject != null)
-            {
-                clickedObject.GetComponent<Renderer>().material.SetColor("_EmissionColor", Color.white * 0.3f);
+                if (clickedObject != null)
+                {
+                    clickedObject.GetComponent<Renderer>().material.SetColor("_EmissionColor", Color.white * 0f);
+                }
+                clickedObject = value;
+                if (clickedObject != null)
+                {
+                    clickedObject.GetComponent<Renderer>().material.SetColor("_EmissionColor", Color.white * 0.3f);
+                    //nel caso l' oggetto sia vicino a un muro e dunque non "cliccabile" per muoversi setto la destinazione
+                    playerGO.GetComponent<NavMeshAgent>().destination = clickedObject.transform.position;
+                }
             }
         }
     }
@@ -60,7 +65,7 @@ public class PlayManager : MonoBehaviour
     private void Update()
     {
 
-        if (ClickedObject != null && Vector3.Distance(playerGO.transform.position, ClickedObject.transform.position) <= 2 && !pergamenaPanel.activeSelf && !dialoguePanel.activeSelf)
+        if (ClickedObject != null && Vector2.Distance(new Vector2(playerGO.transform.position.x, playerGO.transform.position.z), new Vector2(ClickedObject.transform.position.x, ClickedObject.transform.position.z)) <= 2 && !pergamenaPanel.activeSelf && !dialoguePanel.activeSelf)
         {
             if (playerGO.GetComponent<PlayerMovement>().currentRoom.oggetti.Find(x => x.nomeOggetto == ClickedObject.name).IsTxt)
             {
@@ -92,8 +97,8 @@ public class PlayManager : MonoBehaviour
 
     public void OnCloseDialogues()
     {
-        ClickedObject = null;
         playerGO.GetComponent<PlayerMovement>().BlockedMovement = false;
+        ClickedObject = null;
         dialoguePanel.SetActive(false);
         pergamenaPanel.SetActive(false);
     }
