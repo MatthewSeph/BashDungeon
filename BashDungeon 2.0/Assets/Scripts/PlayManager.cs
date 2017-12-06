@@ -164,10 +164,19 @@ public class PlayManager : MonoBehaviour
         }
         else
         {
-
-            playerGO.transform.GetChild(0).GetComponent<ParticleSystem>().Play();
-            StartCoroutine(ChangeRoomWithCooldown(3));
-
+            if (!playerGO.GetComponent<PlayerMovement>().TarghetRoom.IsLocked)
+            {
+                playerGO.transform.GetChild(0).GetComponent<ParticleSystem>().Play();
+                StartCoroutine(ChangeRoomWithCooldown(3));
+            }
+            else
+            {
+                playerGO.GetComponent<NavMeshAgent>().enabled = true;
+                dialoguePanel.SetActive(true);
+                dialogueText.GetComponent<DialogueController>().SetText("Non riesco a raggiungere la stanza, qualcosa blocca il mio teletrasporto..");
+                playerGO.GetComponent<PlayerMovement>().WantToChangeRoom = false;
+                playerGO.GetComponent<PlayerMovement>().TarghetRoom = null;
+            }
 
         }
 
@@ -185,12 +194,23 @@ public class PlayManager : MonoBehaviour
 
     public void ChangeRoom(Room targhetRoom)
     {
-        Room oldRoom = playerGO.GetComponent<PlayerMovement>().currentRoom;
-        playerGO.transform.parent = GameObject.Find("/" + targhetRoom.nomeStanza).transform;
-        playerGO.GetComponent<PlayerMovement>().currentRoom = targhetRoom;
-        GoToDoor(RoomDirection(playerGO.GetComponent<PlayerMovement>().currentRoom, oldRoom));
+        if (!targhetRoom.IsLocked)
+        {
+            Room oldRoom = playerGO.GetComponent<PlayerMovement>().currentRoom;
+            playerGO.transform.parent = GameObject.Find("/" + targhetRoom.nomeStanza).transform;
+            playerGO.GetComponent<PlayerMovement>().currentRoom = targhetRoom;
+            GoToDoor(RoomDirection(playerGO.GetComponent<PlayerMovement>().currentRoom, oldRoom));
 
-        Camera.main.transform.parent = GameObject.Find("/" + targhetRoom.nomeStanza).transform;
+            Camera.main.transform.parent = GameObject.Find("/" + targhetRoom.nomeStanza).transform;
+        }
+        else
+        {
+            playerGO.GetComponent<NavMeshAgent>().enabled = true;
+            dialoguePanel.SetActive(true);
+            dialogueText.GetComponent<DialogueController>().SetText("La porta sembra chiusa a chiave...");
+            playerGO.GetComponent<PlayerMovement>().WantToChangeRoom = false;
+            playerGO.GetComponent<PlayerMovement>().TarghetRoom = null;
+        }
     }
 
     IEnumerator ChangeRoomWithCooldown(int sec)

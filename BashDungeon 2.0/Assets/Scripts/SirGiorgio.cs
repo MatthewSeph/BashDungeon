@@ -85,10 +85,14 @@ public class SirGiorgio : MonoBehaviour {
             playerGO.GetComponent<PlayerMovement>().BlockedMovement = true;
             hasPlayerClickedLs = true;
         }
-        if (gameManager.GetComponent<PlayManager>().ClickedObject != null && gameManager.GetComponent<PlayManager>().ClickedObject.name == "pergamenaCd" && !hasPlayerClickedCd)
+        else if (gameManager.GetComponent<PlayManager>().ClickedObject != null && gameManager.GetComponent<PlayManager>().ClickedObject.name == "pergamenaCd" && !hasPlayerClickedCd)
         {
             playerGO.GetComponent<PlayerMovement>().BlockedMovement = true;
             hasPlayerClickedCd = true;
+        }
+        else if(gameManager.GetComponent<PlayManager>().ClickedObject == null || gameManager.GetComponent<PlayManager>().ClickedObject.name != "SirGiorgioNPC" && (!hasPlayerClickedLs || !hasPlayerClickedCd))
+        {
+            sirGiorgio.TestoTxT = "Su su, Sgranchisciti le gambe andando a leggere quelle pergamene!";
         }
 
         

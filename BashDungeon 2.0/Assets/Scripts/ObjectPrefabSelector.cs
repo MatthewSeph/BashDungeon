@@ -13,6 +13,11 @@ public class ObjectPrefabSelector : MonoBehaviour {
     public GameObject tavolino;
     public GameObject libreria;
     public GameObject pozione;
+    public GameObject chiave;
+
+    public GameObject defaultLevel;
+
+    public List<GameObject> level1Prefab;
 
     public GameObject PickObjectPrefab(string nomeOggetto)
     {
@@ -59,11 +64,28 @@ public class ObjectPrefabSelector : MonoBehaviour {
         {
             return npc;
         }
-
-
-
-
-        return null;
+        if (nomeOggetto.Contains("chiave"))
+        {
+            return chiave;
+        }
+        else
+        {
+            return pergamena;
+        }
     }
 
+    public GameObject PickLevelPrefab(int level)
+    {
+        GameObject chosenPrefab;
+
+        if (level == 1 && level1Prefab != null)
+        {
+            chosenPrefab = level1Prefab[Random.Range(0, level1Prefab.Count - 1)];
+        }
+        else
+        {
+            chosenPrefab = defaultLevel;
+        }
+        return chosenPrefab;
+    }
 }

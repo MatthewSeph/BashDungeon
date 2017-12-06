@@ -556,6 +556,11 @@ MonoBehaviour:
   tavolino: {fileID: 1178538568399236, guid: d39ec5d09ebc8674eb5bf655ef96cecf, type: 2}
   libreria: {fileID: 1333950752072448, guid: 56efc7f04a0b7964bbc74268d8924249, type: 2}
   pozione: {fileID: 1001271563851732, guid: ebdab390c80306e4fb12350ccfb03745, type: 2}
+  chiave: {fileID: 1426720764570674, guid: 03653f8df6f337a4d9d9f424dd038a1f, type: 2}
+  defaultLevel: {fileID: 1735468461804488, guid: ce78f0720de59bc42955fd8d3198229a,
+    type: 2}
+  level1Prefab:
+  - {fileID: 1735468461804488, guid: ce78f0720de59bc42955fd8d3198229a, type: 2}
 --- !u!1001 &710430593
 Prefab:
   m_ObjectHideFlags: 0

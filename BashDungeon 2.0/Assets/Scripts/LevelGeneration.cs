@@ -16,7 +16,7 @@ public class LevelGeneration : MonoBehaviour
     List<Room> roomsOrderByDistance = new List<Room>();
     List<Room> roomsWithNoChildren = new List<Room>();
     public GameObject player;
-    List<Oggetto> oggettiCreati = new List<Oggetto>();
+    public List<Oggetto> oggettiCreati = new List<Oggetto>();
     List<Room> levelRooms = new List<Room>();
 
     public List<GameObject> LootPrefabs = new List<GameObject>();
@@ -24,6 +24,7 @@ public class LevelGeneration : MonoBehaviour
 
     public TextAsset xmlPergamene;
     string dataToParse;
+    
 
     void Start()
     {
@@ -359,8 +360,9 @@ public class LevelGeneration : MonoBehaviour
                     roomsWithNoChildren[i].parentRoom.type = 2;
 
                     //Creo un oggetto nelle stanze-Livello tanto per vedere se funziona.. andrà rimosso e andrà fatto un controllo con il type della room.
-                    Oggetto oggetto = new Oggetto(roomsWithNoChildren[i].parentRoom, "cassa");
-                    roomsWithNoChildren[i].parentRoom.oggetti.Add(oggetto);
+                    Oggetto oggetto = new Oggetto(roomsWithNoChildren[i], "frammentoPergamena");
+                    oggetto.IsMovable = true;
+                    roomsWithNoChildren[i].oggetti.Add(oggetto);
                     oggettiCreati.Add(oggetto);
                 }
                 if (levelRooms.Count == 5)
@@ -384,67 +386,95 @@ public class LevelGeneration : MonoBehaviour
 
     void OggettiNelleStanze()
     {
+        int levelDifficoulty = LootPrefabs.Count;
         // Dovremo controllare la lista levelRooms e a seconda del tipo e della difficoltà del livello creare oggetti adeguati
-
-        //Scelgo una stanza e la prefab degli item che voglio inserirci
-        GameObject rootPrefabInstanziata = Instantiate(rootPrefab) as GameObject;
-        rootPrefabInstanziata.transform.parent = GameObject.Find("//").transform;
-
-        Transform[] allChildren = rootPrefabInstanziata.GetComponentsInChildren<Transform>(); //prendo tutti gli oggetti
-
-        foreach (Transform child in allChildren )
+        foreach(Room room in roomsOrderByDistance)
         {
-            if (!child.name.Contains("Prefab"))
+            Transform[] allChildren;
+            GameObject chosenPrefab;
+            
+            if (room.type == 1)
             {
-                child.transform.parent = GameObject.Find("//").transform;
-                Oggetto item = new Oggetto(GetRoomByName(rootPrefabInstanziata.transform.parent.name), Regex.Replace(child.name, "[0-9]", ""));
-                item.IsMovable = false;
-                GetRoomByName(rootPrefabInstanziata.transform.parent.name).oggetti.Add(item);
-                child.name = item.nomeOggetto;
-                if (child.name.Contains("NPC"))
-                {
-                    item.IsNPC = true;
-                    XmlDocument xmlDoc = new XmlDocument();
-                    xmlDoc.Load(new StringReader(xmlPergamene.text));
-
-                    string npcXmlPath = "//bashdungeon/npc";
-                    XmlNodeList listOfNPCStrings = xmlDoc.SelectNodes(npcXmlPath);
-                    foreach (XmlNode node in listOfNPCStrings)
-                    {
-
-                        if (child.name.Contains(node.FirstChild.InnerXml))
-                        {
-                            
-                            item.TestoTxT = node.LastChild.InnerXml;
-                            break;
-                        }
-                    }
-                }
-                if (child.name.Contains("pergamena") && !child.name.Contains("frammento"))
-                {
-                    item.IsTxt = true;
-
-                    XmlDocument xmlDoc = new XmlDocument();
-                    xmlDoc.Load(new StringReader(xmlPergamene.text));
-
-                    string npcXmlPath = "//bashdungeon/pergamenaTutorial";
-                    XmlNodeList listOfNPCStrings = xmlDoc.SelectNodes(npcXmlPath);
-                    foreach (XmlNode node in listOfNPCStrings)
-                    {
-
-                        if (child.name.Contains(node.FirstChild.InnerXml))
-                        {
-                            
-                            item.TestoTxT = node.LastChild.InnerXml;
-                            break;
-                        }
-                    }
-                }
+                chosenPrefab = rootPrefab;
+                
+            }
+            else if(room.type == 2)
+            {
+                chosenPrefab = gameObject.GetComponent<ObjectPrefabSelector>().PickLevelPrefab(levelDifficoulty);
+            }
+            else if(room.type == 0)
+            {
+                continue;
+            }
+            else
+            {
+                chosenPrefab = gameObject.GetComponent<ObjectPrefabSelector>().PickLevelPrefab(levelDifficoulty);
             }
 
-        }
+            GameObject prefabInstanziata = Instantiate(chosenPrefab) as GameObject;
+            prefabInstanziata.transform.parent = GameObject.Find("/" + room.nomeStanza).transform;
+            prefabInstanziata.transform.localPosition = prefabInstanziata.transform.position;
+            allChildren = prefabInstanziata.GetComponentsInChildren<Transform>(); //prendo tutti gli oggetti
 
-       Destroy(rootPrefabInstanziata);
+            foreach (Transform child in allChildren)
+            {
+                if (!child.name.Contains("Prefab"))
+                {
+                    child.transform.parent = GameObject.Find("/" + room.nomeStanza).transform;
+                    Oggetto item = new Oggetto(GetRoomByName(prefabInstanziata.transform.parent.name), Regex.Replace(child.name, "[0-9]", ""));
+                    item.IsMovable = false;
+                    GetRoomByName(prefabInstanziata.transform.parent.name).oggetti.Add(item);
+                    child.name = item.nomeOggetto;
+                    if (child.name.Contains("NPC"))
+                    {
+                        item.IsNPC = true;
+                        XmlDocument xmlDoc = new XmlDocument();
+                        xmlDoc.Load(new StringReader(xmlPergamene.text));
+
+                        string npcXmlPath = "//bashdungeon/npc";
+                        XmlNodeList listOfNPCStrings = xmlDoc.SelectNodes(npcXmlPath);
+                        foreach (XmlNode node in listOfNPCStrings)
+                        {
+
+                            if (child.name.Contains(node.FirstChild.InnerXml))
+                            {
+
+                                item.TestoTxT = node.LastChild.InnerXml;
+                                break;
+                            }
+                        }
+                    }
+                    if (child.name.Contains("pergamena") && !child.name.Contains("frammento"))
+                    {
+                        item.IsTxt = true;
+
+                        XmlDocument xmlDoc = new XmlDocument();
+                        xmlDoc.Load(new StringReader(xmlPergamene.text));
+
+                        string npcXmlPath = "//bashdungeon/pergamenaTutorial";
+                        XmlNodeList listOfNPCStrings = xmlDoc.SelectNodes(npcXmlPath);
+                        foreach (XmlNode node in listOfNPCStrings)
+                        {
+
+                            if (child.name.Contains(node.FirstChild.InnerXml))
+                            {
+
+                                item.TestoTxT = node.LastChild.InnerXml;
+                                break;
+                            }
+                        }
+                    }
+                }
+
+            }
+
+            Destroy(prefabInstanziata);
+            levelDifficoulty--;
+        }
+        
+        
+
+
 
         
     }

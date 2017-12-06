@@ -13,6 +13,8 @@ public class Room {
 
 	public bool doorTop = false, doorBot = false, doorLeft = false, doorRight = false;
 
+    bool isLocked = false;
+
 	public Room(Vector2 _gridPos, int _type){
 		gridPos = _gridPos;
 		type = _type;
@@ -27,7 +29,20 @@ public class Room {
         }
 	}
 
-	public Room GetParentRoom(){
+    public bool IsLocked
+    {
+        get
+        {
+            return isLocked;
+        }
+
+        set
+        {
+            isLocked = value;
+        }
+    }
+
+    public Room GetParentRoom(){
 		return this.parentRoom;
 	}
 

@@ -54,5 +54,14 @@ Sembra che tu abbia battuto la testa, riesci a camminare? Lascia che ti aiuti, t
 ..e visto che ci sei puoi anche provare ad interagire con alcuni oggetti..
 ..Per esempio, hai notato le pergamene qui in giro? Raggiungile e prova a leggerle!</testoDialogo>
   </npc>
+    
+  <npc>
+    <nome>keyNPC</nome>
+    <testoDialogo>La porta è bloccata..
+Non riesco a trovare la chiave, eppure ero sicuro stesse in questa stanza!
+Che fai li impalato? Aiutami a cercarla in giro, mentre io continuo a guardare qui dentro
+Se la vedi portala in questa stanza.
+</testoDialogo>
+  </npc>
 
 </bashdungeon>
