@@ -15,23 +15,86 @@ public class KeyNpc : MonoBehaviour {
     void Start () {
         playerGO = GameObject.Find("Player");
         gameManager = GameObject.Find("GameManager");
+        int chiaveRandom = Random.Range(0, 3);
 
-        Vector3 oggettoPosition = new Vector3();
-        Oggetto chiave = new Oggetto(gameManager.GetComponent<LevelGeneration>().RandomRoomNoLevelOrRoot(), "chiave");
-        chiave.IsMovable = true;
-        chiave.CurrentRoom.oggetti.Add(chiave);
-        GameObject selectedPrefab = gameManager.GetComponent<ObjectPrefabSelector>().PickObjectPrefab(Regex.Replace(chiave.nomeOggetto, "[0-9]", ""));
+        switch (chiaveRandom)
+        {
+            case 0:
+                {
+                    Vector3 oggettoPosition = new Vector3();
+                    Oggetto chiave = new Oggetto(gameManager.GetComponent<LevelGeneration>().RandomRoomNoLevelOrRoot(), "chiave");
+                    chiave.IsMovable = true;
+                    chiave.CurrentRoom.oggetti.Add(chiave);
+                    chiave.nomeOggetto += "Gigante";
+                    GameObject selectedPrefab = gameManager.GetComponent<ObjectPrefabSelector>().PickObjectPrefab(Regex.Replace(chiave.nomeOggetto, "[0-9]", ""));
 
-        GameObject oggettoIstanziato = Instantiate(selectedPrefab) as GameObject;
+                    GameObject oggettoIstanziato = Instantiate(selectedPrefab) as GameObject;
 
-        oggettoPosition.y = oggettoIstanziato.transform.position.y;
-        oggettoPosition.x = oggettoIstanziato.transform.position.x + (chiave.CurrentRoom.gridPos.x * 24);
-        oggettoPosition.z = oggettoIstanziato.transform.position.z + (chiave.CurrentRoom.gridPos.y * 24);
+                    oggettoPosition.y = oggettoIstanziato.transform.position.y;
+                    oggettoPosition.x = oggettoIstanziato.transform.position.x + (chiave.CurrentRoom.gridPos.x * 24);
+                    oggettoPosition.z = oggettoIstanziato.transform.position.z + (chiave.CurrentRoom.gridPos.y * 24);
 
-        oggettoIstanziato.transform.position = oggettoPosition;
+                    oggettoIstanziato.transform.position = oggettoPosition;
+                    oggettoIstanziato.transform.localScale *= 2;
+                    oggettoIstanziato.name = chiave.nomeOggetto;
+                    oggettoIstanziato.transform.parent = GameObject.Find("/" + chiave.CurrentRoom.nomeStanza).transform;
+                    break;
+                }
+            case 1:
+                {
+                    Vector3 oggettoPosition = new Vector3();
+                    Oggetto chiave = new Oggetto(gameManager.GetComponent<LevelGeneration>().RandomRoomNoLevelOrRoot(), "chiave");
+                    chiave.IsMovable = true;
+                    chiave.CurrentRoom.oggetti.Add(chiave);
+                    chiave.nomeOggetto += "Minuscola.tar.gz";
+                    chiave.IsTar = true;
+                    chiave.IsZip = true;
+                    
+                    GameObject selectedPrefab = gameManager.GetComponent<ObjectPrefabSelector>().PickObjectPrefab(Regex.Replace(chiave.nomeOggetto, "[0-9]", ""));
 
-        oggettoIstanziato.name = chiave.nomeOggetto;
-        oggettoIstanziato.transform.parent = GameObject.Find("/" + chiave.CurrentRoom.nomeStanza).transform;
+                    GameObject oggettoIstanziato = Instantiate(selectedPrefab) as GameObject;
+
+                    oggettoPosition.y = oggettoIstanziato.transform.position.y;
+                    oggettoPosition.x = oggettoIstanziato.transform.position.x + (chiave.CurrentRoom.gridPos.x * 24);
+                    oggettoPosition.z = oggettoIstanziato.transform.position.z + (chiave.CurrentRoom.gridPos.y * 24);
+
+                    oggettoIstanziato.transform.position = oggettoPosition;
+                    oggettoIstanziato.name = chiave.nomeOggetto;
+                    oggettoIstanziato.transform.parent = GameObject.Find("/" + chiave.CurrentRoom.nomeStanza).transform;
+                    oggettoIstanziato.GetComponent<ObjectBehavior>().oggettiGOArchiviati.Add(oggettoIstanziato);
+                    break;
+                }
+            case 2:
+                {
+
+                    for (int i = 0; i < 3; i++)
+                    {
+                        Vector3 oggettoPosition = new Vector3();
+                        Oggetto chiavePezzo = new Oggetto(gameManager.GetComponent<LevelGeneration>().RandomRoomNoLevelOrRoot(), "pezzoChiave"+i);
+                        chiavePezzo.IsMovable = true;
+                        chiavePezzo.CurrentRoom.oggetti.Add(chiavePezzo);
+                        
+
+                        GameObject selectedPrefab = gameManager.GetComponent<ObjectPrefabSelector>().PickObjectPrefab(chiavePezzo.nomeOggetto);
+
+                        GameObject oggettoIstanziato = Instantiate(selectedPrefab) as GameObject;
+
+                        oggettoPosition.y = oggettoIstanziato.transform.position.y;
+                        oggettoPosition.x = oggettoIstanziato.transform.position.x + (chiavePezzo.CurrentRoom.gridPos.x * 24);
+                        oggettoPosition.z = oggettoIstanziato.transform.position.z + (chiavePezzo.CurrentRoom.gridPos.y * 24);
+
+                        oggettoIstanziato.transform.position = oggettoPosition;
+ 
+                        oggettoIstanziato.name = chiavePezzo.nomeOggetto;
+                        oggettoIstanziato.transform.parent = GameObject.Find("/" + chiavePezzo.CurrentRoom.nomeStanza).transform;
+                        
+                    }
+                    break;
+                }
+
+        }
+
+       
     }
 	
 	// Update is called once per frame

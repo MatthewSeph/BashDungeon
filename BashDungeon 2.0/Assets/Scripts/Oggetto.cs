@@ -67,7 +67,7 @@ public class Oggetto
 
         set
         {
-            CurrentRoom = CurrentRoom;
+            //CurrentRoom = currentRoom;
             isActive = value;
         }
     }
@@ -121,6 +121,32 @@ public class Oggetto
         set
         {
             isNPC = value;
+        }
+    }
+
+    public bool IsZip
+    {
+        get
+        {
+            return isZip;
+        }
+
+        set
+        {
+            isZip = value;
+        }
+    }
+
+    public bool IsTar
+    {
+        get
+        {
+            return isTar;
+        }
+
+        set
+        {
+            isTar = value;
         }
     }
 

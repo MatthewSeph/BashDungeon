@@ -14,6 +14,9 @@ public class ObjectPrefabSelector : MonoBehaviour {
     public GameObject libreria;
     public GameObject pozione;
     public GameObject chiave;
+    public GameObject pezzoChiave0;
+    public GameObject pezzoChiave1;
+    public GameObject pezzoChiave2;
 
     public GameObject defaultLevel;
 
@@ -21,9 +24,25 @@ public class ObjectPrefabSelector : MonoBehaviour {
 
     public GameObject PickObjectPrefab(string nomeOggetto)
     {
+        if(nomeOggetto.Contains("pezzoChiave0"))
+        {
+            return pezzoChiave0;
+        }
+        if (nomeOggetto.Contains("pezzoChiave1"))
+        {
+            return pezzoChiave1;
+        }
+        if (nomeOggetto.Contains("pezzoChiave2"))
+        {
+            return pezzoChiave2;
+        }
 
         if (nomeOggetto.EndsWith(".tar") || nomeOggetto.EndsWith(".tar.gz"))
         {
+            if(nomeOggetto.Contains("chiave"))
+            {
+                return chiave;
+            }
             return archivio;
         }
 

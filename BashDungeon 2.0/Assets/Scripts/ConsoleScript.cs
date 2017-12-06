@@ -291,7 +291,7 @@ public class ConsoleScript : MonoBehaviour
         oggettoIstanziato.transform.parent = GameObject.Find("/" + oggetto.CurrentRoom.nomeStanza).transform;
         oggettoIstanziato.transform.position = spawnAtPosition;
         oggettoIstanziato.transform.name = oggetto.nomeOggetto;
-        oggettoIstanziato.GetComponent<ObjectBehavior>().oggettiArchiviati = oggettiContenuti;
+        oggettoIstanziato.GetComponent<ObjectBehavior>().oggettiGOArchiviati = oggettiContenuti;
 
     }
 
@@ -510,10 +510,10 @@ public class ConsoleScript : MonoBehaviour
                 if (playerGO.GetComponent<PlayerMovement>().currentRoom.oggetti.Exists(x => x.nomeOggetto == splittedMessage[2] && x.IsActive))
                 {
                     GameObject oggettoSelezionato = GameObject.Find("/" + playerGO.GetComponent<PlayerMovement>().currentRoom.nomeStanza + "/" + splittedMessage[2]);
-                    foreach (GameObject oggetto in oggettoSelezionato.GetComponent<ObjectBehavior>().oggettiArchiviati)
+                    foreach (GameObject oggetto in oggettoSelezionato.GetComponent<ObjectBehavior>().oggettiGOArchiviati)
                     {
                         oggetto.SetActive(true);
-                        playerGO.GetComponent<PlayerMovement>().currentRoom.oggetti.Find(x => x.nomeOggetto == oggetto.transform.name).IsActive = true;
+                        gameManager.GetComponent<LevelGeneration>().GetRoomByName(gameObject.transform.parent.name).oggetti.Find(x => x.nomeOggetto.Contains(Regex.Replace(oggetto.transform.name, "[0-9]", "")) && !x.IsActive).IsActive = true;
                     }
                     playerGO.GetComponent<PlayerMovement>().currentRoom.oggetti.Find(x => x.nomeOggetto == splittedMessage[2]).IsActive = false;
                     oggettoSelezionato.SetActive(false);
@@ -541,7 +541,7 @@ public class ConsoleScript : MonoBehaviour
                 if (playerGO.GetComponent<PlayerMovement>().currentRoom.oggetti.Exists(x => x.nomeOggetto == splittedMessage[2] && x.IsActive))
                 {
                     GameObject oggettoSelezionato = GameObject.Find("/" + playerGO.GetComponent<PlayerMovement>().currentRoom.nomeStanza + "/" + splittedMessage[2]);
-                    foreach (GameObject oggetto in oggettoSelezionato.GetComponent<ObjectBehavior>().oggettiArchiviati)
+                    foreach (GameObject oggetto in oggettoSelezionato.GetComponent<ObjectBehavior>().oggettiGOArchiviati)
                     {
                         oggetto.SetActive(true);
                         playerGO.GetComponent<PlayerMovement>().currentRoom.oggetti.Find(x => x.nomeOggetto == oggetto.transform.name).IsActive = true;
