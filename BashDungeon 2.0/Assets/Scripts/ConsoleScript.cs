@@ -283,11 +283,32 @@ public class ConsoleScript : MonoBehaviour
 
     void SpawnArchivio(string nomeOggetto, Vector3 spawnAtPosition, List<GameObject> oggettiContenuti)
     {
+        GameObject selectedPrefab;
+        bool isNormalTar = false;
         Oggetto oggetto = new Oggetto(playerGO.GetComponent<PlayerMovement>().currentRoom, nomeOggetto);
         playerGO.GetComponent<PlayerMovement>().currentRoom.oggetti.Add(oggetto);
-
-        GameObject selectedPrefab = gameManager.GetComponent<ObjectPrefabSelector>().PickObjectPrefab(Regex.Replace(nomeOggetto, "[0-9]", ""));
+        if (oggettiContenuti.Count == 3 && oggettiContenuti.FindAll(x => x.transform.name.Contains("pezzoChiave")).Count == 3)
+        {
+            selectedPrefab = gameManager.GetComponent<ObjectPrefabSelector>().PickObjectPrefab("chiave");
+        }
+        else
+        {
+            selectedPrefab = gameManager.GetComponent<ObjectPrefabSelector>().PickObjectPrefab(Regex.Replace(nomeOggetto, "[0-9]", ""));
+            isNormalTar = true;
+        }
+            
         GameObject oggettoIstanziato = Instantiate(selectedPrefab) as GameObject;
+        if(isNormalTar)
+        {
+            if (oggetto.nomeOggetto.EndsWith(".tar"))
+            {
+                oggetto.CanXF = true;
+            }
+            else if(oggetto.nomeOggetto.EndsWith(".tar.gz"))
+            {
+                oggetto.CanZXF = true;
+            }
+        }
         oggettoIstanziato.transform.parent = GameObject.Find("/" + oggetto.CurrentRoom.nomeStanza).transform;
         oggettoIstanziato.transform.position = spawnAtPosition;
         oggettoIstanziato.transform.name = oggetto.nomeOggetto;
@@ -496,9 +517,25 @@ public class ConsoleScript : MonoBehaviour
             {
                 if (CheckOggetti(splittedMessage, 3))
                 {
-                    Vector3 spawnTarPosition = gameManager.GetComponent<PlayManager>().CenterOfVectors(GetObjPositionList(splittedMessage));
-                    SpawnArchivio(splittedMessage[2], spawnTarPosition, GetGameObjectsList(splittedMessage, 3));
-                    RemoveOggetti(splittedMessage);
+                    bool canCF = true;
+                    foreach (GameObject go in GetGameObjectsList(splittedMessage, 3))
+                    {
+                        if(!playerGO.GetComponent<PlayerMovement>().currentRoom.oggetti.Find(x => x.nomeOggetto == go.transform.name).CanCF)
+                        {
+                            canCF = false;
+                            
+                        }
+                    }
+                    if (canCF)
+                    {
+                        Vector3 spawnTarPosition = gameManager.GetComponent<PlayManager>().CenterOfVectors(GetObjPositionList(splittedMessage));
+                        SpawnArchivio(splittedMessage[2], spawnTarPosition, GetGameObjectsList(splittedMessage, 3));
+                        RemoveOggetti(splittedMessage);
+                    }
+                    else
+                    {
+                        textObj.text += ("uno o più oggetti selezionati non possono venir archiviati" + "\n");
+                    }
                 }
                 else
                 {
@@ -507,16 +544,26 @@ public class ConsoleScript : MonoBehaviour
             }
             else if (splittedMessage.Length == 3 && splittedMessage[1] == "-xf" && splittedMessage[2].EndsWith(".tar"))
             {
-                if (playerGO.GetComponent<PlayerMovement>().currentRoom.oggetti.Exists(x => x.nomeOggetto == splittedMessage[2] && x.IsActive))
+                if (playerGO.GetComponent<PlayerMovement>().currentRoom.oggetti.Exists(x => x.nomeOggetto == splittedMessage[2] && x.IsActive ))
                 {
-                    GameObject oggettoSelezionato = GameObject.Find("/" + playerGO.GetComponent<PlayerMovement>().currentRoom.nomeStanza + "/" + splittedMessage[2]);
-                    foreach (GameObject oggetto in oggettoSelezionato.GetComponent<ObjectBehavior>().oggettiGOArchiviati)
+                    if (playerGO.GetComponent<PlayerMovement>().currentRoom.oggetti.Exists(x => x.nomeOggetto == splittedMessage[2] && x.CanXF))
                     {
-                        oggetto.SetActive(true);
-                        gameManager.GetComponent<LevelGeneration>().GetRoomByName(gameObject.transform.parent.name).oggetti.Find(x => x.nomeOggetto.Contains(Regex.Replace(oggetto.transform.name, "[0-9]", "")) && !x.IsActive).IsActive = true;
+                        playerGO.GetComponent<PlayerMovement>().currentRoom.oggetti.Find(x => x.nomeOggetto == splittedMessage[2]).IsActive = false;
+                        GameObject oggettoSelezionato = GameObject.Find("/" + playerGO.GetComponent<PlayerMovement>().currentRoom.nomeStanza + "/" + splittedMessage[2]);
+
+                        foreach (GameObject oggetto in oggettoSelezionato.GetComponent<ObjectBehavior>().oggettiGOArchiviati)
+                        {
+                            oggetto.SetActive(true);
+                            Debug.Log(gameObject.transform.parent.name + " " + oggetto.transform.name);
+                            gameManager.GetComponent<LevelGeneration>().GetRoomByName(oggettoSelezionato.transform.parent.name).oggetti.Find(x => x.nomeOggetto.Contains(Regex.Replace(oggetto.transform.name, "[0-9]", ""))).IsActive = true;
+                        }
+                        
+                        oggettoSelezionato.SetActive(false);
                     }
-                    playerGO.GetComponent<PlayerMovement>().currentRoom.oggetti.Find(x => x.nomeOggetto == splittedMessage[2]).IsActive = false;
-                    oggettoSelezionato.SetActive(false);
+                    else
+                    {
+                        textObj.text += ("l' oggetto non sembra un archivio..." + "\n");
+                    }
                 }
                 else
                 {
@@ -527,9 +574,24 @@ public class ConsoleScript : MonoBehaviour
             {
                 if (CheckOggetti(splittedMessage, 3))
                 {
-                    Vector3 spawnTarPosition = gameManager.GetComponent<PlayManager>().CenterOfVectors(GetObjPositionList(splittedMessage));
-                    SpawnArchivio(splittedMessage[2], spawnTarPosition, GetGameObjectsList(splittedMessage, 3));
-                    RemoveOggetti(splittedMessage);
+                    bool canCZF = true;
+                    foreach (GameObject go in GetGameObjectsList(splittedMessage, 3))
+                    {
+                        if (!playerGO.GetComponent<PlayerMovement>().currentRoom.oggetti.Find(x => x.nomeOggetto == go.transform.name).CanZCF)
+                        {
+                            canCZF = false;
+                        }
+                    }
+                    if (canCZF)
+                    {
+                        Vector3 spawnTarPosition = gameManager.GetComponent<PlayManager>().CenterOfVectors(GetObjPositionList(splittedMessage));
+                        SpawnArchivio(splittedMessage[2], spawnTarPosition, GetGameObjectsList(splittedMessage, 3));
+                        RemoveOggetti(splittedMessage);
+                    }
+                    else
+                    {
+                        textObj.text += ("uno o più oggetti selezionati non possono essere archiviati e compressi" + "\n");
+                    }
                 }
                 else
                 {
@@ -540,14 +602,24 @@ public class ConsoleScript : MonoBehaviour
             {
                 if (playerGO.GetComponent<PlayerMovement>().currentRoom.oggetti.Exists(x => x.nomeOggetto == splittedMessage[2] && x.IsActive))
                 {
-                    GameObject oggettoSelezionato = GameObject.Find("/" + playerGO.GetComponent<PlayerMovement>().currentRoom.nomeStanza + "/" + splittedMessage[2]);
-                    foreach (GameObject oggetto in oggettoSelezionato.GetComponent<ObjectBehavior>().oggettiGOArchiviati)
+                    if (playerGO.GetComponent<PlayerMovement>().currentRoom.oggetti.Exists(x => x.nomeOggetto == splittedMessage[2] && x.CanZXF))
                     {
-                        oggetto.SetActive(true);
-                        playerGO.GetComponent<PlayerMovement>().currentRoom.oggetti.Find(x => x.nomeOggetto == oggetto.transform.name).IsActive = true;
+                        GameObject oggettoSelezionato = GameObject.Find("/" + playerGO.GetComponent<PlayerMovement>().currentRoom.nomeStanza + "/" + splittedMessage[2]);
+                        playerGO.GetComponent<PlayerMovement>().currentRoom.oggetti.Find(x => x.nomeOggetto == splittedMessage[2]).IsActive = false;
+
+                        foreach (GameObject oggetto in oggettoSelezionato.GetComponent<ObjectBehavior>().oggettiGOArchiviati)
+                        {
+                            oggetto.SetActive(true);
+                            Debug.Log(Regex.Replace(oggetto.transform.name, "[0-9]", ""));
+                            gameManager.GetComponent<LevelGeneration>().GetRoomByName(oggettoSelezionato.transform.parent.name).oggetti.Find(x => x.nomeOggetto == oggetto.name).IsActive = true;
+                        }
+                        
+                        oggettoSelezionato.SetActive(false);
                     }
-                    playerGO.GetComponent<PlayerMovement>().currentRoom.oggetti.Find(x => x.nomeOggetto == splittedMessage[2]).IsActive = false;
-                    oggettoSelezionato.SetActive(false);
+                    else
+                    {
+                        textObj.text += ("non sembra essere un archivio compresso..." + "\n");
+                    }
                 }
                 else
                 {

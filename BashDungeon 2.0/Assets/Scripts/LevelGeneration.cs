@@ -12,7 +12,7 @@ public class LevelGeneration : MonoBehaviour
 
     Room[,] rooms;
     List<Vector2> takenPositions = new List<Vector2>();
-    int gridSizeX, gridSizeY, numberOfRooms = 25;
+    int gridSizeX, gridSizeY, numberOfRooms = 20;
     List<Room> roomsOrderByDistance = new List<Room>();
     List<Room> roomsWithNoChildren = new List<Room>();
     public GameObject player;
@@ -365,13 +365,13 @@ public class LevelGeneration : MonoBehaviour
                     roomsWithNoChildren[i].oggetti.Add(oggetto);
                     oggettiCreati.Add(oggetto);
                 }
-                if (levelRooms.Count == 5)
+                if (levelRooms.Count == 4)
                 {
                     break;
                 }
 
             }
-            if (levelRooms.Count < 5)
+            if (levelRooms.Count < 4)
             {
                 Debug.Log("Dungeon rigenerato per mancanza di ''stanze terminali'' utili");
                 SceneManager.LoadScene(SceneManager.GetActiveScene().name);

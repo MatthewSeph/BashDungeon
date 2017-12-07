@@ -184,6 +184,48 @@ Prefab:
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: aacfba5b1b29b0b4dafe6420c7a4cc73, type: 2}
   m_IsPrefabParent: 0
+--- !u!1001 &304917428
+Prefab:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    m_TransformParent: {fileID: 0}
+    m_Modifications:
+    - target: {fileID: 4246637541104708, guid: 561f7aaddf5aed74fb5618bd1ee01c2f, type: 2}
+      propertyPath: m_LocalPosition.x
+      value: -0.9
+      objectReference: {fileID: 0}
+    - target: {fileID: 4246637541104708, guid: 561f7aaddf5aed74fb5618bd1ee01c2f, type: 2}
+      propertyPath: m_LocalPosition.y
+      value: 4.470276
+      objectReference: {fileID: 0}
+    - target: {fileID: 4246637541104708, guid: 561f7aaddf5aed74fb5618bd1ee01c2f, type: 2}
+      propertyPath: m_LocalPosition.z
+      value: 0.31933832
+      objectReference: {fileID: 0}
+    - target: {fileID: 4246637541104708, guid: 561f7aaddf5aed74fb5618bd1ee01c2f, type: 2}
+      propertyPath: m_LocalRotation.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4246637541104708, guid: 561f7aaddf5aed74fb5618bd1ee01c2f, type: 2}
+      propertyPath: m_LocalRotation.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4246637541104708, guid: 561f7aaddf5aed74fb5618bd1ee01c2f, type: 2}
+      propertyPath: m_LocalRotation.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4246637541104708, guid: 561f7aaddf5aed74fb5618bd1ee01c2f, type: 2}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 4246637541104708, guid: 561f7aaddf5aed74fb5618bd1ee01c2f, type: 2}
+      propertyPath: m_RootOrder
+      value: 8
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+  m_ParentPrefab: {fileID: 100100000, guid: 561f7aaddf5aed74fb5618bd1ee01c2f, type: 2}
+  m_IsPrefabParent: 0
 --- !u!1 &389695163 stripped
 GameObject:
   m_PrefabParentObject: {fileID: 1545565393342274, guid: aacfba5b1b29b0b4dafe6420c7a4cc73,
@@ -556,8 +598,14 @@ MonoBehaviour:
   tavolino: {fileID: 1178538568399236, guid: d39ec5d09ebc8674eb5bf655ef96cecf, type: 2}
   libreria: {fileID: 1333950752072448, guid: 56efc7f04a0b7964bbc74268d8924249, type: 2}
   pozione: {fileID: 1001271563851732, guid: ebdab390c80306e4fb12350ccfb03745, type: 2}
-  chiave: {fileID: 1426720764570674, guid: 03653f8df6f337a4d9d9f424dd038a1f, type: 2}
-  defaultLevel: {fileID: 1735468461804488, guid: ce78f0720de59bc42955fd8d3198229a,
+  chiave: {fileID: 1298352425067810, guid: 03653f8df6f337a4d9d9f424dd038a1f, type: 2}
+  pezzoChiave0: {fileID: 1189437601422012, guid: 4a16fe9f3928c2241a9224e8250a84d8,
+    type: 2}
+  pezzoChiave1: {fileID: 1191395902582812, guid: 9e233d7892f4ea841b96f9cbba329c26,
+    type: 2}
+  pezzoChiave2: {fileID: 1605752762747068, guid: ea011fcaaafcca14abbac97b5b83b7df,
+    type: 2}
+  defaultLevel: {fileID: 1473213055824910, guid: 561f7aaddf5aed74fb5618bd1ee01c2f,
     type: 2}
   level1Prefab:
   - {fileID: 1735468461804488, guid: ce78f0720de59bc42955fd8d3198229a, type: 2}

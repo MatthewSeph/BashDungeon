@@ -26,6 +26,7 @@ public class KeyNpc : MonoBehaviour {
                     chiave.IsMovable = true;
                     chiave.CurrentRoom.oggetti.Add(chiave);
                     chiave.nomeOggetto += "Gigante";
+                    chiave.CanZCF = true;
                     GameObject selectedPrefab = gameManager.GetComponent<ObjectPrefabSelector>().PickObjectPrefab(Regex.Replace(chiave.nomeOggetto, "[0-9]", ""));
 
                     GameObject oggettoIstanziato = Instantiate(selectedPrefab) as GameObject;
@@ -43,25 +44,41 @@ public class KeyNpc : MonoBehaviour {
             case 1:
                 {
                     Vector3 oggettoPosition = new Vector3();
-                    Oggetto chiave = new Oggetto(gameManager.GetComponent<LevelGeneration>().RandomRoomNoLevelOrRoot(), "chiave");
+                    Room randomRoom = gameManager.GetComponent<LevelGeneration>().RandomRoomNoLevelOrRoot();
+                    Oggetto chiave = new Oggetto(randomRoom, "chiave");
+                    chiave.IsActive = false;
                     chiave.IsMovable = true;
                     chiave.CurrentRoom.oggetti.Add(chiave);
-                    chiave.nomeOggetto += "Minuscola.tar.gz";
-                    chiave.IsTar = true;
-                    chiave.IsZip = true;
-                    
-                    GameObject selectedPrefab = gameManager.GetComponent<ObjectPrefabSelector>().PickObjectPrefab(Regex.Replace(chiave.nomeOggetto, "[0-9]", ""));
 
-                    GameObject oggettoIstanziato = Instantiate(selectedPrefab) as GameObject;
+                    Oggetto chiaveMinuscola = new Oggetto(randomRoom, "chiave");
+                    chiaveMinuscola.IsMovable = true;
+                    chiaveMinuscola.CurrentRoom.oggetti.Add(chiaveMinuscola);
+                    chiaveMinuscola.nomeOggetto += "Minuscola.tar.gz";
+                    chiaveMinuscola.IsTar = true;
+                    chiaveMinuscola.IsZip = true;
+                    chiaveMinuscola.CanZXF = true;
 
-                    oggettoPosition.y = oggettoIstanziato.transform.position.y;
-                    oggettoPosition.x = oggettoIstanziato.transform.position.x + (chiave.CurrentRoom.gridPos.x * 24);
-                    oggettoPosition.z = oggettoIstanziato.transform.position.z + (chiave.CurrentRoom.gridPos.y * 24);
+                    GameObject selectedPrefab = gameManager.GetComponent<ObjectPrefabSelector>().PickObjectPrefab(Regex.Replace(chiaveMinuscola.nomeOggetto, "[0-9]", ""));
 
-                    oggettoIstanziato.transform.position = oggettoPosition;
-                    oggettoIstanziato.name = chiave.nomeOggetto;
-                    oggettoIstanziato.transform.parent = GameObject.Find("/" + chiave.CurrentRoom.nomeStanza).transform;
-                    oggettoIstanziato.GetComponent<ObjectBehavior>().oggettiGOArchiviati.Add(oggettoIstanziato);
+                    GameObject chiaveGO = Instantiate(selectedPrefab) as GameObject;
+                    GameObject chiaveMinuscolaGO = Instantiate(selectedPrefab) as GameObject;
+
+                    oggettoPosition.y = chiaveMinuscolaGO.transform.position.y;
+                    oggettoPosition.x = chiaveMinuscolaGO.transform.position.x + (chiaveMinuscola.CurrentRoom.gridPos.x * 24);
+                    oggettoPosition.z = chiaveMinuscolaGO.transform.position.z + (chiaveMinuscola.CurrentRoom.gridPos.y * 24);
+
+                    chiaveMinuscolaGO.transform.position = oggettoPosition;
+                    chiaveGO.transform.position = oggettoPosition;
+
+                    chiaveGO.name = chiave.nomeOggetto;
+                    chiaveMinuscolaGO.name = chiaveMinuscola.nomeOggetto;
+
+                    chiaveGO.transform.parent = GameObject.Find("/" + chiaveMinuscola.CurrentRoom.nomeStanza).transform;
+                    chiaveMinuscolaGO.transform.parent = GameObject.Find("/" + chiaveMinuscola.CurrentRoom.nomeStanza).transform;
+
+                    chiaveGO.SetActive(false);
+                    chiaveMinuscolaGO.transform.localScale = chiaveMinuscolaGO.transform.localScale/2;
+                    chiaveMinuscolaGO.GetComponent<ObjectBehavior>().oggettiGOArchiviati.Add(chiaveGO);
                     break;
                 }
             case 2:
@@ -70,12 +87,12 @@ public class KeyNpc : MonoBehaviour {
                     for (int i = 0; i < 3; i++)
                     {
                         Vector3 oggettoPosition = new Vector3();
-                        Oggetto chiavePezzo = new Oggetto(gameManager.GetComponent<LevelGeneration>().RandomRoomNoLevelOrRoot(), "pezzoChiave"+i);
+                        Oggetto chiavePezzo = new Oggetto(gameManager.GetComponent<LevelGeneration>().RandomRoomNoLevelOrRoot(), "pezzoChiave");
                         chiavePezzo.IsMovable = true;
                         chiavePezzo.CurrentRoom.oggetti.Add(chiavePezzo);
-                        
+                        chiavePezzo.CanCF = true;
 
-                        GameObject selectedPrefab = gameManager.GetComponent<ObjectPrefabSelector>().PickObjectPrefab(chiavePezzo.nomeOggetto);
+                        GameObject selectedPrefab = gameManager.GetComponent<ObjectPrefabSelector>().PickObjectPrefab(chiavePezzo.nomeOggetto + i);
 
                         GameObject oggettoIstanziato = Instantiate(selectedPrefab) as GameObject;
 
@@ -115,9 +132,9 @@ public class KeyNpc : MonoBehaviour {
         }
         else if (roomLocked)
         {
-            if(keyNPC.CurrentRoom.oggetti.Find(x => x.nomeOggetto.Contains("chiave"))!=null)
+            if(keyNPC.CurrentRoom.oggetti.Find(x => x.nomeOggetto == "chiave")!=null)
             {
-                Oggetto chiave = keyNPC.CurrentRoom.oggetti.Find(x => x.nomeOggetto.Contains("chiave"));
+                Oggetto chiave = keyNPC.CurrentRoom.oggetti.Find(x => x.nomeOggetto == "chiave");
                 GameObject chiaveObj = GameObject.Find("/" + keyNPC.CurrentRoom.nomeStanza +"/"+chiave.nomeOggetto);
                 Destroy(chiaveObj);
                 keyNPC.CurrentRoom.oggetti.Remove(chiave);

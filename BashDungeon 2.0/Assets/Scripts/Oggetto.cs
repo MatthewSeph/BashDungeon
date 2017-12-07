@@ -12,6 +12,8 @@ public class Oggetto
     string testoTxT;
     bool isActive = true;
 
+    bool canCF = false, canXF = false, canZCF = false, canZXF = false;
+
     public Room CurrentRoom
     {
         get
@@ -26,7 +28,9 @@ public class Oggetto
 
             if (currentRoom.oggetti.FindAll(x => x.nomeOggetto.Contains(nomeOggetto) && x.IsActive).Count >= 1)
             {
+                
                 this.nomeOggetto = currentRoom.oggetti.FindAll(x => x.nomeOggetto.Contains(nomeOggetto) && x.IsActive).Count + nomeOggetto;
+                Debug.Log(this.nomeOggetto);
             }
         }
     }
@@ -146,7 +150,68 @@ public class Oggetto
 
         set
         {
+            if(nomeOggetto.EndsWith(".tar"))
+            {
+                CanXF = true;
+            }
+            else if(nomeOggetto.EndsWith(".tar.gz"))
+            {
+                CanZXF = true;
+            }
+                
             isTar = value;
+        }
+    }
+
+    public bool CanCF
+    {
+        get
+        {
+            return canCF;
+        }
+
+        set
+        {
+            canCF = value;
+        }
+    }
+
+    public bool CanZCF
+    {
+        get
+        {
+            return canZCF;
+        }
+
+        set
+        {
+            canZCF = value;
+        }
+    }
+
+    public bool CanZXF
+    {
+        get
+        {
+            return canZXF;
+        }
+
+        set
+        {
+            canZXF = value;
+        }
+    }
+
+    public bool CanXF
+    {
+        get
+        {
+            return canXF;
+        }
+
+        set
+        {
+            canXF = value;
         }
     }
 

@@ -78,12 +78,27 @@ public class ObjectBehavior : MonoBehaviour {
         {
             if(oggettiGOArchiviati[0].transform.name.Contains("Gigante") && IsBeingCompressed)
             {
-                Oggetto thisOggetto = gameManager.GetComponent<LevelGeneration>().GetRoomByName(gameObject.transform.parent.name).oggetti.Find(x => x.nomeOggetto.Contains(gameObject.transform.name));
-                thisOggetto.nomeOggetto.Replace(".tar.gz", "");
+                Oggetto thisOggetto = gameManager.GetComponent<LevelGeneration>().GetRoomByName(gameObject.transform.parent.name).oggetti.Find(x => x.nomeOggetto.Contains(gameObject.transform.name) && x.IsActive);
+                thisOggetto.nomeOggetto = thisOggetto.nomeOggetto.Replace(".tar.gz", "");
+                thisOggetto.IsMovable = true;
                 thisOggetto.IsTar = false;
                 gameObject.transform.name = gameObject.transform.name.Replace(".tar.gz", "");
                 oggettiGOArchiviati.Remove(oggettiGOArchiviati[0]);
             }
+        }
+        else if(oggettiGOArchiviati.Count == 3 && oggettiGOArchiviati.FindAll(x => x.transform.name.Contains("pezzoChiave")).Count == 3)
+        {
+            foreach(GameObject go in oggettiGOArchiviati)
+            {
+                gameManager.GetComponent<LevelGeneration>().GetRoomByName(gameObject.transform.parent.name).oggetti.Find(x => x.nomeOggetto == go.name).IsActive = false;
+            }
+            Oggetto thisOggetto = gameManager.GetComponent<LevelGeneration>().GetRoomByName(gameObject.transform.parent.name).oggetti.Find(x => x.nomeOggetto.Contains(gameObject.transform.name) && x.IsActive);
+            thisOggetto.nomeOggetto = "chiave";
+            thisOggetto.IsMovable = true;
+            thisOggetto.IsTar = false;
+            gameObject.transform.name = "chiave";
+
+            oggettiGOArchiviati.Clear();
         }
     }
 

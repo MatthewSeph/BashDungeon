@@ -39,10 +39,6 @@ public class ObjectPrefabSelector : MonoBehaviour {
 
         if (nomeOggetto.EndsWith(".tar") || nomeOggetto.EndsWith(".tar.gz"))
         {
-            if(nomeOggetto.Contains("chiave"))
-            {
-                return chiave;
-            }
             return archivio;
         }
 
