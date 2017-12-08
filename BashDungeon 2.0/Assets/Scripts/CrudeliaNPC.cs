@@ -77,8 +77,9 @@ public class CrudeliaNPC : MonoBehaviour {
             lootRoom.IsLocked = false;
         }
 
-        else if (gameManager.GetComponent<PlayManager>().ClickedObject == null || gameManager.GetComponent<PlayManager>().ClickedObject.name != "CrudelioDeMonNPC" && cuccioliTrovati == 3 && !lootRoom.IsLocked)
+        else if (gameManager.GetComponent<PlayManager>().ClickedObject != null && gameManager.GetComponent<PlayManager>().ClickedObject.name != "CrudelioDeMonNPC" && cuccioliTrovati == 3 && !lootRoom.IsLocked)
         {
+            crudelioNPC.CurrentRoom.oggetti.Remove(crudelioNPC);
             Destroy(gameObject);
         }
     }
