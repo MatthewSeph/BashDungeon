@@ -90,6 +90,7 @@ public class PlayerMovement : MonoBehaviour
         {
             anim.SetFloat("MoveSpeed", 0f);
             m_Agent.ResetPath();
+            TargetPosition = transform.position;
         }
         else if ((transform.position.x != m_Agent.destination.x) || (transform.position.z != m_Agent.destination.z) && !m_Agent.pathPending && m_Agent.hasPath) //Can move and is moving
         {

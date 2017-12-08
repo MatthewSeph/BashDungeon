@@ -8,7 +8,7 @@ public class ObjectBehavior : MonoBehaviour {
     bool isBeingCompressed;
     bool isVisible;
 
-    GameObject playerGO;
+    //GameObject playerGO;
    
     Color myColorAlphaZero;
     Color myColorFullAlpha;
@@ -32,7 +32,7 @@ public class ObjectBehavior : MonoBehaviour {
 
     void Start()
     {
-        playerGO = GameObject.FindGameObjectWithTag("Player");
+        //playerGO = GameObject.FindGameObjectWithTag("Player");
         transform.GetComponent<MeshRenderer>().material.EnableKeyword("_EMISSION");
         myColorAlphaZero = transform.GetComponent<MeshRenderer>().material.color;
         myColorAlphaZero.a = 0;
@@ -44,12 +44,16 @@ public class ObjectBehavior : MonoBehaviour {
 
     private void Update()
     {
+        if (transform.name.Contains("."))
+        {
+            isVisible = false;
+        }
 
         if (!isVisible)
         {
             if (transform.name.Contains(".") && !isMadeVisible)
             {
-
+                isVisible = false;
                 transform.GetComponent<MeshRenderer>().material.color = myColorAlphaZero;
             }
             else if (transform.name.Contains(".") && isMadeVisible)

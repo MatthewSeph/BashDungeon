@@ -7,7 +7,7 @@ public class SirGiorgio : MonoBehaviour {
     GameObject gameManager;
     GameObject playerGO;
     GameObject consoleView;
-    public GameObject dialogueView;
+   // public GameObject dialogueView;
     Oggetto sirGiorgio;
 
     bool hasPlayerClickedLs = false;

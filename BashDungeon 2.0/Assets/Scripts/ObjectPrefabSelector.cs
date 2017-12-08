@@ -17,14 +17,21 @@ public class ObjectPrefabSelector : MonoBehaviour {
     public GameObject pezzoChiave0;
     public GameObject pezzoChiave1;
     public GameObject pezzoChiave2;
+    public GameObject cuccioloNascosto;
 
     public GameObject defaultLevel;
 
     public List<GameObject> level1Prefab;
+    public List<GameObject> level2Prefab;
+    public List<GameObject> level3Prefab;
 
     public GameObject PickObjectPrefab(string nomeOggetto)
     {
-        if(nomeOggetto.Contains("pezzoChiave0"))
+        if (nomeOggetto.Contains("cuccioloNascosto"))
+        {
+            return cuccioloNascosto;
+        }
+        if (nomeOggetto.Contains("pezzoChiave0"))
         {
             return pezzoChiave0;
         }
@@ -35,6 +42,11 @@ public class ObjectPrefabSelector : MonoBehaviour {
         if (nomeOggetto.Contains("pezzoChiave2"))
         {
             return pezzoChiave2;
+        }
+
+        if (nomeOggetto.Contains("chiave"))
+        {
+            return chiave;
         }
 
         if (nomeOggetto.EndsWith(".tar") || nomeOggetto.EndsWith(".tar.gz"))
@@ -79,10 +91,7 @@ public class ObjectPrefabSelector : MonoBehaviour {
         {
             return npc;
         }
-        if (nomeOggetto.Contains("chiave"))
-        {
-            return chiave;
-        }
+
         else
         {
             return pergamena;
@@ -96,6 +105,14 @@ public class ObjectPrefabSelector : MonoBehaviour {
         if (level == 1 && level1Prefab != null)
         {
             chosenPrefab = level1Prefab[Random.Range(0, level1Prefab.Count - 1)];
+        }
+        else if (level == 2 && level2Prefab != null)
+        {
+            chosenPrefab = level2Prefab[Random.Range(0, level2Prefab.Count - 1)];
+        }
+        else if (level == 3 && level3Prefab != null)
+        {
+            chosenPrefab = level3Prefab[Random.Range(0, level3Prefab.Count - 1)];
         }
         else
         {

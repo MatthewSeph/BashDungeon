@@ -184,48 +184,6 @@ Prefab:
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: aacfba5b1b29b0b4dafe6420c7a4cc73, type: 2}
   m_IsPrefabParent: 0
---- !u!1001 &304917428
-Prefab:
-  m_ObjectHideFlags: 0
-  serializedVersion: 2
-  m_Modification:
-    m_TransformParent: {fileID: 0}
-    m_Modifications:
-    - target: {fileID: 4246637541104708, guid: 561f7aaddf5aed74fb5618bd1ee01c2f, type: 2}
-      propertyPath: m_LocalPosition.x
-      value: -0.9
-      objectReference: {fileID: 0}
-    - target: {fileID: 4246637541104708, guid: 561f7aaddf5aed74fb5618bd1ee01c2f, type: 2}
-      propertyPath: m_LocalPosition.y
-      value: 4.470276
-      objectReference: {fileID: 0}
-    - target: {fileID: 4246637541104708, guid: 561f7aaddf5aed74fb5618bd1ee01c2f, type: 2}
-      propertyPath: m_LocalPosition.z
-      value: 0.31933832
-      objectReference: {fileID: 0}
-    - target: {fileID: 4246637541104708, guid: 561f7aaddf5aed74fb5618bd1ee01c2f, type: 2}
-      propertyPath: m_LocalRotation.x
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 4246637541104708, guid: 561f7aaddf5aed74fb5618bd1ee01c2f, type: 2}
-      propertyPath: m_LocalRotation.y
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 4246637541104708, guid: 561f7aaddf5aed74fb5618bd1ee01c2f, type: 2}
-      propertyPath: m_LocalRotation.z
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 4246637541104708, guid: 561f7aaddf5aed74fb5618bd1ee01c2f, type: 2}
-      propertyPath: m_LocalRotation.w
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 4246637541104708, guid: 561f7aaddf5aed74fb5618bd1ee01c2f, type: 2}
-      propertyPath: m_RootOrder
-      value: 8
-      objectReference: {fileID: 0}
-    m_RemovedComponents: []
-  m_ParentPrefab: {fileID: 100100000, guid: 561f7aaddf5aed74fb5618bd1ee01c2f, type: 2}
-  m_IsPrefabParent: 0
 --- !u!1 &389695163 stripped
 GameObject:
   m_PrefabParentObject: {fileID: 1545565393342274, guid: aacfba5b1b29b0b4dafe6420c7a4cc73,
@@ -605,10 +563,16 @@ MonoBehaviour:
     type: 2}
   pezzoChiave2: {fileID: 1605752762747068, guid: ea011fcaaafcca14abbac97b5b83b7df,
     type: 2}
+  cuccioloNascosto: {fileID: 1865249467187760, guid: 206305e4f74d7b941b0d17206cf35ace,
+    type: 2}
   defaultLevel: {fileID: 1473213055824910, guid: 561f7aaddf5aed74fb5618bd1ee01c2f,
     type: 2}
   level1Prefab:
   - {fileID: 1735468461804488, guid: ce78f0720de59bc42955fd8d3198229a, type: 2}
+  level2Prefab:
+  - {fileID: 1032072482216298, guid: fa4dae52a320b574cb0dd883b9ad25fe, type: 2}
+  level3Prefab:
+  - {fileID: 1870674216020474, guid: 1d2bd6d046f7a9844bd53908ad06d972, type: 2}
 --- !u!1001 &710430593
 Prefab:
   m_ObjectHideFlags: 0

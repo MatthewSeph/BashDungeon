@@ -65,7 +65,7 @@ public class PlayManager : MonoBehaviour
     private void Update()
     {
 
-        if (ClickedObject != null && Vector2.Distance(new Vector2(playerGO.transform.position.x, playerGO.transform.position.z), new Vector2(ClickedObject.transform.position.x, ClickedObject.transform.position.z)) <= 2 && !pergamenaPanel.activeSelf && !dialoguePanel.activeSelf)
+        if (ClickedObject != null && Vector2.Distance(new Vector2(playerGO.transform.position.x, playerGO.transform.position.z), new Vector2(ClickedObject.transform.position.x, ClickedObject.transform.position.z)) <= 2.5f && !pergamenaPanel.activeSelf && !dialoguePanel.activeSelf)
         {
             if (playerGO.GetComponent<PlayerMovement>().currentRoom.oggetti.Find(x => x.nomeOggetto == ClickedObject.name).IsTxt)
             {
@@ -92,6 +92,11 @@ public class PlayManager : MonoBehaviour
                 playerGO.GetComponent<NavMeshAgent>().ResetPath();
 
             }
+        }
+        else if(ClickedObject != null && Vector2.Distance(new Vector2(playerGO.transform.position.x, playerGO.transform.position.z), new Vector2(ClickedObject.transform.position.x, ClickedObject.transform.position.z)) > 2.5f && !playerGO.GetComponent<NavMeshAgent>().hasPath)
+        {
+            dialoguePanel.SetActive(true);
+            dialogueText.GetComponent<DialogueController>().SetText("Che nervoso, non riesco a raggiungerlo !");
         }
     }
 
@@ -207,7 +212,7 @@ public class PlayManager : MonoBehaviour
         {
             playerGO.GetComponent<NavMeshAgent>().enabled = true;
             dialoguePanel.SetActive(true);
-            dialogueText.GetComponent<DialogueController>().SetText("La porta sembra chiusa a chiave...");
+            dialogueText.GetComponent<DialogueController>().SetText("Non riesco ad entrare..");
             playerGO.GetComponent<PlayerMovement>().WantToChangeRoom = false;
             playerGO.GetComponent<PlayerMovement>().TarghetRoom = null;
         }

@@ -5,10 +5,6 @@
 	</pergamena>
 
 	<pergamena>
-		<testo>Scrivendo il comando "cd .." ti sposterai nella stanza adiacente più vicina a quella principale.</testo>
-	</pergamena>
-
-	<pergamena>
 		<testo>Affianca al comando "cd" il path della stanza nella quale desideri spostarti.\nEsempio:\nla stanza principale si trova al path "/".</testo>
 	</pergamena>
 
@@ -37,7 +33,10 @@
   
   	<pergamenaTutorial>
       <nome>Cd</nome>
-		<testo>Se vuoi spostarti in una stanza adiacente puoi usare il comando "cd" seguito dal suo nome.</testo>
+		<testo>
+      Se vuoi spostarti in una stanza adiacente puoi usare il comando "cd" seguito dal suo nome.
+      Scrivendo il comando "cd .." ti sposterai nella stanza adiacente più vicina a quella principale.
+    </testo>
 	</pergamenaTutorial>
   
   <pergamenaTutorial>
@@ -61,6 +60,14 @@ Sembra che tu abbia battuto la testa, riesci a camminare? Lascia che ti aiuti, t
 Non riesco a trovare la chiave, eppure ero sicuro stesse in questa stanza!
 Che fai li impalato? Aiutami a cercarla in giro, mentre io continuo a guardare qui dentro
 Se la vedi portala in questa stanza.</testoDialogo>
+  </npc>
+  
+  <npc>
+    <nome>CrudelioDeMonNPC</nome>
+    <testoDialogo>Alcuni dei miei cappot... cuccioli sono scappati.
+Ho già controllato la stanza qui vicino, era vuota e dunque l' ho chiusa.. Sai, per restringere il campo di ricerca..
+Come? ti serve entrarci? Fortunatamente il sottoscritto Crudelio De Mon è dell' umore adatto.
+Porta qui le pellicce di quei cagn.....olini.. e ti aprirò la porta ;)</testoDialogo>
   </npc>
 
 </bashdungeon>

@@ -358,7 +358,7 @@ public class LevelGeneration : MonoBehaviour
                 {
                     levelRooms.Add(roomsWithNoChildren[i].parentRoom);
                     roomsWithNoChildren[i].parentRoom.type = 2;
-
+                    roomsWithNoChildren[i].type = 3;
                     //Creo un oggetto nelle stanze-Livello tanto per vedere se funziona.. andrà rimosso e andrà fatto un controllo con il type della room.
                     Oggetto oggetto = new Oggetto(roomsWithNoChildren[i], "frammentoPergamena");
                     oggetto.IsMovable = true;
@@ -408,12 +408,45 @@ public class LevelGeneration : MonoBehaviour
             }
             else
             {
-                chosenPrefab = gameObject.GetComponent<ObjectPrefabSelector>().PickLevelPrefab(levelDifficoulty);
+                continue;
             }
 
             GameObject prefabInstanziata = Instantiate(chosenPrefab) as GameObject;
             prefabInstanziata.transform.parent = GameObject.Find("/" + room.nomeStanza).transform;
             prefabInstanziata.transform.localPosition = prefabInstanziata.transform.position;
+
+            if (room.type == 2)
+            {
+                Room lootRoom = null;
+
+                foreach(Room childrenRoom in room.childrenRooms)
+                {
+                    if(childrenRoom.type == 3)
+                    {
+                        lootRoom = childrenRoom;
+                        
+                    }
+
+                }
+
+                if (lootRoom != null)
+                {
+                    Vector2 rotationDirection = gameObject.GetComponent<PlayManager>().RoomDirection(room, lootRoom);
+                    if(rotationDirection == Vector2.right)
+                    {
+                        prefabInstanziata.transform.Rotate(new Vector3(0, 90, 0));
+                    }
+                    else if(rotationDirection == Vector2.down)
+                    {
+                        prefabInstanziata.transform.Rotate(new Vector3(0, 180, 0));
+                    }
+                    else if (rotationDirection == Vector2.left)
+                    {
+                        prefabInstanziata.transform.Rotate(new Vector3(0, 270, 0));
+                    }
+
+                }
+            }
             allChildren = prefabInstanziata.GetComponentsInChildren<Transform>(); //prendo tutti gli oggetti
 
             foreach (Transform child in allChildren)
@@ -464,12 +497,20 @@ public class LevelGeneration : MonoBehaviour
                             }
                         }
                     }
+                    if(child.name.Contains("Eliminabile") && room.type == 2)
+                    {
+                        item.IsRemovable = true;
+
+                    }
                 }
 
             }
 
             Destroy(prefabInstanziata);
-            levelDifficoulty--;
+            if (room.type == 2)
+            {
+                levelDifficoulty--;
+            }
         }
         
         
