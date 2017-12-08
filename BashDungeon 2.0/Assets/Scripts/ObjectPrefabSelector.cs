@@ -24,7 +24,6 @@ public class ObjectPrefabSelector : MonoBehaviour {
     public List<GameObject> level1Prefab;
     public List<GameObject> level2Prefab;
     public List<GameObject> level3Prefab;
-    public List<GameObject> level4Prefab;
 
     public GameObject PickObjectPrefab(string nomeOggetto)
     {
@@ -103,21 +102,17 @@ public class ObjectPrefabSelector : MonoBehaviour {
     {
         GameObject chosenPrefab;
 
-        if (level == 0 && level1Prefab != null)
+        if (level == 1 && level1Prefab != null)
         {
-            chosenPrefab = level1Prefab[Random.Range(0, level1Prefab.Count)];
+            chosenPrefab = level1Prefab[Random.Range(0, level1Prefab.Count - 1)];
         }
-        else if (level == 1 && level2Prefab != null)
+        else if (level == 2 && level2Prefab != null)
         {
-            chosenPrefab = level2Prefab[Random.Range(0, level2Prefab.Count)];
+            chosenPrefab = level2Prefab[Random.Range(0, level2Prefab.Count - 1)];
         }
-        else if (level == 2 && level3Prefab != null)
+        else if (level == 3 && level3Prefab != null)
         {
-            chosenPrefab = level3Prefab[Random.Range(0, level3Prefab.Count)];
-        }
-        else if (level == 3 && level4Prefab != null)
-        {
-            chosenPrefab = level4Prefab[Random.Range(0, level4Prefab.Count)];
+            chosenPrefab = level3Prefab[Random.Range(0, level3Prefab.Count - 1)];
         }
         else
         {

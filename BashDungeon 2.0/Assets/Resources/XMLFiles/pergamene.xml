@@ -44,20 +44,6 @@
 		<testo>Utilizza il comando "ls" per vedere tutti gli oggetti e i personaggi della stanza in cui ti trovi.
 Il nome delle stanze adiacenti viene segnato in blu.. Sarà possibile potersi spostare in qualche modo?</testo>
 	</pergamenaTutorial>
-  
-    <pergamenaTutorial>
-    <nome>Sinistra</nome>
-		<testo>Inizialmente aveva un senso, ma ad un tratto c'era scritto Fine</testo>
-	</pergamenaTutorial>
-    
-      <pergamenaTutorial>
-    <nome>Centrale</nome>
-		<testo>Inizialmente pensavo finisse con Fine, invece finisce con: ad un tratto</testo>
-	</pergamenaTutorial>
-    <pergamenaTutorial>
-    <nome>Destra</nome>
-		<testo>ad un tratto mi dimenticai di iniziare con la lettera maiuscola, ma adesso ho ripassato le regole. Inizialmente è scritto bene, ma non Fine</testo>
-	</pergamenaTutorial>
 
   <npc>
     <nome>SirGiorgioNPC</nome>
@@ -82,14 +68,6 @@ Se la vedi portala in questa stanza.</testoDialogo>
 Ho già controllato la stanza qui vicino, era vuota e dunque l' ho chiusa.. Sai, per restringere il campo di ricerca..
 Come? ti serve entrarci? Fortunatamente il sottoscritto Crudelio De Mon è dell' umore adatto.
 Porta qui le pellicce di quei cagn.....olini.. e ti aprirò la porta ;)</testoDialogo>
-  </npc>
-  
-  <npc>
-    <nome>SirC.H.NPC</nome>
-    <testoDialogo>Ciao, sono Sir C. H. !
-Come? sono in mezzo? Aspettavo proprio uno come te !
-Adoro fare indovinelli alle persone, ma nessuno passa mai di qua..
-Se risponderai correttamente mi sposterò, promesso!</testoDialogo>
   </npc>
 
 </bashdungeon>

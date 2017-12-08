@@ -701,10 +701,6 @@ public class ConsoleScript : MonoBehaviour
                     }
 
                 }
-                if(oggettiSelezionati.Count == 1)
-                {
-                    gameManager.GetComponent<PlayManager>().FoundWithGrepGO = GameObject.Find("/" + oggettiSelezionati[0].CurrentRoom.nomeStanza + "/" + oggettiSelezionati[0].nomeOggetto);
-                }
             }
             else if (CheckOggetti(splittedMessage, 2))
             {

@@ -67,6 +67,9 @@ public class CrudeliaNPC : MonoBehaviour {
                 crudelioNPC.CurrentRoom.oggetti.Remove(cucciolo);
                 
                 cuccioliTrovati++;
+               
+                lootRoom.IsLocked = false;
+                Destroy(this);
             }
         }
         if (cuccioliTrovati == 3)
