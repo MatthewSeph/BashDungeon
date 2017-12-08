@@ -77,8 +77,6 @@ public class PlayManager : MonoBehaviour
             if(foundWithGrepGO != null)
             {
                 ClickedObject = FoundWithGrepGO;
-                playerGO.GetComponent<PlayerMovement>().BlockedMovement = true;
-
             }
         }
     }
