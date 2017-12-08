@@ -9,6 +9,7 @@ public class PlayManager : MonoBehaviour
 
     GameObject playerGO;
     GameObject clickedObject;
+    GameObject foundWithGrepGO;
     bool isMouseOverObj;
 
     public GameObject pergamenaPanel;
@@ -40,9 +41,14 @@ public class PlayManager : MonoBehaviour
                     //nel caso l' oggetto sia vicino a un muro e dunque non "cliccabile" per muoversi setto la destinazione
                     playerGO.GetComponent<NavMeshAgent>().destination = clickedObject.transform.position;
                 }
+                else
+                {
+                    FoundWithGrepGO = null;
+                }
             }
         }
     }
+   
 
     public bool IsMouseOverObj
     {
@@ -54,6 +60,26 @@ public class PlayManager : MonoBehaviour
         set
         {
             isMouseOverObj = value;
+        }
+    }
+
+    public GameObject FoundWithGrepGO
+    {
+        get
+        {
+            return foundWithGrepGO;
+        }
+
+        set
+        {
+            
+            foundWithGrepGO = value;
+            if(foundWithGrepGO != null)
+            {
+                ClickedObject = FoundWithGrepGO;
+                playerGO.GetComponent<PlayerMovement>().BlockedMovement = true;
+
+            }
         }
     }
 
@@ -97,6 +123,11 @@ public class PlayManager : MonoBehaviour
         {
             dialoguePanel.SetActive(true);
             dialogueText.GetComponent<DialogueController>().SetText("Che nervoso, non riesco a raggiungerlo !");
+        }
+        else if(FoundWithGrepGO != null && Vector2.Distance(new Vector2(playerGO.transform.position.x, playerGO.transform.position.z), new Vector2(FoundWithGrepGO.transform.position.x, FoundWithGrepGO.transform.position.z)) <= 2.5f )
+        {
+            dialoguePanel.SetActive(true);
+            dialogueText.GetComponent<DialogueController>().SetText("Ecco la pergamena che cercavo !");
         }
     }
 
