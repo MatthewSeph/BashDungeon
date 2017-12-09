@@ -34,12 +34,15 @@ public class PlayManager : MonoBehaviour
                 {
                     clickedObject.GetComponent<Renderer>().material.SetColor("_EmissionColor", Color.white * 0f);
                 }
+                if(value != null)
+                {
+                    playerGO.GetComponent<NavMeshAgent>().destination = value.transform.position;
+                }
                 clickedObject = value;
                 if (clickedObject != null)
                 {
                     clickedObject.GetComponent<Renderer>().material.SetColor("_EmissionColor", Color.white * 0.3f);
                     //nel caso l' oggetto sia vicino a un muro e dunque non "cliccabile" per muoversi setto la destinazione
-                    playerGO.GetComponent<NavMeshAgent>().destination = clickedObject.transform.position;
                 }
                 else
                 {
@@ -93,15 +96,22 @@ public class PlayManager : MonoBehaviour
         {
             if (playerGO.GetComponent<PlayerMovement>().currentRoom.oggetti.Find(x => x.nomeOggetto == ClickedObject.name).IsTxt)
             {
+                if (!clickedObject.name.Contains("pergamenaCentrale") && !clickedObject.name.Contains("pergamenaDestra") && !clickedObject.name.Contains("pergamenaSinistra"))
+                {
+                    string testoPergamena = playerGO.GetComponent<PlayerMovement>().currentRoom.oggetti.Find(x => x.nomeOggetto == ClickedObject.transform.name).TestoTxT;
 
-                string testoPergamena = playerGO.GetComponent<PlayerMovement>().currentRoom.oggetti.Find(x => x.nomeOggetto == ClickedObject.transform.name).TestoTxT;
+                    pergamenaText.GetComponent<Text>().text = testoPergamena;
 
-                pergamenaText.GetComponent<Text>().text = testoPergamena;
-
-                pergamenaPanel.SetActive(true);
-                playerGO.GetComponent<PlayerMovement>().BlockedMovement = true;
-                playerGO.transform.LookAt(new Vector3(ClickedObject.transform.position.x, playerGO.transform.position.y, ClickedObject.transform.position.z));
-                playerGO.GetComponent<NavMeshAgent>().ResetPath();
+                    pergamenaPanel.SetActive(true);
+                    playerGO.GetComponent<PlayerMovement>().BlockedMovement = true;
+                    playerGO.transform.LookAt(new Vector3(ClickedObject.transform.position.x, playerGO.transform.position.y, ClickedObject.transform.position.z));
+                    playerGO.GetComponent<NavMeshAgent>().ResetPath();
+                }
+                else
+                {
+                        dialoguePanel.SetActive(true);
+                        dialogueText.GetComponent<DialogueController>().SetText("Leggendola sarebbe troppo facile...");
+                }
             }
             else if (playerGO.GetComponent<PlayerMovement>().currentRoom.oggetti.Find(x => x.nomeOggetto == ClickedObject.name).IsNPC)
             {
@@ -117,13 +127,14 @@ public class PlayManager : MonoBehaviour
 
             }
         }
-        else if(ClickedObject != null && Vector2.Distance(new Vector2(playerGO.transform.position.x, playerGO.transform.position.z), new Vector2(ClickedObject.transform.position.x, ClickedObject.transform.position.z)) > 2.5f && !playerGO.GetComponent<NavMeshAgent>().hasPath)
+        else if(ClickedObject != null && Vector2.Distance(new Vector2(playerGO.transform.position.x, playerGO.transform.position.z), new Vector2(ClickedObject.transform.position.x, ClickedObject.transform.position.z)) > 2.5f && !playerGO.GetComponent<NavMeshAgent>().hasPath && !playerGO.GetComponent<NavMeshAgent>().pathPending)
         {
             dialoguePanel.SetActive(true);
             dialogueText.GetComponent<DialogueController>().SetText("Che nervoso, non riesco a raggiungerlo !");
         }
         else if(FoundWithGrepGO != null && Vector2.Distance(new Vector2(playerGO.transform.position.x, playerGO.transform.position.z), new Vector2(FoundWithGrepGO.transform.position.x, FoundWithGrepGO.transform.position.z)) <= 2.5f )
         {
+            pergamenaPanel.SetActive(false);
             dialoguePanel.SetActive(true);
             dialogueText.GetComponent<DialogueController>().SetText("Ecco la pergamena che cercavo !");
         }
@@ -253,13 +264,20 @@ public class PlayManager : MonoBehaviour
 
         oldLocalPosition.x = oldLocalPosition.x - (playerGO.GetComponent<PlayerMovement>().currentRoom.gridPos.x * 24);
         oldLocalPosition.z = oldLocalPosition.z - (playerGO.GetComponent<PlayerMovement>().currentRoom.gridPos.y * 24);
-
-        oldLocalPosition.x = oldLocalPosition.x + (playerGO.GetComponent<PlayerMovement>().TarghetRoom.gridPos.x * 24);
-        oldLocalPosition.z = oldLocalPosition.z + (playerGO.GetComponent<PlayerMovement>().TarghetRoom.gridPos.y * 24);
-
+        if (playerGO.GetComponent<PlayerMovement>().TarghetRoom.oggetti.Exists(x => x.nomeOggetto == "postazioneTeletrasporto"))
+        {
+            oldLocalPosition.x = GameObject.Find("/" + playerGO.GetComponent<PlayerMovement>().TarghetRoom.nomeStanza + "/" + "postazioneTeletrasporto").transform.position.x + (playerGO.GetComponent<PlayerMovement>().TarghetRoom.gridPos.x * 24);
+            oldLocalPosition.z = GameObject.Find("/" + playerGO.GetComponent<PlayerMovement>().TarghetRoom.nomeStanza + "/" + "postazioneTeletrasporto").transform.position.z + (playerGO.GetComponent<PlayerMovement>().TarghetRoom.gridPos.y * 24);
+        }
+        else
+        {
+            oldLocalPosition.x = oldLocalPosition.x + (playerGO.GetComponent<PlayerMovement>().TarghetRoom.gridPos.x * 24);
+            oldLocalPosition.z = oldLocalPosition.z + (playerGO.GetComponent<PlayerMovement>().TarghetRoom.gridPos.y * 24);
+        }
         playerGO.GetComponent<PlayerMovement>().BlockedMovement = true;
         playerGO.GetComponent<PlayerMovement>().WantToChangeRoom = false;
         yield return new WaitForSeconds(sec);
+
 
         playerGO.GetComponent<NavMeshAgent>().Warp(oldLocalPosition);
         playerGO.transform.parent = GameObject.Find("/" + playerGO.GetComponent<PlayerMovement>().TarghetRoom.nomeStanza).transform;

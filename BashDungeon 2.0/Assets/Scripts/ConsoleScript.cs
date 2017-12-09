@@ -350,21 +350,25 @@ public class ConsoleScript : MonoBehaviour
         {
             if ((playerGO.GetComponent<PlayerMovement>().currentRoom.childrenRooms.Exists(x => x.nomeStanza == splittedMessage[1])))
             {
+                gameManager.GetComponent<PlayManager>().ClickedObject = null;
                 gameManager.GetComponent<PlayManager>().MoveBeforeChangeRoom(gameManager.GetComponent<LevelGeneration>().GetRoomByName(splittedMessage[1]));
 
             }
             else if ((splittedMessage[1] == "..") && (playerGO.GetComponent<PlayerMovement>().currentRoom.nomeStanza != "/"))
             {
+                gameManager.GetComponent<PlayManager>().ClickedObject = null;
                 gameManager.GetComponent<PlayManager>().MoveBeforeChangeRoom(gameManager.GetComponent<LevelGeneration>().GetRoomByName(playerGO.GetComponent<PlayerMovement>().currentRoom.parentRoom.nomeStanza));
 
             }
             else if ((splittedMessage[1] == "/"))
             {
+                gameManager.GetComponent<PlayManager>().ClickedObject = null;
                 gameManager.GetComponent<PlayManager>().MoveBeforeChangeRoom(gameManager.GetComponent<LevelGeneration>().GetRoomByName("/"));
 
             }
             else if (CheckPath(splittedMessage[1]))
             {
+                gameManager.GetComponent<PlayManager>().ClickedObject = null;
                 string[] path = splittedMessage[1].Split(new char[] { '/' }, StringSplitOptions.RemoveEmptyEntries);
                 gameManager.GetComponent<PlayManager>().MoveBeforeChangeRoom(gameManager.GetComponent<LevelGeneration>().GetRoomByName(path[path.Length - 1]));
 
@@ -448,6 +452,7 @@ public class ConsoleScript : MonoBehaviour
                 {
                     if ((splittedMessage[2] == "/"))
                     {
+
                         GameObject selectedObj;
                         Vector3 oldLocalPos;
                         Oggetto selectedOggetto;
@@ -455,7 +460,10 @@ public class ConsoleScript : MonoBehaviour
                         selectedObj = GameObject.Find("/" + playerGO.GetComponent<PlayerMovement>().currentRoom.nomeStanza + "/" + splittedMessage[1]);
                         oldLocalPos = selectedObj.transform.localPosition;
                         selectedOggetto = playerGO.GetComponent<PlayerMovement>().currentRoom.oggetti.Find(x => x.nomeOggetto == splittedMessage[1]);
-
+                        if(selectedObj == gameManager.GetComponent<PlayManager>().ClickedObject)
+                        {
+                            gameManager.GetComponent<PlayManager>().ClickedObject = null;
+                        }
                         selectedOggetto.CurrentRoom = gameManager.GetComponent<LevelGeneration>().GetRoomByName(splittedMessage[2]); //cambio currentRoom in oggetto
                         playerGO.GetComponent<PlayerMovement>().currentRoom.oggetti.Remove(selectedOggetto); // lo elimino dalla sua vecchia stanza
                         gameManager.GetComponent<LevelGeneration>().GetRoomByName(splittedMessage[2]).oggetti.Add(selectedOggetto); // lo aggiungo tra gli oggetti della nuova stanza
@@ -476,6 +484,11 @@ public class ConsoleScript : MonoBehaviour
                         selectedObj = GameObject.Find("/" + playerGO.GetComponent<PlayerMovement>().currentRoom.nomeStanza + "/" + splittedMessage[1]);
                         oldLocalPos = selectedObj.transform.localPosition;
                         selectedOggetto = playerGO.GetComponent<PlayerMovement>().currentRoom.oggetti.Find(x => x.nomeOggetto == splittedMessage[1]);
+
+                        if (selectedObj == gameManager.GetComponent<PlayManager>().ClickedObject)
+                        {
+                            gameManager.GetComponent<PlayManager>().ClickedObject = null;
+                        }
 
                         selectedOggetto.CurrentRoom = gameManager.GetComponent<LevelGeneration>().GetRoomByName(path[path.Length - 1]); //cambio currentRoom in oggetto
                         playerGO.GetComponent<PlayerMovement>().currentRoom.oggetti.Remove(selectedOggetto); // lo elimino dalla sua vecchia stanza
@@ -528,6 +541,7 @@ public class ConsoleScript : MonoBehaviour
                     }
                     if (canCF)
                     {
+                        gameManager.GetComponent<PlayManager>().ClickedObject = null;
                         Vector3 spawnTarPosition = gameManager.GetComponent<PlayManager>().CenterOfVectors(GetObjPositionList(splittedMessage));
                         SpawnArchivio(splittedMessage[2], spawnTarPosition, GetGameObjectsList(splittedMessage, 3));
                         RemoveOggetti(splittedMessage);
@@ -548,6 +562,7 @@ public class ConsoleScript : MonoBehaviour
                 {
                     if (playerGO.GetComponent<PlayerMovement>().currentRoom.oggetti.Exists(x => x.nomeOggetto == splittedMessage[2] && x.CanXF))
                     {
+                        gameManager.GetComponent<PlayManager>().ClickedObject = null;
                         playerGO.GetComponent<PlayerMovement>().currentRoom.oggetti.Find(x => x.nomeOggetto == splittedMessage[2]).IsActive = false;
                         GameObject oggettoSelezionato = GameObject.Find("/" + playerGO.GetComponent<PlayerMovement>().currentRoom.nomeStanza + "/" + splittedMessage[2]);
 
@@ -584,6 +599,7 @@ public class ConsoleScript : MonoBehaviour
                     }
                     if (canCZF)
                     {
+                        gameManager.GetComponent<PlayManager>().ClickedObject = null;
                         Vector3 spawnTarPosition = gameManager.GetComponent<PlayManager>().CenterOfVectors(GetObjPositionList(splittedMessage));
                         SpawnArchivio(splittedMessage[2], spawnTarPosition, GetGameObjectsList(splittedMessage, 3));
                         RemoveOggetti(splittedMessage);
@@ -604,6 +620,7 @@ public class ConsoleScript : MonoBehaviour
                 {
                     if (playerGO.GetComponent<PlayerMovement>().currentRoom.oggetti.Exists(x => x.nomeOggetto == splittedMessage[2] && x.CanZXF))
                     {
+                        gameManager.GetComponent<PlayManager>().ClickedObject = null;
                         GameObject oggettoSelezionato = GameObject.Find("/" + playerGO.GetComponent<PlayerMovement>().currentRoom.nomeStanza + "/" + splittedMessage[2]);
                         playerGO.GetComponent<PlayerMovement>().currentRoom.oggetti.Find(x => x.nomeOggetto == splittedMessage[2]).IsActive = false;
 
@@ -647,7 +664,10 @@ public class ConsoleScript : MonoBehaviour
 
                     selectedObj = GameObject.Find("/" + playerGO.GetComponent<PlayerMovement>().currentRoom.nomeStanza + "/" + splittedMessage[1]);
                     selectedOggetto = playerGO.GetComponent<PlayerMovement>().currentRoom.oggetti.Find(x => x.nomeOggetto == splittedMessage[1]);
-
+                    if (selectedObj == gameManager.GetComponent<PlayManager>().ClickedObject)
+                    {
+                        gameManager.GetComponent<PlayManager>().ClickedObject = null;
+                    }
                     playerGO.GetComponent<PlayerMovement>().currentRoom.oggetti.Remove(selectedOggetto);
                     Destroy(selectedObj);
 
@@ -687,7 +707,8 @@ public class ConsoleScript : MonoBehaviour
                 {
                     splittedMessage[1] = splittedMessage[1].Replace(")", "/)");
                 }
-
+                int contatoreOgg = 0;
+                Oggetto oggettoTrovato = null;
                 foreach (Oggetto o in oggettiSelezionati)
                 {
 
@@ -696,14 +717,16 @@ public class ConsoleScript : MonoBehaviour
 
                         if (Regex.IsMatch(o.TestoTxT, splittedMessage[1]))
                         {
+                            contatoreOgg++;
                             textObj.text += (o.nomeOggetto + ":\n" + o.TestoTxT + "\n");
+                            oggettoTrovato = o;
                         }
                     }
 
                 }
-                if(oggettiSelezionati.Count == 1)
+                if(contatoreOgg == 1 && oggettoTrovato != null)
                 {
-                    gameManager.GetComponent<PlayManager>().FoundWithGrepGO = GameObject.Find("/" + oggettiSelezionati[0].CurrentRoom.nomeStanza + "/" + oggettiSelezionati[0].nomeOggetto);
+                    gameManager.GetComponent<PlayManager>().FoundWithGrepGO = GameObject.Find("/" + oggettoTrovato.CurrentRoom.nomeStanza + "/" + oggettoTrovato.nomeOggetto);
                 }
             }
             else if (CheckOggetti(splittedMessage, 2))

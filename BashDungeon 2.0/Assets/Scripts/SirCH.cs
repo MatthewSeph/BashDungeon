@@ -9,6 +9,7 @@ public class SirCH : MonoBehaviour {
     GameObject gameManager;
     Oggetto sirCHNPC;
     bool roomLocked = false;
+    bool endLevel = false;
 
     string chosenPergamena = "";
 
@@ -44,30 +45,39 @@ public class SirCH : MonoBehaviour {
                     break;
                 case 1:
                     sirCHNPC.TestoTxT += "\nQuale tra queste tre pergamene finisce con \"Fine\" ma non inizia con \"Inizialmente\" ?";
-                    chosenPergamena = "pergamenaCentrale";
+                    chosenPergamena = "pergamenaDestra";
                     break;
                 case 2:
-                    sirCHNPC.TestoTxT += "\nQuale tra queste tre pergamene contiene, ma non inizia ne finisce, con \"ad un tratto\" ?";
-                    chosenPergamena = "pergamenaDestra";
+                    sirCHNPC.TestoTxT += "\nQuale tra queste tre pergamene finisce con \"tratto\" e inizia con \"Inizialmente\" ?";
+                    chosenPergamena = "pergamenaCentrale";
                     break;
             }
         }
-        else if(roomLocked)
-        {
-            if(gameManager.GetComponent<PlayManager>().FoundWithGrepGO != null && gameManager.GetComponent<PlayManager>().FoundWithGrepGO.name.Contains(chosenPergamena))
-            {
-                if(!playerGO.GetComponent<PlayerMovement>().BlockedMovement)
-                {
-                    sirCHNPC.TestoTxT = "Wow, che velocità! Sei troppo bravo, non c' è gusto..\nVado a cercare altre persone da importunare :P";
-                    gameManager.GetComponent<PlayManager>().ClickedObject = GameObject.Find("/" + sirCHNPC.CurrentRoom.nomeStanza + "/" + sirCHNPC.nomeOggetto);
-                    lootRoom.IsLocked = false;
-                }
 
-                if(!lootRoom.IsLocked && !gameManager.GetComponent<PlayManager>().ClickedObject.name.Contains("SirC.H.NPC") )
-                {
-                    lootRoom.parentRoom.oggetti.Remove(sirCHNPC);
-                    Destroy(gameObject);
-                }
+        if (roomLocked)
+        {
+
+            if(gameManager.GetComponent<PlayManager>().FoundWithGrepGO != null && gameManager.GetComponent<PlayManager>().FoundWithGrepGO.name.Contains(chosenPergamena) && !endLevel)
+            {
+
+                    playerGO.GetComponent<PlayerMovement>().BlockedMovement = true;
+                    endLevel = true;   
+            }
+            if (!playerGO.GetComponent<PlayerMovement>().BlockedMovement && endLevel && lootRoom.IsLocked)
+            {
+                
+
+                sirCHNPC.TestoTxT = "Wow, che velocità! Sei troppo bravo, non c' è gusto..\nVado a cercare altre persone da importunare :P";
+                gameManager.GetComponent<PlayManager>().ClickedObject = GameObject.Find("/" + sirCHNPC.CurrentRoom.nomeStanza + "/" + sirCHNPC.nomeOggetto);
+                lootRoom.IsLocked = false;
+                playerGO.GetComponent<PlayerMovement>().BlockedMovement = true;
+            }
+
+            if (!lootRoom.IsLocked && !playerGO.GetComponent<PlayerMovement>().BlockedMovement && endLevel)
+            {
+
+                lootRoom.parentRoom.oggetti.Remove(sirCHNPC);
+                Destroy(gameObject);
             }
         }
 
