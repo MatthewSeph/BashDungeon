@@ -125,7 +125,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   isMadeVisible: 0
-  oggettiArchiviati: []
+  oggettiGOArchiviati: []
 --- !u!114 &114992258151474154
 MonoBehaviour:
   m_ObjectHideFlags: 1
