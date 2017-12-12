@@ -18,6 +18,7 @@ public class PlayManager : MonoBehaviour
     public GameObject dialoguePanel;
     public GameObject dialogueText;
 
+    public GameObject tutorialPanel;
 
     public GameObject ClickedObject
     {
@@ -34,7 +35,7 @@ public class PlayManager : MonoBehaviour
                 {
                     clickedObject.GetComponent<Renderer>().material.SetColor("_EmissionColor", Color.white * 0f);
                 }
-                if(value != null)
+                if (value != null)
                 {
                     playerGO.GetComponent<NavMeshAgent>().destination = value.transform.position;
                 }
@@ -51,7 +52,7 @@ public class PlayManager : MonoBehaviour
             }
         }
     }
-   
+
 
     public bool IsMouseOverObj
     {
@@ -75,9 +76,9 @@ public class PlayManager : MonoBehaviour
 
         set
         {
-            
+
             foundWithGrepGO = value;
-            if(foundWithGrepGO != null)
+            if (foundWithGrepGO != null)
             {
                 ClickedObject = FoundWithGrepGO;
             }
@@ -109,8 +110,8 @@ public class PlayManager : MonoBehaviour
                 }
                 else
                 {
-                        dialoguePanel.SetActive(true);
-                        dialogueText.GetComponent<DialogueController>().SetText("Leggendola sarebbe troppo facile...");
+                    dialoguePanel.SetActive(true);
+                    dialogueText.GetComponent<DialogueController>().SetText("Leggendola sarebbe troppo facile...");
                 }
             }
             else if (playerGO.GetComponent<PlayerMovement>().currentRoom.oggetti.Find(x => x.nomeOggetto == ClickedObject.name).IsNPC)
@@ -127,12 +128,12 @@ public class PlayManager : MonoBehaviour
 
             }
         }
-        else if(ClickedObject != null && Vector2.Distance(new Vector2(playerGO.transform.position.x, playerGO.transform.position.z), new Vector2(ClickedObject.transform.position.x, ClickedObject.transform.position.z)) > 2.5f && !playerGO.GetComponent<NavMeshAgent>().hasPath && !playerGO.GetComponent<NavMeshAgent>().pathPending)
+        else if (ClickedObject != null && Vector2.Distance(new Vector2(playerGO.transform.position.x, playerGO.transform.position.z), new Vector2(ClickedObject.transform.position.x, ClickedObject.transform.position.z)) > 2.5f && !playerGO.GetComponent<NavMeshAgent>().hasPath && !playerGO.GetComponent<NavMeshAgent>().pathPending)
         {
             dialoguePanel.SetActive(true);
             dialogueText.GetComponent<DialogueController>().SetText("Che nervoso, non riesco a raggiungerlo !");
         }
-        else if(FoundWithGrepGO != null && Vector2.Distance(new Vector2(playerGO.transform.position.x, playerGO.transform.position.z), new Vector2(FoundWithGrepGO.transform.position.x, FoundWithGrepGO.transform.position.z)) <= 2.5f )
+        else if (FoundWithGrepGO != null && Vector2.Distance(new Vector2(playerGO.transform.position.x, playerGO.transform.position.z), new Vector2(FoundWithGrepGO.transform.position.x, FoundWithGrepGO.transform.position.z)) <= 2.5f)
         {
             pergamenaPanel.SetActive(false);
             dialoguePanel.SetActive(true);
@@ -167,9 +168,8 @@ public class PlayManager : MonoBehaviour
         {
             playerGO.GetComponent<NavMeshAgent>().enabled = true;
             positionToGo.x = -2 + (playerGO.GetComponent<PlayerMovement>().currentRoom.gridPos.x * 24);
-            Debug.Log(positionToGo.x);
             positionToGo.z = 10.5f + (playerGO.GetComponent<PlayerMovement>().currentRoom.gridPos.y * 24);
-            Debug.Log(positionToGo.z);
+
             positionToGo.y = 0.5f;
             playerGO.GetComponent<NavMeshAgent>().destination = positionToGo;
             playerGO.GetComponent<PlayerMovement>().TargetPosition = positionToGo;
@@ -178,9 +178,9 @@ public class PlayManager : MonoBehaviour
         {
             playerGO.GetComponent<NavMeshAgent>().enabled = true;
             positionToGo.x = -2 + (playerGO.GetComponent<PlayerMovement>().currentRoom.gridPos.x * 24);
-            Debug.Log(positionToGo.x);
+
             positionToGo.z = -10.5f + (playerGO.GetComponent<PlayerMovement>().currentRoom.gridPos.y * 24);
-            Debug.Log(positionToGo.z);
+
             positionToGo.y = 0.5f;
             playerGO.GetComponent<NavMeshAgent>().destination = positionToGo;
             playerGO.GetComponent<PlayerMovement>().TargetPosition = positionToGo;
@@ -189,9 +189,9 @@ public class PlayManager : MonoBehaviour
         {
             playerGO.GetComponent<NavMeshAgent>().enabled = true;
             positionToGo.x = -12.5f + (playerGO.GetComponent<PlayerMovement>().currentRoom.gridPos.x * 24);
-            Debug.Log(positionToGo.x);
+
             positionToGo.z = 0 + (playerGO.GetComponent<PlayerMovement>().currentRoom.gridPos.y * 24);
-            Debug.Log(positionToGo.z);
+
             positionToGo.y = 0.5f;
             playerGO.GetComponent<NavMeshAgent>().destination = positionToGo;
             playerGO.GetComponent<PlayerMovement>().TargetPosition = positionToGo;
@@ -200,9 +200,9 @@ public class PlayManager : MonoBehaviour
         {
             playerGO.GetComponent<NavMeshAgent>().enabled = true;
             positionToGo.x = 8.5f + (playerGO.GetComponent<PlayerMovement>().currentRoom.gridPos.x * 24);
-            Debug.Log(positionToGo.x);
+
             positionToGo.z = 0 + (playerGO.GetComponent<PlayerMovement>().currentRoom.gridPos.y * 24);
-            Debug.Log(positionToGo.z);
+
             positionToGo.y = 0.5f;
             playerGO.GetComponent<NavMeshAgent>().destination = positionToGo;
             playerGO.GetComponent<PlayerMovement>().TargetPosition = positionToGo;
@@ -256,6 +256,22 @@ public class PlayManager : MonoBehaviour
             playerGO.GetComponent<PlayerMovement>().WantToChangeRoom = false;
             playerGO.GetComponent<PlayerMovement>().TarghetRoom = null;
         }
+    }
+
+    public void SkipTutorial()
+    {
+        GameObject sirGiorgio = GameObject.Find("//SirGiorgioNPC");
+        sirGiorgio.GetComponent<SirGiorgio>().SetTutorialBools();
+        pergamenaPanel.SetActive(false);
+        dialoguePanel.SetActive(false);
+        playerGO.GetComponent<PlayerMovement>().BlockedMovement = false;
+        ClickedObject = null;
+        SetTutorialPanelOff();
+    }
+
+    public void SetTutorialPanelOff()
+    {
+        tutorialPanel.SetActive(false);
     }
 
     IEnumerator ChangeRoomWithCooldown(int sec)

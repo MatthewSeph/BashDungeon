@@ -404,7 +404,7 @@ public class LevelGeneration : MonoBehaviour
             }
             else if(room.type == 0)
             {
-                continue;
+                chosenPrefab = gameObject.GetComponent<ObjectPrefabSelector>().PickStandardRoomPrefab();
             }
             else
             {
@@ -445,6 +445,19 @@ public class LevelGeneration : MonoBehaviour
                         prefabInstanziata.transform.Rotate(new Vector3(0, 270, 0));
                     }
 
+                }
+            }
+            else if(room.type == 0)
+            {
+                int randomHelper = Random.Range(0, 3);
+                switch (randomHelper)
+                {
+                    case 0: prefabInstanziata.transform.Rotate(new Vector3(0, 90, 0));
+                        break;
+                    case 1: prefabInstanziata.transform.Rotate(new Vector3(0, 180, 0));
+                        break;
+                    case 2: prefabInstanziata.transform.Rotate(new Vector3(0, 270, 0));
+                        break;
                 }
             }
             allChildren = prefabInstanziata.GetComponentsInChildren<Transform>(); //prendo tutti gli oggetti

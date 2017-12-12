@@ -21,6 +21,8 @@ public class ObjectPrefabSelector : MonoBehaviour {
 
     public GameObject defaultLevel;
 
+    public List<GameObject> standardRoomPrefab;
+
     public List<GameObject> level1Prefab;
     public List<GameObject> level2Prefab;
     public List<GameObject> level3Prefab;
@@ -97,6 +99,11 @@ public class ObjectPrefabSelector : MonoBehaviour {
         {
             return pergamena;
         }
+    }
+
+    public GameObject PickStandardRoomPrefab()
+    {
+        return standardRoomPrefab[Random.Range(0, standardRoomPrefab.Count)];
     }
 
     public GameObject PickLevelPrefab(int level)

@@ -57,6 +57,7 @@ public class SirGiorgio : MonoBehaviour {
 
         if (hasPlayerEndedSecondText && endTutorial)
         {
+            gameManager.GetComponent<PlayManager>().SetTutorialPanelOff();
             sirGiorgio.TestoTxT = "Come faccio a non annoiarmi qui dentro?\nVa bene te lo dirò, ma promettimi che non riderai!\n..Come hobby aggiusto la carta..\n...\nNon stai ridendo?! Sei il primo! Portami qualche foglio rotto, te li aggiusterò GRATIS, sconto amico!";
             if(sirGiorgio.CurrentRoom.oggetti.Find(x => x.nomeOggetto.Contains("frammentoPergamena")) != null )
             {
@@ -96,5 +97,14 @@ public class SirGiorgio : MonoBehaviour {
         }
 
         
+    }
+
+    public void SetTutorialBools()
+    {
+        hasPlayerClickedCd = true;
+        hasPlayerClickedLs = true;
+        hasPlayerEndedSecondText = true;
+        endTutorial = true;
+        consoleView.transform.GetChild(0).gameObject.SetActive(true);
     }
 }
