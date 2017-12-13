@@ -86,8 +86,19 @@ public class KeyNpc : MonoBehaviour {
 
                     for (int i = 0; i < 3; i++)
                     {
+                        bool isRoomFine = false;
+                        Room randomRoom = null;
+                        while (!isRoomFine)
+                        {
+                            randomRoom = gameManager.GetComponent<LevelGeneration>().RandomRoomNoLevelOrRoot();
+                            if (!randomRoom.oggetti.Exists(x => x.nomeOggetto.Contains("pezzoChiave")))
+                            {
+                                isRoomFine = true;
+                            }
+                        }
+
                         Vector3 oggettoPosition = new Vector3();
-                        Oggetto chiavePezzo = new Oggetto(gameManager.GetComponent<LevelGeneration>().RandomRoomNoLevelOrRoot(), "pezzoChiave");
+                        Oggetto chiavePezzo = new Oggetto(randomRoom, "pezzoChiave");
                         chiavePezzo.IsMovable = true;
                         chiavePezzo.CurrentRoom.oggetti.Add(chiavePezzo);
                         chiavePezzo.CanCF = true;

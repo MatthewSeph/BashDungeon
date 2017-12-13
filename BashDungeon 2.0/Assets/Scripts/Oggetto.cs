@@ -10,6 +10,7 @@ public class Oggetto
     public string nomeOggetto;
     bool isTar, isZip, isInvisible, isMovable, isTxt, isRemovable, isNPC;
     string testoTxT;
+    bool hasBeenRead = false;
     bool isActive = true;
 
     bool canCF = false, canXF = false, canZCF = false, canZXF = false;
@@ -212,6 +213,19 @@ public class Oggetto
         set
         {
             canXF = value;
+        }
+    }
+
+    public bool HasBeenRead
+    {
+        get
+        {
+            return hasBeenRead;
+        }
+
+        set
+        {
+            hasBeenRead = value;
         }
     }
 

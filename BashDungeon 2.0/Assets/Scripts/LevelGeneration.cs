@@ -543,7 +543,16 @@ public class LevelGeneration : MonoBehaviour
 
         foreach(XmlNode node in listOfPergameneStrings)
         {
-            Room randomRoom = RandomRoomNoLevelOrRoot();
+
+            bool isRoomFine = false;
+            Room randomRoom = null;
+            while (!isRoomFine){
+                randomRoom = RandomRoomNoLevelOrRoot();
+                if(!randomRoom.oggetti.Exists(x => x.nomeOggetto.Contains("pergamena")))
+                {
+                    isRoomFine = true;
+                }
+            }
             Oggetto pergamena = new Oggetto(randomRoom, "pergamena");
             pergamena.IsTxt = true;
             pergamena.TestoTxT = node.FirstChild.InnerXml;

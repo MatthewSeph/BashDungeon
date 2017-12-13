@@ -99,7 +99,7 @@ Rigidbody:
   m_UseGravity: 0
   m_IsKinematic: 0
   m_Interpolate: 0
-  m_Constraints: 116
+  m_Constraints: 112
   m_CollisionDetection: 0
 --- !u!65 &65852346936323280
 BoxCollider:
@@ -136,4 +136,4 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   isMadeVisible: 0
-  oggettiArchiviati: []
+  oggettiGOArchiviati: []

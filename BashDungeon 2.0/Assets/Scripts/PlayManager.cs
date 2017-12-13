@@ -20,6 +20,12 @@ public class PlayManager : MonoBehaviour
 
     public GameObject tutorialPanel;
 
+    public GameObject MenuUI;
+    public GameObject MenuPanel;
+    public GameObject questsPanel;
+    public GameObject foundPanel;
+    public GameObject listOfFoundTxtUI;
+
     public GameObject ClickedObject
     {
         get
@@ -99,8 +105,16 @@ public class PlayManager : MonoBehaviour
             {
                 if (!clickedObject.name.Contains("pergamenaCentrale") && !clickedObject.name.Contains("pergamenaDestra") && !clickedObject.name.Contains("pergamenaSinistra"))
                 {
-                    string testoPergamena = playerGO.GetComponent<PlayerMovement>().currentRoom.oggetti.Find(x => x.nomeOggetto == ClickedObject.transform.name).TestoTxT;
-
+                    Oggetto oggettoPergamena = playerGO.GetComponent<PlayerMovement>().currentRoom.oggetti.Find(x => x.nomeOggetto == ClickedObject.transform.name);
+                    string testoPergamena = oggettoPergamena.TestoTxT;
+                    if(!oggettoPergamena.HasBeenRead)
+                    {
+                        oggettoPergamena.HasBeenRead = true;
+                        GameObject newPergamenaFound = Instantiate(gameObject.GetComponent<ObjectPrefabSelector>().PergamenaFoundUI) as GameObject;
+                        newPergamenaFound.transform.SetParent(listOfFoundTxtUI.transform, false);
+                        //newPergamenaFound.transform.localScale = new Vector3(1, 1, 1);
+                        newPergamenaFound.GetComponentInChildren<Text>().text = oggettoPergamena.TestoTxT;
+                    }
                     pergamenaText.GetComponent<Text>().text = testoPergamena;
 
                     pergamenaPanel.SetActive(true);
@@ -139,6 +153,52 @@ public class PlayManager : MonoBehaviour
             dialoguePanel.SetActive(true);
             dialogueText.GetComponent<DialogueController>().SetText("Ecco la pergamena che cercavo !");
         }
+    }
+
+    public void SetMenuUIActive()
+    {
+        MenuUI.SetActive(true);
+    }
+
+    public void SetMenuUIOff()
+    {
+        MenuUI.SetActive(false);
+    }
+
+    public void SetMenuPanelActive()
+    {
+        MenuPanel.SetActive(true);
+        SetFoundPanelOff();
+        SetQuestPanelOff();
+    }
+
+    public void SetQuestPanelActive()
+    {
+        questsPanel.SetActive(true);
+        SetFoundPanelOff();
+        SetMenuPanelOff();
+    }
+
+    public void SetFoundPanelActive()
+    {
+        foundPanel.SetActive(true);
+        SetMenuPanelOff();
+        SetQuestPanelOff();
+    }
+
+    public void SetMenuPanelOff()
+    {
+        MenuPanel.SetActive(false);
+    }
+
+    public void SetQuestPanelOff()
+    {
+        questsPanel.SetActive(false);
+    }
+
+    public void SetFoundPanelOff()
+    {
+        foundPanel.SetActive(false);
     }
 
     public void OnCloseDialogues()

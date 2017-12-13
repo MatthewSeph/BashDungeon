@@ -19,8 +19,18 @@ public class CrudeliaNPC : MonoBehaviour {
        
                     for (int i = 0; i < 3; i++)
                     {
+                        bool isRoomFine = false;
+                        Room randomRoom = null;
+                        while (!isRoomFine)
+                        {
+                            randomRoom = gameManager.GetComponent<LevelGeneration>().RandomRoomNoLevelOrRoot();
+                            if (!randomRoom.oggetti.Exists(x => x.nomeOggetto.Contains("cuccioloNascosto")))
+                            {
+                                isRoomFine = true;
+                            }
+                        }
                         Vector3 oggettoPosition = new Vector3();
-                        Oggetto cuccioloNascosto = new Oggetto(gameManager.GetComponent<LevelGeneration>().RandomRoomNoLevelOrRoot(), "cuccioloNascosto");
+                        Oggetto cuccioloNascosto = new Oggetto(randomRoom, "cuccioloNascosto");
                         cuccioloNascosto.IsMovable = true;
                         cuccioloNascosto.IsInvisible = true;
                         cuccioloNascosto.CurrentRoom.oggetti.Add(cuccioloNascosto);

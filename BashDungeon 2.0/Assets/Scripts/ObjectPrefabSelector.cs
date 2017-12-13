@@ -19,6 +19,8 @@ public class ObjectPrefabSelector : MonoBehaviour {
     public GameObject pezzoChiave2;
     public GameObject cuccioloNascosto;
 
+    public GameObject pergamenaFoundUI;
+
     public GameObject defaultLevel;
 
     public List<GameObject> standardRoomPrefab;
@@ -27,6 +29,14 @@ public class ObjectPrefabSelector : MonoBehaviour {
     public List<GameObject> level2Prefab;
     public List<GameObject> level3Prefab;
     public List<GameObject> level4Prefab;
+
+    public GameObject PergamenaFoundUI
+    {
+        get
+        {
+            return pergamenaFoundUI;
+        }
+    }
 
     public GameObject PickObjectPrefab(string nomeOggetto)
     {
@@ -110,19 +120,19 @@ public class ObjectPrefabSelector : MonoBehaviour {
     {
         GameObject chosenPrefab;
 
-        if (level == 0 && level1Prefab != null)
+        if (level == 1 && level1Prefab != null)
         {
             chosenPrefab = level1Prefab[Random.Range(0, level1Prefab.Count)];
         }
-        else if (level == 1 && level2Prefab != null)
+        else if (level == 2 && level2Prefab != null)
         {
             chosenPrefab = level2Prefab[Random.Range(0, level2Prefab.Count)];
         }
-        else if (level == 2 && level3Prefab != null)
+        else if (level == 3 && level3Prefab != null)
         {
             chosenPrefab = level3Prefab[Random.Range(0, level3Prefab.Count)];
         }
-        else if (level == 3 && level4Prefab != null)
+        else if (level == 4 && level4Prefab != null)
         {
             chosenPrefab = level4Prefab[Random.Range(0, level4Prefab.Count)];
         }
