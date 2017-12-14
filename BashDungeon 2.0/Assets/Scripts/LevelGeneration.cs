@@ -464,7 +464,7 @@ public class LevelGeneration : MonoBehaviour
 
             foreach (Transform child in allChildren)
             {
-                if (!child.name.Contains("Prefab"))
+                if (!child.name.Contains("Prefab") && child.parent.name.Contains("Prefab"))
                 {
                     child.transform.parent = GameObject.Find("/" + room.nomeStanza).transform;
                     Oggetto item = new Oggetto(GetRoomByName(prefabInstanziata.transform.parent.name), Regex.Replace(child.name, "[0-9]", ""));

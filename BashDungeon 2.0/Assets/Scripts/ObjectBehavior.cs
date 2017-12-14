@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.EventSystems;
 
 public class ObjectBehavior : MonoBehaviour {
 
@@ -113,7 +114,10 @@ public class ObjectBehavior : MonoBehaviour {
 
     private void OnMouseDown()
     {
-        gameManager.GetComponent<PlayManager>().ClickedObject = gameObject;
+        if (!EventSystem.current.IsPointerOverGameObject())
+        {
+            gameManager.GetComponent<PlayManager>().ClickedObject = gameObject;
+        }
     }
 
     private void OnMouseEnter()

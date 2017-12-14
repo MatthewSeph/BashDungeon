@@ -19,7 +19,7 @@ public class ConsoleScript : MonoBehaviour
     GameObject consoleText;
     //GameObject consoleCanvas;
 
-    int righeMax = 28;
+    int righeMax = 27;
 
     void Start()
     {

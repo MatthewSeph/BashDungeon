@@ -62,7 +62,7 @@ GameObject:
   - component: {fileID: 54553402810547488}
   - component: {fileID: 114074849440650660}
   m_Layer: 8
-  m_Name: Cassa (4)
+  m_Name: cassa
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -83,7 +83,7 @@ GameObject:
   - component: {fileID: 65689739400472460}
   - component: {fileID: 114745423310154616}
   m_Layer: 0
-  m_Name: barile (7)
+  m_Name: barile
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -104,7 +104,7 @@ GameObject:
   - component: {fileID: 54882191270169748}
   - component: {fileID: 114875050200143136}
   m_Layer: 8
-  m_Name: Cassa (2)
+  m_Name: cassa
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -125,7 +125,7 @@ GameObject:
   - component: {fileID: 54815482532696206}
   - component: {fileID: 114619037395064238}
   m_Layer: 8
-  m_Name: Cassa (3)
+  m_Name: cassa
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -146,7 +146,7 @@ GameObject:
   - component: {fileID: 65726650719655508}
   - component: {fileID: 114504798687434712}
   m_Layer: 0
-  m_Name: barile (1)
+  m_Name: barile
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -167,7 +167,7 @@ GameObject:
   - component: {fileID: 114090351791195836}
   - component: {fileID: 114106212361978862}
   m_Layer: 0
-  m_Name: candeletavolino
+  m_Name: tavolino
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -205,7 +205,7 @@ GameObject:
   - component: {fileID: 114186713968343364}
   - component: {fileID: 114005927625946442}
   m_Layer: 0
-  m_Name: candeletavolino
+  m_Name: tavolino
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -226,7 +226,7 @@ GameObject:
   - component: {fileID: 65707482180216022}
   - component: {fileID: 114922415145071222}
   m_Layer: 0
-  m_Name: barile (3)
+  m_Name: barile
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -243,7 +243,7 @@ GameObject:
   - component: {fileID: 33812500841926276}
   - component: {fileID: 23332768114938192}
   m_Layer: 0
-  m_Name: vaso1
+  m_Name: vaso
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -281,7 +281,7 @@ GameObject:
   - component: {fileID: 65019787228590930}
   - component: {fileID: 114028444716632982}
   m_Layer: 0
-  m_Name: barile (2)
+  m_Name: barile
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -302,7 +302,7 @@ GameObject:
   - component: {fileID: 54835492770387748}
   - component: {fileID: 114044886896263348}
   m_Layer: 8
-  m_Name: Cassa
+  m_Name: cassa
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -323,7 +323,7 @@ GameObject:
   - component: {fileID: 65947262334693026}
   - component: {fileID: 114275764858098450}
   m_Layer: 0
-  m_Name: barile (4)
+  m_Name: barile
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -344,7 +344,7 @@ GameObject:
   - component: {fileID: 54069571048081940}
   - component: {fileID: 114180025571708006}
   m_Layer: 8
-  m_Name: Cassa (1)
+  m_Name: cassa
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -361,7 +361,7 @@ GameObject:
   - component: {fileID: 33949167842234360}
   - component: {fileID: 23021166074556670}
   m_Layer: 0
-  m_Name: pozioneverde
+  m_Name: pozione
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -378,7 +378,7 @@ GameObject:
   - component: {fileID: 33389162155356150}
   - component: {fileID: 23533147226897270}
   m_Layer: 0
-  m_Name: vaso3
+  m_Name: vaso
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -395,7 +395,7 @@ GameObject:
   - component: {fileID: 33628245170287966}
   - component: {fileID: 23054447255187130}
   m_Layer: 0
-  m_Name: pozione3
+  m_Name: pozione
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -416,7 +416,7 @@ GameObject:
   - component: {fileID: 65704142173028664}
   - component: {fileID: 114022417857275906}
   m_Layer: 0
-  m_Name: barile (6)
+  m_Name: barile
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -437,7 +437,7 @@ GameObject:
   - component: {fileID: 65945857928304162}
   - component: {fileID: 114584712266078482}
   m_Layer: 0
-  m_Name: barile (5)
+  m_Name: barile
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -457,7 +457,7 @@ GameObject:
   - component: {fileID: 65376619254016792}
   - component: {fileID: 54507222179617226}
   m_Layer: 0
-  m_Name: potion 1
+  m_Name: pozione
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -574,7 +574,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1340017845414694}
   m_LocalRotation: {x: -0, y: 0.7069834, z: 0.7072302, w: 0}
-  m_LocalPosition: {x: 6.67, y: 0.4, z: 8.89}
+  m_LocalPosition: {x: 6.67, y: 0.3, z: 8.89}
   m_LocalScale: {x: 500.0005, y: 300.00006, z: 1}
   m_Children: []
   m_Father: {fileID: 4873997609951826}
@@ -704,7 +704,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1038480627017988}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -2, y: 0, z: 0}
+  m_LocalPosition: {x: 1.0571002, y: 341.68033, z: -11.738915}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 4809798169678128}

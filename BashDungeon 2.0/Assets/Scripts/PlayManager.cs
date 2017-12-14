@@ -158,11 +158,13 @@ public class PlayManager : MonoBehaviour
     public void SetMenuUIActive()
     {
         MenuUI.SetActive(true);
+        playerGO.GetComponent<PlayerMovement>().BlockedMovement = true;
     }
 
     public void SetMenuUIOff()
     {
         MenuUI.SetActive(false);
+        playerGO.GetComponent<PlayerMovement>().BlockedMovement = false;
     }
 
     public void SetMenuPanelActive()
@@ -170,6 +172,7 @@ public class PlayManager : MonoBehaviour
         MenuPanel.SetActive(true);
         SetFoundPanelOff();
         SetQuestPanelOff();
+        playerGO.GetComponent<PlayerMovement>().BlockedMovement = true;
     }
 
     public void SetQuestPanelActive()
@@ -177,6 +180,7 @@ public class PlayManager : MonoBehaviour
         questsPanel.SetActive(true);
         SetFoundPanelOff();
         SetMenuPanelOff();
+        playerGO.GetComponent<PlayerMovement>().BlockedMovement = true;
     }
 
     public void SetFoundPanelActive()
@@ -184,21 +188,25 @@ public class PlayManager : MonoBehaviour
         foundPanel.SetActive(true);
         SetMenuPanelOff();
         SetQuestPanelOff();
+        playerGO.GetComponent<PlayerMovement>().BlockedMovement = true;
     }
 
     public void SetMenuPanelOff()
     {
         MenuPanel.SetActive(false);
+        playerGO.GetComponent<PlayerMovement>().BlockedMovement = false;
     }
 
     public void SetQuestPanelOff()
     {
         questsPanel.SetActive(false);
+        playerGO.GetComponent<PlayerMovement>().BlockedMovement = false;
     }
 
     public void SetFoundPanelOff()
     {
         foundPanel.SetActive(false);
+        playerGO.GetComponent<PlayerMovement>().BlockedMovement = false;
     }
 
     public void OnCloseDialogues()
@@ -386,4 +394,9 @@ public class PlayManager : MonoBehaviour
         return sum / vectors.Count;
     }
 
+
+    public void QuitGame()
+    {
+        Application.Quit();
+    }
 }

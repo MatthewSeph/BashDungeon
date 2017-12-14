@@ -1139,7 +1139,7 @@ Prefab:
     - target: {fileID: 224388007851349740, guid: b4eba8c29e99a4245be7f8fa75a899c6,
         type: 2}
       propertyPath: m_LocalPosition.x
-      value: 675.26605
+      value: 181.33331
       objectReference: {fileID: 0}
     - target: {fileID: 114758853204457920, guid: b4eba8c29e99a4245be7f8fa75a899c6,
         type: 2}
@@ -1217,6 +1217,11 @@ Prefab:
     - target: {fileID: 1540921362183248, guid: b4eba8c29e99a4245be7f8fa75a899c6, type: 2}
       propertyPath: m_StaticEditorFlags
       value: 4294967295
+      objectReference: {fileID: 0}
+    - target: {fileID: 224388007851349740, guid: b4eba8c29e99a4245be7f8fa75a899c6,
+        type: 2}
+      propertyPath: m_AnchoredPosition.x
+      value: -352
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: b4eba8c29e99a4245be7f8fa75a899c6, type: 2}
@@ -1609,27 +1614,27 @@ Prefab:
     - target: {fileID: 224653844416264316, guid: 9f918ffb4e183f24dac3711819148acc,
         type: 2}
       propertyPath: m_LocalPosition.x
-      value: -1061.8182
+      value: -405.68723
       objectReference: {fileID: 0}
     - target: {fileID: 224653844416264316, guid: 9f918ffb4e183f24dac3711819148acc,
         type: 2}
       propertyPath: m_LocalPosition.y
-      value: -1062.88
+      value: -406.09293
       objectReference: {fileID: 0}
     - target: {fileID: 224284841191369936, guid: 9f918ffb4e183f24dac3711819148acc,
         type: 2}
       propertyPath: m_LocalPosition.x
-      value: 1061.8182
+      value: 272.49286
       objectReference: {fileID: 0}
     - target: {fileID: 224284841191369936, guid: 9f918ffb4e183f24dac3711819148acc,
         type: 2}
       propertyPath: m_LocalPosition.y
-      value: 1062.88
+      value: 275.26532
       objectReference: {fileID: 0}
     - target: {fileID: 224427447104673820, guid: 9f918ffb4e183f24dac3711819148acc,
         type: 2}
       propertyPath: m_LocalPosition.y
-      value: -1.0000305
+      value: -1
       objectReference: {fileID: 0}
     - target: {fileID: 20060332833827936, guid: 9f918ffb4e183f24dac3711819148acc,
         type: 2}
@@ -1744,6 +1749,21 @@ Prefab:
     - target: {fileID: 1128412215018670, guid: 9f918ffb4e183f24dac3711819148acc, type: 2}
       propertyPath: m_StaticEditorFlags
       value: 4294967295
+      objectReference: {fileID: 0}
+    - target: {fileID: 224284841191369936, guid: 9f918ffb4e183f24dac3711819148acc,
+        type: 2}
+      propertyPath: m_AnchoredPosition.y
+      value: 2.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 224284841191369936, guid: 9f918ffb4e183f24dac3711819148acc,
+        type: 2}
+      propertyPath: m_SizeDelta.y
+      value: -31
+      objectReference: {fileID: 0}
+    - target: {fileID: 224427447104673820, guid: 9f918ffb4e183f24dac3711819148acc,
+        type: 2}
+      propertyPath: m_LocalPosition.x
+      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents:
     - {fileID: 81601037444837414, guid: 9f918ffb4e183f24dac3711819148acc, type: 2}
@@ -3112,7 +3132,18 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 1709886707}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 678893744}
+        m_MethodName: QuitGame
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
     m_TypeName: UnityEngine.UI.Button+ButtonClickedEvent, UnityEngine.UI, Version=1.0.0.0,
       Culture=neutral, PublicKeyToken=null
 --- !u!114 &1709886707
