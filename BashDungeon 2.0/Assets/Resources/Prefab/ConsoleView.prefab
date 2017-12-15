@@ -26,7 +26,7 @@ GameObject:
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
+  m_StaticEditorFlags: 4294967295
   m_IsActive: 1
 --- !u!1 &1195948047177402
 GameObject:
@@ -38,13 +38,12 @@ GameObject:
   - component: {fileID: 4645778096208026}
   - component: {fileID: 20060332833827936}
   - component: {fileID: 124643836651887440}
-  - component: {fileID: 81601037444837414}
   m_Layer: 0
   m_Name: ConsoleCamera
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
+  m_StaticEditorFlags: 4294967295
   m_IsActive: 1
 --- !u!1 &1306456424934380
 GameObject:
@@ -56,12 +55,12 @@ GameObject:
   - component: {fileID: 224653844416264316}
   - component: {fileID: 222567592788918988}
   - component: {fileID: 114043286507117080}
-  m_Layer: 0
+  m_Layer: 5
   m_Name: Panel
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
+  m_StaticEditorFlags: 4294967295
   m_IsActive: 1
 --- !u!1 &1410297946039558
 GameObject:
@@ -76,7 +75,7 @@ GameObject:
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
+  m_StaticEditorFlags: 4294967295
   m_IsActive: 1
 --- !u!1 &1519885815610966
 GameObject:
@@ -89,12 +88,12 @@ GameObject:
   - component: {fileID: 223848421388929196}
   - component: {fileID: 114375004060735074}
   - component: {fileID: 114883944941432464}
-  m_Layer: 0
+  m_Layer: 5
   m_Name: ConsoleCanvas
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
+  m_StaticEditorFlags: 4294967295
   m_IsActive: 1
 --- !u!1 &1600417711503878
 GameObject:
@@ -106,12 +105,12 @@ GameObject:
   - component: {fileID: 224284841191369936}
   - component: {fileID: 222069094017620510}
   - component: {fileID: 114710910732644866}
-  m_Layer: 0
+  m_Layer: 5
   m_Name: ConsoleText
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
+  m_StaticEditorFlags: 4294967295
   m_IsActive: 1
 --- !u!1 &1631962537954672
 GameObject:
@@ -122,12 +121,12 @@ GameObject:
   m_Component:
   - component: {fileID: 4052526048257536}
   - component: {fileID: 114045576850703954}
-  m_Layer: 0
+  m_Layer: 5
   m_Name: Console
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
+  m_StaticEditorFlags: 4294967295
   m_IsActive: 1
 --- !u!4 &4052526048257536
 Transform:
@@ -141,7 +140,7 @@ Transform:
   m_Children:
   - {fileID: 224427447104673820}
   m_Father: {fileID: 4914405915399102}
-  m_RootOrder: 1
+  m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!4 &4090747361639754
 Transform:
@@ -167,7 +166,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 4914405915399102}
-  m_RootOrder: 0
+  m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!4 &4914405915399102
 Transform:
@@ -176,11 +175,11 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1410297946039558}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0.94422436, y: -1.3271637, z: 100.63043}
+  m_LocalPosition: {x: 0.94422436, y: 338, z: 100.63043}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
-  - {fileID: 4645778096208026}
   - {fileID: 4052526048257536}
+  - {fileID: 4645778096208026}
   - {fileID: 4090747361639754}
   m_Father: {fileID: 0}
   m_RootOrder: 0
@@ -197,10 +196,10 @@ Camera:
   m_BackGroundColor: {r: 0, g: 0, b: 0, a: 0}
   m_NormalizedViewPortRect:
     serializedVersion: 2
-    x: 0
+    x: 0.5
     y: 0
-    width: 1
-    height: 1
+    width: 0.5
+    height: 0.91
   near clip plane: 0.3
   far clip plane: 1000
   field of view: 69.02215
@@ -209,7 +208,7 @@ Camera:
   m_Depth: -1
   m_CullingMask:
     serializedVersion: 2
-    m_Bits: 4294967295
+    m_Bits: 32
   m_RenderingPath: -1
   m_TargetTexture: {fileID: 0}
   m_TargetDisplay: 0
@@ -220,13 +219,6 @@ Camera:
   m_OcclusionCulling: 1
   m_StereoConvergence: 10
   m_StereoSeparation: 0.022
---- !u!81 &81601037444837414
-AudioListener:
-  m_ObjectHideFlags: 1
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1195948047177402}
-  m_Enabled: 1
 --- !u!114 &114043286507117080
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -267,6 +259,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   messaggio: 
   textObj: {fileID: 0}
+  playerGO: {fileID: 1623641614410182, guid: 29336dc07912b4747a00f82b07d5f35b, type: 2}
+  gameManager: {fileID: 0}
 --- !u!114 &114375004060735074
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -308,8 +302,8 @@ MonoBehaviour:
     m_TypeName: UnityEngine.UI.MaskableGraphic+CullStateChangedEvent, UnityEngine.UI,
       Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
   m_FontData:
-    m_Font: {fileID: 10102, guid: 0000000000000000e000000000000000, type: 0}
-    m_FontSize: 33
+    m_Font: {fileID: 12800000, guid: dfdb11234248c5247b2c03133f1b3674, type: 3}
+    m_FontSize: 17
     m_FontStyle: 0
     m_BestFit: 0
     m_MinSize: 0
@@ -319,8 +313,8 @@ MonoBehaviour:
     m_RichText: 1
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 1
-    m_LineSpacing: 1
-  m_Text: 'User@linux:~$ '
+    m_LineSpacing: 1.04
+  m_Text: 
 --- !u!114 &114776216356583262
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -415,7 +409,7 @@ RectTransform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1600417711503878}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 400, y: 300, z: 0}
+  m_LocalPosition: {x: 400, y: 302.5, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 224653844416264316}
@@ -423,8 +417,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: 0, y: 0}
-  m_SizeDelta: {x: -36, y: -36}
+  m_AnchoredPosition: {x: 0, y: 2.5}
+  m_SizeDelta: {x: -36, y: -31}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!224 &224427447104673820
 RectTransform:

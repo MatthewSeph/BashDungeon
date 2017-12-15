@@ -11,7 +11,7 @@ public class CrudeliaNPC : MonoBehaviour {
     bool roomLocked = false;
     int cuccioliTrovati = 0;
     bool primoIncontro = false;
-
+    string questText = "Porta i tre cuccioli nascosti nella stanza ";
     // Use this for initialization
     void Start()
     {
@@ -90,13 +90,14 @@ public class CrudeliaNPC : MonoBehaviour {
 
         else if (gameManager.GetComponent<PlayManager>().ClickedObject != null && gameManager.GetComponent<PlayManager>().ClickedObject.name != "CrudelioDeMonNPC" && cuccioliTrovati == 3 && !lootRoom.IsLocked)
         {
+            gameManager.GetComponent<PlayManager>().RemoveQuest(questText);
             crudelioNPC.CurrentRoom.oggetti.Remove(crudelioNPC);
             Destroy(gameObject);
         }
 
         if ((!primoIncontro) && (gameManager.GetComponent<PlayManager>().ClickedObject == gameObject) && (playerGO.GetComponent<PlayerMovement>().BlockedMovement))
         {
-            gameManager.GetComponent<PlayManager>().AddQuest("Porta i tre cuccioli nascosti nella stanza " + gameManager.GetComponent<PlayManager>().GetPath(crudelioNPC.CurrentRoom));
+            gameManager.GetComponent<PlayManager>().AddQuest(questText + gameManager.GetComponent<PlayManager>().GetPath(crudelioNPC.CurrentRoom));
             primoIncontro = true;
         }
     }

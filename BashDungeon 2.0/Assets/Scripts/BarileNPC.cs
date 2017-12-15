@@ -8,9 +8,23 @@ public class BarileNPC : MonoBehaviour {
     bool primoIncontro = false;
     GameObject gameManager;
     GameObject playerGO;
+    string questText = "Elimina il barile che blocca il passaggio nella stanza ";
 
-	// Use this for initialization
-	void Start () {
+    public string QuestText
+    {
+        get
+        {
+            return questText;
+        }
+
+        set
+        {
+            questText = value;
+        }
+    }
+
+    // Use this for initialization
+    void Start () {
         playerGO = GameObject.Find("Player");
         gameManager = GameObject.Find("GameManager");
 
@@ -20,9 +34,9 @@ public class BarileNPC : MonoBehaviour {
 	// Update is called once per frame
 	void Update () {
 
-        if ((!primoIncontro) && (gameManager.GetComponent<PlayManager>().ClickedObject == gameObject) && (playerGO.GetComponent<PlayerMovement>().BlockedMovement))
+        if ((!primoIncontro) && (playerGO.GetComponent<PlayerMovement>().currentRoom == barileEliminabile.CurrentRoom))
         {
-            gameManager.GetComponent<PlayManager>().AddQuest("Elimina il barile che blocca il passaggio nella stanza " + gameManager.GetComponent<PlayManager>().GetPath(barileEliminabile.CurrentRoom));
+            gameManager.GetComponent<PlayManager>().AddQuest(QuestText + gameManager.GetComponent<PlayManager>().GetPath(barileEliminabile.CurrentRoom));
             primoIncontro = true;
         }
 

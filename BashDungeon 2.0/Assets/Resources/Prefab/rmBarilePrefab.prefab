@@ -41,6 +41,7 @@ GameObject:
   - component: {fileID: 65733959362119242}
   - component: {fileID: 114662756738290250}
   - component: {fileID: 114613122386713404}
+  - component: {fileID: 114673664462351402}
   m_Layer: 0
   m_Name: barileEliminabile
   m_TagString: Untagged
@@ -167,6 +168,17 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   isMadeVisible: 0
   oggettiGOArchiviati: []
+--- !u!114 &114673664462351402
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1243265890613494}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 51ac58bcd0c732f478d40cba744e9a14, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!114 &114872525565808654
 MonoBehaviour:
   m_ObjectHideFlags: 1

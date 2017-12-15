@@ -19,7 +19,7 @@ public class ConsoleScript : MonoBehaviour
     GameObject consoleText;
     //GameObject consoleCanvas;
 
-    int righeMax = 27;
+    int righeMax = 25;
 
     void Start()
     {
@@ -31,6 +31,7 @@ public class ConsoleScript : MonoBehaviour
         oldMessages.Insert(0, "");
 
         textObj = consoleText.GetComponent<Text>();
+        textObj.text += "<b>Bash@Dungeon:~$ </b>";
     }
 
     void Update()
@@ -62,7 +63,7 @@ public class ConsoleScript : MonoBehaviour
                     SplitMessage(messaggio);
                     oldMessages.Insert(1, messaggio);
                     messaggio = "";
-                    textObj.text += "User@linux:~$ ";
+                    textObj.text += "<b>Bash@Dungeon:~$ </b>";
 
                 }
 

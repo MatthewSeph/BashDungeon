@@ -11,6 +11,7 @@ public class KeyNpc : MonoBehaviour {
     Room lootRoom;
     bool roomLocked = false;
     bool primoIncontro = false;
+    string questText = "Porta una chiave nella stanza ";
 
     // Use this for initialization
     void Start () {
@@ -151,7 +152,7 @@ public class KeyNpc : MonoBehaviour {
                 Destroy(chiaveObj);
                 keyNPC.CurrentRoom.oggetti.Remove(chiave);
                 keyNPC.TestoTxT = "Prima non c' era nulla e poi..\n..Puff..\nLa chiave è comparsa proprio davanti a me!!\nLa stanchezza fa brutti scherzi....";
-
+                gameManager.GetComponent<PlayManager>().RemoveQuest(questText);
                 lootRoom.IsLocked = false;
                 Destroy(this);
             }
@@ -159,7 +160,7 @@ public class KeyNpc : MonoBehaviour {
 
         if ((!primoIncontro) && (gameManager.GetComponent<PlayManager>().ClickedObject == gameObject) && (playerGO.GetComponent<PlayerMovement>().BlockedMovement))
         {
-            gameManager.GetComponent<PlayManager>().AddQuest("Porta una chiave nella stanza " + gameManager.GetComponent<PlayManager>().GetPath(keyNPC.CurrentRoom));
+            gameManager.GetComponent<PlayManager>().AddQuest(questText + gameManager.GetComponent<PlayManager>().GetPath(keyNPC.CurrentRoom));
             primoIncontro = true;
         }
 

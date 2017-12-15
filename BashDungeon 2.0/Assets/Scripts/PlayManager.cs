@@ -28,6 +28,8 @@ public class PlayManager : MonoBehaviour
     public GameObject listOfFoundTxtUI;
     public GameObject listOfQuests;
 
+    public List<GameObject> addedQuests;
+
     public GameObject ClickedObject
     {
         get
@@ -96,6 +98,7 @@ public class PlayManager : MonoBehaviour
     void Start()
     {
         playerGO = GameObject.Find("Player");
+        addedQuests = new List<GameObject>();
     }
 
     private void Update()
@@ -432,6 +435,17 @@ public class PlayManager : MonoBehaviour
             GameObject newQuest = Instantiate(gameObject.GetComponent<ObjectPrefabSelector>().setQuest) as GameObject;
             newQuest.transform.SetParent(listOfQuests.transform, false);
             newQuest.GetComponentInChildren<Text>().text = testo;
+            addedQuests.Add(newQuest);
+        }
+    }
+
+    public void RemoveQuest(string questText)
+    {
+        if(addedQuests.Exists(x => x.GetComponentInChildren<Text>().text.Contains(questText)))
+        {
+            GameObject questToRemove = addedQuests.Find(x => x.GetComponentInChildren<Text>().text.Contains(questText));
+            addedQuests.Remove(questToRemove);
+            Destroy(questToRemove);
         }
     }
 }
