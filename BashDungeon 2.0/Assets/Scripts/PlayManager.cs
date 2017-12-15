@@ -26,6 +26,7 @@ public class PlayManager : MonoBehaviour
     public GameObject questsPanel;
     public GameObject foundPanel;
     public GameObject listOfFoundTxtUI;
+    public GameObject listOfQuests;
 
     public GameObject ClickedObject
     {
@@ -404,5 +405,33 @@ public class PlayManager : MonoBehaviour
     public void BackToMenu()
     {
         SceneManager.LoadScene("MainMenu");
+    }
+
+    public string GetPath(Room Stanza)
+    {
+        string pathCalcolato = "";
+        Room stanzaCorrente = Stanza;
+
+        while (stanzaCorrente.nomeStanza != "/")
+        {
+            pathCalcolato = "/" + stanzaCorrente.nomeStanza + pathCalcolato;
+            stanzaCorrente = stanzaCorrente.parentRoom;
+        }
+
+        if (pathCalcolato == "")
+        {
+            pathCalcolato = "/";
+        }
+
+        return pathCalcolato;
+    }
+
+    public void AddQuest(string testo)
+    {
+        {
+            GameObject newQuest = Instantiate(gameObject.GetComponent<ObjectPrefabSelector>().setQuest) as GameObject;
+            newQuest.transform.SetParent(listOfQuests.transform, false);
+            newQuest.GetComponentInChildren<Text>().text = testo;
+        }
     }
 }

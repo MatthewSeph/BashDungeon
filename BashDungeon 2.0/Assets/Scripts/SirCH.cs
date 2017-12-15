@@ -10,6 +10,7 @@ public class SirCH : MonoBehaviour {
     Oggetto sirCHNPC;
     bool roomLocked = false;
     bool endLevel = false;
+    bool primoIncontro = false;
 
     string chosenPergamena = "";
 
@@ -79,6 +80,12 @@ public class SirCH : MonoBehaviour {
                 lootRoom.parentRoom.oggetti.Remove(sirCHNPC);
                 Destroy(gameObject);
             }
+        }
+
+        if ((!primoIncontro) && (gameManager.GetComponent<PlayManager>().ClickedObject == gameObject) && (playerGO.GetComponent<PlayerMovement>().BlockedMovement))
+        {
+            gameManager.GetComponent<PlayManager>().AddQuest("Risolvi l'indovinello di SirCH nella stanza " + gameManager.GetComponent<PlayManager>().GetPath(sirCHNPC.CurrentRoom));
+            primoIncontro = true;
         }
 
     }
