@@ -43,7 +43,15 @@ public class PlayManager : MonoBehaviour
             {
                 if (clickedObject != null)
                 {
-                    clickedObject.GetComponent<Renderer>().material.SetColor("_EmissionColor", Color.white * 0f);
+                    if(clickedObject.transform.childCount == 0)
+                    {
+                        clickedObject.GetComponent<Renderer>().material.SetColor("_EmissionColor", Color.white * 0f);
+                    }
+                    else
+                    {
+                        clickedObject.GetComponentInChildren<Renderer>().material.SetColor("_EmissionColor", Color.white * 0f);
+                    }
+                    
                 }
                 if (value != null)
                 {
@@ -52,8 +60,15 @@ public class PlayManager : MonoBehaviour
                 clickedObject = value;
                 if (clickedObject != null)
                 {
-                    clickedObject.GetComponent<Renderer>().material.SetColor("_EmissionColor", Color.white * 0.3f);
-                    //nel caso l' oggetto sia vicino a un muro e dunque non "cliccabile" per muoversi setto la destinazione
+                   if (clickedObject.GetComponent<Renderer>() != null)
+                    {
+                        clickedObject.GetComponent<Renderer>().material.SetColor("_EmissionColor", Color.white * 0.3f);
+                     }
+                    else
+                    {
+                        clickedObject.GetComponentInChildren<Renderer>().material.SetColor("_EmissionColor", Color.white * 0.3f);
+                    }
+                    
                 }
                 else
                 {
@@ -444,8 +459,8 @@ public class PlayManager : MonoBehaviour
         if(addedQuests.Exists(x => x.GetComponentInChildren<Text>().text.Contains(questText)))
         {
             GameObject questToRemove = addedQuests.Find(x => x.GetComponentInChildren<Text>().text.Contains(questText));
-            addedQuests.Remove(questToRemove);
-            Destroy(questToRemove);
+            //addedQuests.Remove(questToRemove);
+            questToRemove.SetActive(false);
         }
     }
 }

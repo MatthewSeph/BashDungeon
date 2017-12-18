@@ -70,7 +70,7 @@ public class CrudeliaNPC : MonoBehaviour {
         }
         else if (roomLocked)
         {
-            if (crudelioNPC.CurrentRoom.oggetti.Find(x => x.nomeOggetto.Contains("cuccioloNascosto")) != null)
+            if (crudelioNPC.CurrentRoom.oggetti.Find(x => x.nomeOggetto.Contains("cuccioloNascosto")) != null && primoIncontro)
             {
                 Oggetto cucciolo = crudelioNPC.CurrentRoom.oggetti.Find(x => x.nomeOggetto.Contains("cuccioloNascosto"));
                 GameObject cuccioloObj = GameObject.Find("/" + crudelioNPC.CurrentRoom.nomeStanza + "/" + cucciolo.nomeOggetto);
@@ -80,15 +80,18 @@ public class CrudeliaNPC : MonoBehaviour {
                 cuccioliTrovati++;
             }
         }
-        if (cuccioliTrovati == 3)
+        if(primoIncontro && cuccioliTrovati > 0 && cuccioliTrovati < 3)
+        {
+            crudelioNPC.TestoTxT = "Che ci fai ancora qui? Mi hai portato solo " + cuccioliTrovati + "/3 cuccioli.";
+        }
+        if (cuccioliTrovati == 3 && lootRoom.IsLocked && playerGO.GetComponent<PlayerMovement>().currentRoom.oggetti.Contains(crudelioNPC))
         {
             gameManager.GetComponent<PlayManager>().ClickedObject = gameObject;
             playerGO.GetComponent<PlayerMovement>().BlockedMovement = true;
             crudelioNPC.TestoTxT = "Ho finalmente acchiappato quelle bestiacce, TUTTE e 100 !!!\n..Erano 100, giusto?..\nAddio, \"buonuomo\"... MUAHAHAHAHA";
             lootRoom.IsLocked = false;
         }
-
-        else if (gameManager.GetComponent<PlayManager>().ClickedObject != null && gameManager.GetComponent<PlayManager>().ClickedObject.name != "CrudelioDeMonNPC" && cuccioliTrovati == 3 && !lootRoom.IsLocked)
+        else if (gameManager.GetComponent<PlayManager>().ClickedObject == null && cuccioliTrovati == 3 && !lootRoom.IsLocked)
         {
             gameManager.GetComponent<PlayManager>().RemoveQuest(questText);
             crudelioNPC.CurrentRoom.oggetti.Remove(crudelioNPC);

@@ -30,6 +30,24 @@
 	<pergamena>
 		<testo>Puoi separare gli oggetti contenuti in un archivio compresso utilizzando il comando "tar" seguito da "-zxf" e dal suo nome.</testo>
 	</pergamena>
+
+  <pergamena>
+    <testo>Per controllare se una pergamena contiene una determinata parola al suo interno utilizza il comando "grep" seguito dalla parola desiderata e dal nome dell' oggetto in cui si vuole effettuare il controllo.
+ES: grep parola pergamena</testo>
+  </pergamena>
+  <pergamena>
+    <testo>Puoi controllare se una pergamena inizia con una determinata parola utilizzando il comando "grep" seguito dalla parola, preceduta dal simbolo "^", e dal nome della pergamena
+ES: grep ^parola pergamena</testo>
+  </pergamena>
+  <pergamena>
+      <testo>Puoi controllare se una pergamena finisce con una determinata parola utilizzando il comando "grep" seguito dalla parola, seguita dal simbolo "$", e dal nome della pergamena
+ES: grep parola$ pergamena</testo>
+  </pergamena>
+  <pergamena>
+    <testo>Se, utilizzando il comando grep, vuoi controllare non solo una singola pergamena ma tutte le pergamene in una stanza puoi scrivere al posto del nome della pergamena "." oppure "*"
+ES: grep parola *</testo>
+  </pergamena>
+  
   
   	<pergamenaTutorial>
       <nome>Cd</nome>
@@ -45,12 +63,12 @@ Il nome delle stanze adiacenti viene segnato in blu.. Sarà possibile potersi sp
   
     <pergamenaTutorial>
     <nome>Sinistra</nome>
-		<testo>Inizialmente aveva un senso, ma ad un tratto c'era scritto Fine</testo>
+		<testo>Inizialmente aveva un senso, ma ad un tratto c'era scritto Fine..</testo>
 	</pergamenaTutorial>
     
       <pergamenaTutorial>
     <nome>Centrale</nome>
-		<testo>Inizialmente pensavo finisse con Fine, invece finisce con: ad un tratto</testo>
+		<testo>All' inizio pensavo finisse con Fine, invece finisce con: ad un tratto</testo>
 	</pergamenaTutorial>
     <pergamenaTutorial>
     <nome>Destra</nome>

@@ -16,6 +16,8 @@ public class ObjectBehavior : MonoBehaviour {
     public List<GameObject> oggettiGOArchiviati;
     public List<Oggetto> oggettiArchiviati;
 
+    MeshRenderer[] meshRendererInChildren;
+
     GameObject gameManager;
 
     public bool IsBeingCompressed
@@ -34,17 +36,35 @@ public class ObjectBehavior : MonoBehaviour {
     void Start()
     {
         //playerGO = GameObject.FindGameObjectWithTag("Player");
-        transform.GetComponent<MeshRenderer>().material.EnableKeyword("_EMISSION");
-        myColorAlphaZero = transform.GetComponent<MeshRenderer>().material.color;
-        myColorAlphaZero.a = 0;
-        myColorFullAlpha = transform.GetComponent<MeshRenderer>().material.color;
-        myColorFullAlpha.a = 75;
+        if(transform.childCount == 0)
+        {
+            transform.GetComponent<MeshRenderer>().material.EnableKeyword("_EMISSION");
+            myColorAlphaZero = transform.GetComponent<MeshRenderer>().material.color;
+            myColorAlphaZero.a = 0;
+            myColorFullAlpha = transform.GetComponent<MeshRenderer>().material.color;
+            myColorFullAlpha.a = 75;
+        }
+        else
+        {
+            meshRendererInChildren = transform.GetComponentsInChildren<MeshRenderer>();
+            foreach(MeshRenderer meshR in meshRendererInChildren)
+            {
+                meshR.material.EnableKeyword("_EMISSION");
+            }
+
+            myColorAlphaZero = transform.GetComponentInChildren<MeshRenderer>().material.color;
+            myColorAlphaZero.a = 0;
+            myColorFullAlpha = transform.GetComponentInChildren<MeshRenderer>().material.color;
+            myColorFullAlpha.a = 75;
+        }
+        
         gameManager = GameObject.Find("GameManager");
 
     }
 
     private void Update()
     {
+
         if (transform.name.Contains("."))
         {
             isVisible = false;
@@ -55,16 +75,48 @@ public class ObjectBehavior : MonoBehaviour {
             if (transform.name.Contains(".") && !isMadeVisible)
             {
                 isVisible = false;
-                transform.GetComponent<MeshRenderer>().material.color = myColorAlphaZero;
+                if(transform.childCount == 0)
+                {
+                    transform.GetComponent<MeshRenderer>().material.color = myColorAlphaZero;
+                }
+                else
+                {
+                    foreach(MeshRenderer meshR in meshRendererInChildren)
+                    {
+                        meshR.material.color = myColorAlphaZero;
+                    }
+                   
+                }
+                
             }
             else if (transform.name.Contains(".") && isMadeVisible)
             {
-                transform.GetComponent<MeshRenderer>().material.color = myColorFullAlpha;
+                if (transform.childCount == 0)
+                {
+                    transform.GetComponent<MeshRenderer>().material.color = myColorFullAlpha;
+                }
+                else
+                {
+                    foreach (MeshRenderer meshR in meshRendererInChildren)
+                    {
+                        meshR.material.color = myColorFullAlpha;
+                    }
+                }
             }
 
-            if (transform.GetComponent<MeshRenderer>().material.color.a == 75)
+            if (transform.childCount == 0)
             {
-                isVisible = true;
+                if (transform.GetComponent<MeshRenderer>().material.color.a == 75)
+                {
+                    isVisible = true;
+                }
+            }
+            else
+            {
+                if (transform.GetComponentInChildren<MeshRenderer>().material.color.a == 75)
+                {
+                    isVisible = true;
+                }
             }
         }
 

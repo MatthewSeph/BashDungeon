@@ -61,18 +61,34 @@ public class SirGiorgio : MonoBehaviour {
             sirGiorgio.TestoTxT = "Come faccio a non annoiarmi qui dentro?\nVa bene te lo dirò, ma promettimi che non riderai!\n..Come hobby aggiusto la carta..\n...\nNon stai ridendo?! Sei il primo! Portami qualche foglio rotto, te li aggiusterò GRATIS, sconto amico!";
             if(sirGiorgio.CurrentRoom.oggetti.Find(x => x.nomeOggetto.Contains("frammentoPergamena")) != null )
             {
-                sirGiorgio.TestoTxT = "Vedo che ti stai dando da fare!\nPorta i restanti pezzi e la tua pergamena tornerà come nuova!";
+                if(!lastQuest)
+                {
+                    sirGiorgio.TestoTxT = "Vedo che ti stai dando da fare!\nPorta i restanti pezzi e la tua pergamena tornerà come nuova!";
+                }
 
-                if (sirGiorgio.CurrentRoom.nomeStanza == "/" && sirGiorgio.CurrentRoom.oggetti.FindAll(x => x.nomeOggetto.Contains("frammentoPergamena")).Count == gameManager.GetComponent<LevelGeneration>().LootPrefabs.Count)
+                if (playerGO.GetComponent<PlayerMovement>().currentRoom.nomeStanza == "/" && sirGiorgio.CurrentRoom.oggetti.FindAll(x => x.nomeOggetto.Contains("frammentoPergamena")).Count == gameManager.GetComponent<LevelGeneration>().LootPrefabs.Count)
                 {
                     if (lastQuest && gameManager.GetComponent<PlayManager>().ClickedObject != gameObject)
                     {
                         foreach(Oggetto o in sirGiorgio.CurrentRoom.oggetti.FindAll(x => x.nomeOggetto.Contains("frammentoPergamena")))
                         {
-                            GameObject.Find("//"+ o.nomeOggetto);
+                            Destroy(GameObject.Find("//"+ o.nomeOggetto));
+                            
                             sirGiorgio.CurrentRoom.oggetti.Remove(o);
-                        }          
+                        }
+
+                        Oggetto pergamena = new Oggetto(sirGiorgio.CurrentRoom, "pergamenaFinale");
+                        pergamena.CurrentRoom.oggetti.Add(pergamena);
+                        pergamena.IsTxt = true;
+                        pergamena.TestoTxT = "Per terminare il gioco utilizza il comando \"shutdown\" !";
+                        GameObject selectedPrefab = gameManager.GetComponent<ObjectPrefabSelector>().PickObjectPrefab("pergamena");
+
+                        GameObject oggettoIstanziato = Instantiate(selectedPrefab) as GameObject;
+
+                        oggettoIstanziato.transform.parent = GameObject.Find("//").transform;
+
                     }
+                
                     sirGiorgio.TestoTxT = "Bene bene! Sembra che tutti i pezzi siano qui\nTi auguro una buona lettura, ma sopratutto...\nAMMIRA LA MIA BRAVURA!!";
                     gameManager.GetComponent<PlayManager>().ClickedObject = gameObject;
                     lastQuest = true;

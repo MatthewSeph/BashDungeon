@@ -33,7 +33,10 @@ public class RemovableObject : MonoBehaviour {
 
     private void OnDestroy()
     {
-        gameManager.GetComponent<PlayManager>().RemoveQuest(gameObject.GetComponent<BarileNPC>().QuestText);
-        lootRoom.IsLocked = false;
+        if (gameObject.GetComponent<BarileNPC>() != null && gameObject.GetComponent<BarileNPC>().QuestText != null && gameManager != null)
+        {
+            gameManager.GetComponent<PlayManager>().RemoveQuest(gameObject.GetComponent<BarileNPC>().QuestText);
+            lootRoom.IsLocked = false;
+        }
     }
 }

@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text.RegularExpressions;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 
 
@@ -168,6 +169,10 @@ public class ConsoleScript : MonoBehaviour
 
             case "grep":
                 Grep(splittedMessage);
+                break;
+
+            case "shutdown":
+                Shutdown(splittedMessage);
                 break;
 
             default:
@@ -557,6 +562,10 @@ public class ConsoleScript : MonoBehaviour
                     textObj.text += ("non trovo tutti gli oggetti :c" + "\n");
                 }
             }
+            else if(splittedMessage.Length < 4 && splittedMessage[1] == "-cf" && splittedMessage[2].EndsWith(".tar"))
+            {
+                textObj.text += ("il comando tar -cf prevede almeno due parametri" + "\n");
+            }
             else if (splittedMessage.Length == 3 && splittedMessage[1] == "-xf" && splittedMessage[2].EndsWith(".tar"))
             {
                 if (playerGO.GetComponent<PlayerMovement>().currentRoom.oggetti.Exists(x => x.nomeOggetto == splittedMessage[2] && x.IsActive ))
@@ -585,6 +594,10 @@ public class ConsoleScript : MonoBehaviour
                 {
                     textObj.text += ("non trovo un archivio con quel nome :c" + "\n");
                 }
+            }
+            else if (splittedMessage.Length != 3 && splittedMessage[1] == "-xf" && splittedMessage[2].EndsWith(".tar"))
+            {
+                textObj.text += ("il comando tar -xf prevede un parametro" + "\n");
             }
             else if (splittedMessage.Length >= 4 && (splittedMessage[1] == "-czf" || splittedMessage[1] == "-zcf") && splittedMessage[2].EndsWith(".tar.gz"))
             {
@@ -615,6 +628,10 @@ public class ConsoleScript : MonoBehaviour
                     textObj.text += ("non trovo tutti gli oggetti :c" + "\n");
                 }
             }
+            else if (splittedMessage.Length < 4 && (splittedMessage[1] == "-czf" || splittedMessage[1] == "-zcf") && splittedMessage[2].EndsWith(".tar.gz"))
+            {
+                textObj.text += ("Il comando tar " + splittedMessage[1] + " prevede almeno due parametri" + "\n");
+            }
             else if (splittedMessage.Length == 3 && (splittedMessage[1] == "-xzf" || splittedMessage[1] == "-zxf") && splittedMessage[2].EndsWith(".tar.gz"))
             {
                 if (playerGO.GetComponent<PlayerMovement>().currentRoom.oggetti.Exists(x => x.nomeOggetto == splittedMessage[2] && x.IsActive))
@@ -644,10 +661,26 @@ public class ConsoleScript : MonoBehaviour
                     textObj.text += ("non trovo un archivio con quel nome :c" + "\n");
                 }
             }
+            else if (splittedMessage.Length == 3 && (splittedMessage[1] == "-xzf" || splittedMessage[1] == "-zxf") && splittedMessage[2].EndsWith(".tar.gz"))
+            {
+                textObj.text += ("Il comando tar " + splittedMessage[1] + " prevede un parametro" + "\n");
+            }
+            else if(splittedMessage[1] != "-xzf" && splittedMessage[1] != "-zxf" && splittedMessage[1] != "-zcf" && splittedMessage[1] != "-czf" && splittedMessage[1] != "-xf" && splittedMessage[1] != "-cf")
+            {
+                textObj.text += ("Errore inatteso. Sicuro di aver inserito tutti i dati utili al comando tar (es. -xf, -cf, -zxf o -zcf) ? " + "\n");
+            }
+            else if((splittedMessage[1] == "-xzf" || splittedMessage[1] == "-zxf" || splittedMessage[1] == "-zcf" || splittedMessage[1] == "-czf") && !splittedMessage[2].EndsWith(".tar.gz"))
+            {
+                textObj.text += ("Il nome dell' archivio compresso che si vuole creare deve terminare con \".tar.gz\"" + "\n");
+            }
+            else if ((splittedMessage[1] == "-xf" || splittedMessage[1] == "-cf") && !splittedMessage[2].EndsWith(".tar"))
+            {
+                textObj.text += ("Il nome dell' archivio che si vuole creare deve terminare con \".tar\"" + "\n");
+            }
         }
         else
         {
-            textObj.text += ("tar prevede almeno due parametri." + "\n");
+            textObj.text += ("tar prevede almeno un parametro." + "\n");
         }
     }
 
@@ -754,4 +787,12 @@ public class ConsoleScript : MonoBehaviour
         }
     }
 
+
+    void Shutdown(String[] splittedMessage)
+    {
+        if (splittedMessage.Length == 1)
+        {
+            SceneManager.LoadScene("Credits");
+        }
+    }
 }

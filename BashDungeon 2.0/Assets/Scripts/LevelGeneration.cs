@@ -359,11 +359,6 @@ public class LevelGeneration : MonoBehaviour
                     levelRooms.Add(roomsWithNoChildren[i].parentRoom);
                     roomsWithNoChildren[i].parentRoom.type = 2;
                     roomsWithNoChildren[i].type = 3;
-                    //Creo un oggetto nelle stanze-Livello tanto per vedere se funziona.. andrà rimosso e andrà fatto un controllo con il type della room.
-                    Oggetto oggetto = new Oggetto(roomsWithNoChildren[i], "frammentoPergamena");
-                    oggetto.IsMovable = true;
-                    roomsWithNoChildren[i].oggetti.Add(oggetto);
-                    oggettiCreati.Add(oggetto);
                 }
                 if (levelRooms.Count == 4)
                 {
@@ -387,6 +382,7 @@ public class LevelGeneration : MonoBehaviour
     void OggettiNelleStanze()
     {
         int levelDifficoulty = LootPrefabs.Count;
+        int numeroFrammentoPergamena = 0;
         // Dovremo controllare la lista levelRooms e a seconda del tipo e della difficoltà del livello creare oggetti adeguati
         foreach(Room room in roomsOrderByDistance)
         {
@@ -405,6 +401,11 @@ public class LevelGeneration : MonoBehaviour
             else if(room.type == 0)
             {
                 chosenPrefab = gameObject.GetComponent<ObjectPrefabSelector>().PickStandardRoomPrefab();
+            }
+            else if(room.type == 3)
+            {
+                chosenPrefab = gameObject.GetComponent<ObjectPrefabSelector>().PickLootPrefab(numeroFrammentoPergamena);
+                numeroFrammentoPergamena++;
             }
             else
             {
@@ -510,10 +511,18 @@ public class LevelGeneration : MonoBehaviour
                             }
                         }
                     }
-                    if(child.name.Contains("Eliminabile") && room.type == 2)
+                    if (child.name.Contains("frammentoPergamena"))
+                    {
+                        item.IsMovable = true;
+                    }
+                    if(child.name.Contains("Eliminabile"))
                     {
                         item.IsRemovable = true;
-
+                    }
+                    if (child.name.Contains("Nascosto") || child.name.Contains("Nascosta"))
+                    {
+                        item.IsInvisible = true;
+                        child.name = item.nomeOggetto;
                     }
                 }
 
@@ -548,7 +557,7 @@ public class LevelGeneration : MonoBehaviour
             Room randomRoom = null;
             while (!isRoomFine){
                 randomRoom = RandomRoomNoLevelOrRoot();
-                if(!randomRoom.oggetti.Exists(x => x.nomeOggetto.Contains("pergamena")))
+                if(!randomRoom.oggetti.Exists(x => x.nomeOggetto.Contains("pergamena")) || randomRoom.oggetti.FindAll(x => x.nomeOggetto.Contains("pergamena")).Count < 2)
                 {
                     isRoomFine = true;
                 }

@@ -24,6 +24,8 @@ public class ObjectPrefabSelector : MonoBehaviour {
 
     public GameObject defaultLevel;
 
+    public List<GameObject> lootPrefab;
+
     public List<GameObject> standardRoomPrefab;
 
     public List<GameObject> level1Prefab;
@@ -151,4 +153,20 @@ public class ObjectPrefabSelector : MonoBehaviour {
         }
         return chosenPrefab;
     }
+
+    public GameObject PickLootPrefab(int numberLoot)
+    {
+        GameObject chosenPrefab;
+        if(numberLoot <= lootPrefab.Count-1)
+        {
+            chosenPrefab = lootPrefab[numberLoot];
+        }
+        else
+        {
+            chosenPrefab = defaultLevel;
+        }
+        return chosenPrefab;
+    }
+
+
 }

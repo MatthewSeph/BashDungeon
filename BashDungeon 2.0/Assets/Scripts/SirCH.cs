@@ -38,20 +38,25 @@ public class SirCH : MonoBehaviour {
                     lootRoom = room;
                 }
             }
-            int randomSearch = Random.Range(0, 3);
+            int randomSearch = Random.Range(0, 4);
             switch (randomSearch)
             {
                 case 0:
-                    sirCHNPC.TestoTxT += "\nQuale tra queste tre pergamene inizia con \"Inizialmente\" e finisce con \"Fine\" ?";
+                    sirCHNPC.TestoTxT += "\nQuale tra queste tre pergamene inizia con \"Inizialmente\" ?";
                     chosenPergamena = "pergamenaSinistra";
                     break;
                 case 1:
-                    sirCHNPC.TestoTxT += "\nQuale tra queste tre pergamene finisce con \"Fine\" ma non inizia con \"Inizialmente\" ?";
+                    sirCHNPC.TestoTxT += "\nQuale tra queste tre pergamene finisce con \"Fine\" ?";
                     chosenPergamena = "pergamenaDestra";
                     break;
                 case 2:
-                    sirCHNPC.TestoTxT += "\nQuale tra queste tre pergamene finisce con \"tratto\" e inizia con \"Inizialmente\" ?";
+                    sirCHNPC.TestoTxT += "\nQuale tra queste tre pergamene finisce con \"tratto\"?";
                     chosenPergamena = "pergamenaCentrale";
+                    break;
+
+                case 3:
+                    sirCHNPC.TestoTxT += "\nQuale tra queste tre pergamene contiene la parola \"Inizialmente\" ma non inizia ne finisce con essa ?";
+                    chosenPergamena = "pergamenaDestra";
                     break;
             }
         }

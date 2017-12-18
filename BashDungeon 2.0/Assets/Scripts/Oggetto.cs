@@ -29,8 +29,19 @@ public class Oggetto
 
             if (currentRoom.oggetti.FindAll(x => x.nomeOggetto.Contains(nomeOggetto) && x.IsActive).Count >= 1)
             {
-                
-                this.nomeOggetto = currentRoom.oggetti.FindAll(x => x.nomeOggetto.Contains(nomeOggetto) && x.IsActive).Count + nomeOggetto;
+                if (nomeOggetto.EndsWith(".tar"))
+                {
+                    this.nomeOggetto = nomeOggetto.Replace(".tar", currentRoom.oggetti.FindAll(x => x.nomeOggetto.Contains(nomeOggetto) && x.IsActive).Count + ".tar");
+                }
+                else if (nomeOggetto.EndsWith(".gz"))
+                {
+                    this.nomeOggetto = nomeOggetto.Replace(".tar", currentRoom.oggetti.FindAll(x => x.nomeOggetto.Contains(nomeOggetto) && x.IsActive).Count + ".tar");
+                }
+                else
+                {
+                    this.nomeOggetto = nomeOggetto + currentRoom.oggetti.FindAll(x => x.nomeOggetto.Contains(nomeOggetto) && x.IsActive).Count;
+                }
+
                 Debug.Log(this.nomeOggetto);
             }
         }
@@ -235,7 +246,18 @@ public class Oggetto
         this.currentRoom = currentRoom;
         if (currentRoom.oggetti.FindAll(x => x.nomeOggetto.Contains(nomeOggetto) && x.IsActive).Count >= 1)
         {
-            this.nomeOggetto = currentRoom.oggetti.FindAll(x => x.nomeOggetto.Contains(nomeOggetto) && x.IsActive).Count + nomeOggetto;
+            if (nomeOggetto.EndsWith(".tar"))
+            {
+                this.nomeOggetto = nomeOggetto.Replace(".tar", currentRoom.oggetti.FindAll(x => x.nomeOggetto.Contains(nomeOggetto) && x.IsActive).Count + ".tar");
+            }
+            else if (nomeOggetto.EndsWith(".gz"))
+            {
+                this.nomeOggetto = nomeOggetto.Replace(".tar", currentRoom.oggetti.FindAll(x => x.nomeOggetto.Contains(nomeOggetto) && x.IsActive).Count + ".tar");
+            }
+            else
+            {
+                this.nomeOggetto = nomeOggetto + currentRoom.oggetti.FindAll(x => x.nomeOggetto.Contains(nomeOggetto) && x.IsActive).Count;
+            }
         }
         else
         {
