@@ -132,7 +132,7 @@ MonoBehaviour:
     m_AlignByGeometry: 1
     m_RichText: 1
     m_HorizontalOverflow: 0
-    m_VerticalOverflow: 0
+    m_VerticalOverflow: 1
     m_LineSpacing: 1
   m_Text: "Utilizza il comando \"ls\" per vedere tutti gli oggetti e i personaggi
     della stanza in cui ti trovi.\r\nIl nome delle stanze adiacenti viene segnato

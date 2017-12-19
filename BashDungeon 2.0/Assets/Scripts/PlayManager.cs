@@ -162,7 +162,7 @@ public class PlayManager : MonoBehaviour
 
             }
         }
-        else if (ClickedObject != null && Vector2.Distance(new Vector2(playerGO.transform.position.x, playerGO.transform.position.z), new Vector2(ClickedObject.transform.position.x, ClickedObject.transform.position.z)) > 2.5f && !playerGO.GetComponent<NavMeshAgent>().hasPath && !playerGO.GetComponent<NavMeshAgent>().pathPending)
+        else if (ClickedObject != null && Vector2.Distance(new Vector2(playerGO.transform.position.x, playerGO.transform.position.z), new Vector2(ClickedObject.transform.position.x, ClickedObject.transform.position.z)) > 3.5f && !playerGO.GetComponent<NavMeshAgent>().hasPath && !playerGO.GetComponent<NavMeshAgent>().pathPending)
         {
             dialoguePanel.SetActive(true);
             dialogueText.GetComponent<DialogueController>().SetText("Che nervoso, non riesco a raggiungerlo !");
