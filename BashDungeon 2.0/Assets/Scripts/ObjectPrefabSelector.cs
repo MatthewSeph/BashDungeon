@@ -33,6 +33,9 @@ public class ObjectPrefabSelector : MonoBehaviour {
     public List<GameObject> level3Prefab;
     public List<GameObject> level4Prefab;
 
+
+    private bool isTrapLevelBeingSpawn = false; //We have 2 trap-level in both level 2 and 3 Prefabs. I want to spawn it only one time.
+
     public GameObject PergamenaFoundUI
     {
         get
@@ -138,10 +141,19 @@ public class ObjectPrefabSelector : MonoBehaviour {
         else if (level == 2 && level2Prefab != null)
         {
             chosenPrefab = level2Prefab[Random.Range(0, level2Prefab.Count)];
+            if(chosenPrefab.name == "trappoleRoomPrefab" && isTrapLevelBeingSpawn)
+            {
+                return PickLevelPrefab(level);
+            }
+
         }
         else if (level == 3 && level3Prefab != null)
         {
             chosenPrefab = level3Prefab[Random.Range(0, level3Prefab.Count)];
+            if (chosenPrefab.name == "trappoleRoomPrefab" && isTrapLevelBeingSpawn)
+            {
+                return PickLevelPrefab(level);
+            }
         }
         else if (level == 4 && level4Prefab != null)
         {
@@ -151,6 +163,12 @@ public class ObjectPrefabSelector : MonoBehaviour {
         {
             chosenPrefab = defaultLevel;
         }
+
+        if (chosenPrefab.name == "trappoleRoomPrefab")
+        {
+            isTrapLevelBeingSpawn = true;
+        }
+
         return chosenPrefab;
     }
 

@@ -108,4 +108,11 @@ Adoro fare indovinelli alle persone, ma nessuno passa mai di qua..
 Se risponderai correttamente mi sposterò, promesso!</testoDialogo>
   </npc>
 
+  <npc>
+  <nome>bodyguardNPC</nome>
+  <testoDialogo>Altolà! quest' area non è sicura.
+La zona è piena di trappole nascoste, non è sicuro avviarsi in questa direzione.
+Sin quando queste trappole resteranno qui non potrò farti passare, la sicurezza prima di tutto.</testoDialogo>
+  </npc>
+
 </bashdungeon>

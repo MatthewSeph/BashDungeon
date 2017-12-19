@@ -60,7 +60,7 @@ public class ConsoleScript : MonoBehaviour
                 else if ((c == '\n') || (c == '\r'))
                 {
                     textObj.text += "\n";
-
+                    contatoreOldMessaggi = 0;
                     SplitMessage(messaggio);
                     oldMessages.Insert(1, messaggio);
                     messaggio = "";
