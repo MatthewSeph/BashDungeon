@@ -13,14 +13,14 @@
 	</pergamena>
 
 	<pergamena>
-		<testo>Per rimuovere alcuni oggetti puoi utilizzare il comando "rm" seguito dal nome dell'oggetto. Non potrai rimuovere tutto, e no, neanche gli npc.</testo>
+		<testo>Alcuni oggetti sono Eliminabili, potrai farlo utilizzando il comando "rm" seguito dal nome dell'oggetto da eliminare.</testo>
 	</pergamena>
 
 	<pergamena>
-		<testo>Puoi unire alcuni oggetti utilizzando il comando "tar" seguito da "-cf" e dal nome degli oggetti che vuoi unire.</testo>
+		<testo>Puoi unire alcuni oggetti, creando un archivio con essi, utilizzando il comando "tar" seguito da "-cf", dal nome dell' archivio (il nome deve terminare con ".tar") e dal nome degli oggetti che vuoi unire.</testo>
 	</pergamena>
 	<pergamena>
-		<testo>Puoi unire e comprimere alcuni oggetti utilizzando il comando "tar" seguito da "-zcf" e dal nome degli oggetti che vuoi unire e comprimere.</testo>
+		<testo>Puoi unire alcuni oggetti in archivio e comprimerlo utilizzando il comando "tar" seguito da "-zcf", dal nome dell' archivio compresso (il nome deve terminare con ".tar.gz") e dal nome degli oggetti che vuoi unire e comprimere.</testo>
 	</pergamena>
 	
 	<pergamena>
@@ -46,6 +46,22 @@ ES: grep parola$ pergamena</testo>
   <pergamena>
     <testo>Se, utilizzando il comando grep, vuoi controllare non solo una singola pergamena ma tutte le pergamene in una stanza puoi scrivere al posto del nome della pergamena "." oppure "*"
 ES: grep parola *</testo>
+  </pergamena>
+    <pergamena>
+    <testo>Se, utilizzando il comando grep, inserisci nella parola da cercare il simbolo "." esso verrà letto come "qualsiasi carattere".
+ES:  grep p.zza *   Ricerca la presenza di parole che iniziano con "p" e finiscano con "zza" (pizza, pazza, puzza etc..)</testo>
+  </pergamena>
+  
+      <pergamena>
+    <testo>Se, utilizzando il comando grep, inserisci nella parola da cercare il simbolo "*" (asterisco) esso verrà letto come "qualsiasi carattere o gruppo di caratteri".
+ES: grep pa* .    Ricerca la presenza di un gruppo di caratteri che inizia con "pa" (es. palla, pa pi pu, pa etc..)</testo>
+  </pergamena>
+  
+        <pergamena>
+    <testo>Se trovi un oggetto Gigante puoi riportarlo alla sua grandezza iniziale creando un archivio compresso</testo>
+  </pergamena>
+          <pergamena>
+    <testo>Qualcuno ha rotto delle chiavi.. Se trovi dei frammenti di chiave puoi aggiustarla creando un archivio con tutti e tre i pezzi di chiave</testo>
   </pergamena>
   
   
