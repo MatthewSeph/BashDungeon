@@ -12,7 +12,7 @@ public class LevelGeneration : MonoBehaviour
 
     Room[,] rooms;
     List<Vector2> takenPositions = new List<Vector2>();
-    int gridSizeX, gridSizeY, numberOfRooms = 20;
+    int gridSizeX, gridSizeY, numberOfRooms = 17;
     List<Room> roomsOrderByDistance = new List<Room>();
     List<Room> roomsWithNoChildren = new List<Room>();
     public GameObject player;
