@@ -68,7 +68,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1735468461804488}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalPosition: {x: -2, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 4472798688396344}
@@ -89,9 +89,9 @@ MeshRenderer:
   m_LightProbeUsage: 1
   m_ReflectionProbeUsage: 1
   m_Materials:
-  - {fileID: 2100000, guid: 31b654ed67b31aa4fac5dc0f8acc7f74, type: 2}
-  - {fileID: 2100000, guid: ef777dc3f8deffb48b07087ffa9e78cb, type: 2}
-  - {fileID: 2100000, guid: 64e5fb01f199e894d89dbf56dd559457, type: 2}
+  - {fileID: 2100000, guid: 5599795acf4114e4bbbdc20c7e164744, type: 2}
+  - {fileID: 2100000, guid: c306caa01ccb63647a64be2de43613ca, type: 2}
+  - {fileID: 2100000, guid: 93c18362afe22644eba22e5e5ba605fc, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -157,7 +157,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   isMadeVisible: 0
-  oggettiArchiviati: []
+  oggettiGOArchiviati: []
 --- !u!114 &114217925558686044
 MonoBehaviour:
   m_ObjectHideFlags: 1
