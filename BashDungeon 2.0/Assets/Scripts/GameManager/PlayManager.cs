@@ -384,8 +384,8 @@ public class PlayManager : MonoBehaviour
         oldLocalPosition.z = oldLocalPosition.z - (playerGO.GetComponent<PlayerMovement>().currentRoom.gridPos.y * 24);
         if (playerGO.GetComponent<PlayerMovement>().TarghetRoom.oggetti.Exists(x => x.nomeOggetto == "postazioneTeletrasporto"))
         {
-            oldLocalPosition.x = GameObject.Find("/" + playerGO.GetComponent<PlayerMovement>().TarghetRoom.nomeStanza + "/" + "postazioneTeletrasporto").transform.position.x + (playerGO.GetComponent<PlayerMovement>().TarghetRoom.gridPos.x * 24);
-            oldLocalPosition.z = GameObject.Find("/" + playerGO.GetComponent<PlayerMovement>().TarghetRoom.nomeStanza + "/" + "postazioneTeletrasporto").transform.position.z + (playerGO.GetComponent<PlayerMovement>().TarghetRoom.gridPos.y * 24);
+            oldLocalPosition.x = GameObject.Find("/" + playerGO.GetComponent<PlayerMovement>().TarghetRoom.nomeStanza + "/" + "postazioneTeletrasporto").transform.position.x;
+            oldLocalPosition.z = GameObject.Find("/" + playerGO.GetComponent<PlayerMovement>().TarghetRoom.nomeStanza + "/" + "postazioneTeletrasporto").transform.position.z;
         }
         else
         {

@@ -50,5 +50,4 @@ public class Room {
 		this.parentRoom = parentRoom;
 	}
 
-
 }
