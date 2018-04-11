@@ -16,8 +16,10 @@ public class SirGiorgio : MonoBehaviour {
     bool hasPlayerEndedSecondText = false;
 
     bool endTutorial = false;
-    string secondoTesto = "Queste sono solo alcune pergamene di questo labirinto, ti insegnano dei comandi utili che potrai usare nella console affianco.\nCi sono anche delle pergamene che ti danno dei consigli utili per risolvere degli enigmi, tienile a mente.\nBuona fortuna!";
+    string secondoTesto = "Queste sono solo alcune pergamene di questo labirinto, ti insegnano dei comandi utili che potrai usare nella console a fianco.\nCi sono anche delle pergamene che ti danno dei consigli utili per risolvere degli enigmi, tienile a mente.\nBuona fortuna!";
     string defaultText;
+
+    bool finalText;
     bool lastQuest = false;
 
     // Use this for initialization
@@ -58,17 +60,22 @@ public class SirGiorgio : MonoBehaviour {
         if (hasPlayerEndedSecondText && endTutorial)
         {
             gameManager.GetComponent<PlayManager>().SetTutorialPanelOff();
-            sirGiorgio.TestoTxT = "Come faccio a non annoiarmi qui dentro?\nVa bene te lo dirò, ma promettimi che non riderai!\n..Come hobby aggiusto la carta..\n...\nNon stai ridendo?! Sei il primo! Portami qualche foglio rotto, te li aggiusterò GRATIS, sconto amico!";
-            if(sirGiorgio.CurrentRoom.oggetti.Find(x => x.nomeOggetto.Contains("frammentoPergamena")) != null )
+
+            if (!lastQuest)
             {
-                if(!lastQuest)
+                sirGiorgio.TestoTxT = "Come faccio a non annoiarmi qui dentro?\nVa bene te lo dirò, ma promettimi che non riderai!\n..Come hobby aggiusto la carta..\n...\nNon stai ridendo?! Sei il primo! Portami qualche foglio rotto, te li aggiusterò GRATIS, sconto amico!";
+            }
+
+            if (sirGiorgio.CurrentRoom.oggetti.Find(x => x.nomeOggetto.Contains("frammentoPergamena")) != null || finalText)
+            {
+                if(!lastQuest && !finalText)
                 {
                     sirGiorgio.TestoTxT = "Vedo che ti stai dando da fare!\nPorta i restanti pezzi e la tua pergamena tornerà come nuova!";
                 }
 
-                if (playerGO.GetComponent<PlayerMovement>().currentRoom.nomeStanza == "/" && sirGiorgio.CurrentRoom.oggetti.FindAll(x => x.nomeOggetto.Contains("frammentoPergamena")).Count == gameManager.GetComponent<LevelGeneration>().LootPrefabs.Count)
+                if (playerGO.GetComponent<PlayerMovement>().currentRoom.nomeStanza == "/" && (sirGiorgio.CurrentRoom.oggetti.FindAll(x => x.nomeOggetto.Contains("frammentoPergamena")).Count == gameManager.GetComponent<LevelGeneration>().LootPrefabs.Count || finalText))
                 {
-                    if (lastQuest && gameManager.GetComponent<PlayManager>().ClickedObject != gameObject)
+                    if (lastQuest && gameManager.GetComponent<PlayManager>().ClickedObject != gameObject && !finalText)
                     {
                         foreach(Oggetto o in sirGiorgio.CurrentRoom.oggetti.FindAll(x => x.nomeOggetto.Contains("frammentoPergamena")))
                         {
@@ -86,14 +93,16 @@ public class SirGiorgio : MonoBehaviour {
                         GameObject oggettoIstanziato = Instantiate(selectedPrefab) as GameObject;
 
                         oggettoIstanziato.transform.parent = GameObject.Find("//").transform;
+                        oggettoIstanziato.name = pergamena.nomeOggetto;
 
                         gameManager.GetComponent<PlayManager>().FineGioco = true;
 
                         sirGiorgio.TestoTxT = "Cosa aspetti? Prova il comando \"shutdown\"";
-                        Destroy(this);
+                        finalText = true;
+                        //Destroy(this);
                     }
 
-                    if (!lastQuest)
+                    if (!lastQuest && !finalText)
                     {
                         sirGiorgio.TestoTxT = "Bene bene! Sembra che tutti i pezzi siano qui\nTi auguro una buona lettura, ma sopratutto...\nAMMIRA LA MIA BRAVURA!!";
                         gameManager.GetComponent<PlayManager>().ClickedObject = gameObject;
@@ -105,7 +114,8 @@ public class SirGiorgio : MonoBehaviour {
                 
             }
         }
-		if(gameManager.GetComponent<PlayManager>().ClickedObject!= null && gameManager.GetComponent<PlayManager>().ClickedObject.name == "pergamenaLs" && !hasPlayerClickedLs)
+
+		if(gameManager.GetComponent<PlayManager>().ClickedObject != null && gameManager.GetComponent<PlayManager>().ClickedObject.name == "pergamenaLs" && !hasPlayerClickedLs)
         {
             playerGO.GetComponent<PlayerMovement>().BlockedMovement = true;
             hasPlayerClickedLs = true;
@@ -115,7 +125,7 @@ public class SirGiorgio : MonoBehaviour {
             playerGO.GetComponent<PlayerMovement>().BlockedMovement = true;
             hasPlayerClickedCd = true;
         }
-        else if(gameManager.GetComponent<PlayManager>().ClickedObject == null || gameManager.GetComponent<PlayManager>().ClickedObject.name != "SirGiorgioNPC" && (!hasPlayerClickedLs || !hasPlayerClickedCd))
+        else if((gameManager.GetComponent<PlayManager>().ClickedObject == null || gameManager.GetComponent<PlayManager>().ClickedObject.name != "SirGiorgioNPC") && (!hasPlayerClickedLs || !hasPlayerClickedCd))
         {
             sirGiorgio.TestoTxT = "Su su, Sgranchisciti le gambe andando a leggere quelle pergamene!";
         }

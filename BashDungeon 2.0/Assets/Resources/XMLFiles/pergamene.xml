@@ -5,7 +5,8 @@
 	</pergamena>
 
 	<pergamena>
-		<testo>Affianca al comando "cd" il path della stanza nella quale desideri spostarti.\nEsempio:\nla stanza principale si trova al path "/".</testo>
+		<testo>Affianca al comando "cd" il path della stanza nella quale desideri spostarti.
+Esempio: la stanza principale si trova al path "/".</testo>
 	</pergamena>
 
 	<pergamena>
@@ -53,7 +54,7 @@ ES:  grep p.zza *   Ricerca la presenza di parole che iniziano con "p" e finisca
   </pergamena>
   
       <pergamena>
-    <testo>Se, utilizzando il comando grep, inserisci nella parola da cercare il simbolo "*" (asterisco) esso verrà letto come "qualsiasi carattere o gruppo di caratteri".
+    <testo>Se utilizzando il comando grep inserisci nella parola da cercare il simbolo "*" esso verrà letto come "qualsiasi gruppo di caratteri".
 ES: grep pa* .    Ricerca la presenza di un gruppo di caratteri che inizia con "pa" (es. palla, pa pi pu, pa etc..)</testo>
   </pergamena>
   

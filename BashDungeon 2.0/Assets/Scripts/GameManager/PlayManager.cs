@@ -268,7 +268,7 @@ public class PlayManager : MonoBehaviour
         Vector3 positionToGo = new Vector3();
         if (roomDirection == Vector2.up)
         {
-            playerGO.GetComponent<NavMeshAgent>().enabled = true;
+            //playerGO.GetComponent<NavMeshAgent>().enabled = true;
             positionToGo.x = -2 + (playerGO.GetComponent<PlayerMovement>().currentRoom.gridPos.x * 24);
             positionToGo.z = 10.5f + (playerGO.GetComponent<PlayerMovement>().currentRoom.gridPos.y * 24);
 
@@ -278,7 +278,7 @@ public class PlayManager : MonoBehaviour
         }
         else if (roomDirection == Vector2.down)
         {
-            playerGO.GetComponent<NavMeshAgent>().enabled = true;
+            //playerGO.GetComponent<NavMeshAgent>().enabled = true;
             positionToGo.x = -2 + (playerGO.GetComponent<PlayerMovement>().currentRoom.gridPos.x * 24);
 
             positionToGo.z = -10.5f + (playerGO.GetComponent<PlayerMovement>().currentRoom.gridPos.y * 24);
@@ -289,7 +289,7 @@ public class PlayManager : MonoBehaviour
         }
         else if (roomDirection == Vector2.left)
         {
-            playerGO.GetComponent<NavMeshAgent>().enabled = true;
+            //playerGO.GetComponent<NavMeshAgent>().enabled = true;
             positionToGo.x = -12.5f + (playerGO.GetComponent<PlayerMovement>().currentRoom.gridPos.x * 24);
 
             positionToGo.z = 0 + (playerGO.GetComponent<PlayerMovement>().currentRoom.gridPos.y * 24);
@@ -300,7 +300,7 @@ public class PlayManager : MonoBehaviour
         }
         else if (roomDirection == Vector2.right)
         {
-            playerGO.GetComponent<NavMeshAgent>().enabled = true;
+            //playerGO.GetComponent<NavMeshAgent>().enabled = true;
             positionToGo.x = 8.5f + (playerGO.GetComponent<PlayerMovement>().currentRoom.gridPos.x * 24);
 
             positionToGo.z = 0 + (playerGO.GetComponent<PlayerMovement>().currentRoom.gridPos.y * 24);
@@ -318,7 +318,7 @@ public class PlayManager : MonoBehaviour
             }
             else
             {
-                playerGO.GetComponent<NavMeshAgent>().enabled = true;
+                //playerGO.GetComponent<NavMeshAgent>().enabled = true;
                 dialoguePanel.SetActive(true);
                 dialogueText.GetComponent<DialogueController>().SetText("Non riesco a raggiungere la stanza, qualcosa blocca il mio teletrasporto..");
                 playerGO.GetComponent<PlayerMovement>().WantToChangeRoom = false;
@@ -352,7 +352,7 @@ public class PlayManager : MonoBehaviour
         }
         else
         {
-            playerGO.GetComponent<NavMeshAgent>().enabled = true;
+            //playerGO.GetComponent<NavMeshAgent>().enabled = true;
             dialoguePanel.SetActive(true);
             dialogueText.GetComponent<DialogueController>().SetText("Non riesco ad entrare..");
             playerGO.GetComponent<PlayerMovement>().WantToChangeRoom = false;

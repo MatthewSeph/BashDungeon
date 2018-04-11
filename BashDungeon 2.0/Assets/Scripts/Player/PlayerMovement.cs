@@ -100,9 +100,9 @@ public class PlayerMovement : MonoBehaviour
 
 
         //The player is in front of a door and want to change room
-        if ((transform.position.x == TargetPosition.x) && (transform.position.z == TargetPosition.z) && WantToChangeRoom)
+        if ((Vector2.Distance(new Vector2(transform.position.x, transform.position.z), new Vector2(TargetPosition.x, TargetPosition.z)) < 0.01 ) && WantToChangeRoom)
         {
-            m_Agent.enabled = false;
+            //m_Agent.enabled = false;
             gameManager.GetComponent<PlayManager>().ChangeRoom(targhetRoom);
             WantToChangeRoom = false;
         }
