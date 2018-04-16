@@ -607,7 +607,7 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 1201645448106920, guid: aacfba5b1b29b0b4dafe6420c7a4cc73, type: 2}
       propertyPath: m_IsActive
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 114701340710665644, guid: aacfba5b1b29b0b4dafe6420c7a4cc73,
         type: 2}
@@ -1125,6 +1125,7 @@ GameObject:
   - component: {fileID: 678893743}
   - component: {fileID: 678893744}
   - component: {fileID: 678893745}
+  - component: {fileID: 678893746}
   m_Layer: 0
   m_Name: GameManager
   m_TagString: Untagged
@@ -1143,10 +1144,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f288b11a4078a5040b0f6657b4b4e36f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  numberOfRooms: 15
   player: {fileID: 225269724}
   LootPrefabs:
-  - {fileID: 0}
-  - {fileID: 0}
   - {fileID: 0}
   - {fileID: 0}
   rootPrefab: {fileID: 1399195080153628, guid: 0735d7fa7a7ea0844bf516994b13dc01, type: 2}
@@ -1452,8 +1452,6 @@ MonoBehaviour:
   lootPrefab:
   - {fileID: 1157450812502990, guid: ee172383ba6a14e498afe0c0eb379f9b, type: 2}
   - {fileID: 1976772957137708, guid: 3777d2cac626ede4e83be5aaada296c5, type: 2}
-  - {fileID: 1646039090782264, guid: 477f9df06c050ae4b9279a6acfb908fb, type: 2}
-  - {fileID: 1140755950150562, guid: a284827d2611d5e439775d6d74e275ce, type: 2}
   standardRoomPrefab:
   - {fileID: 1473213055824910, guid: 561f7aaddf5aed74fb5618bd1ee01c2f, type: 2}
   - {fileID: 1038480627017988, guid: f2df6bb8c27af3540be369979bc4040f, type: 2}
@@ -1461,13 +1459,22 @@ MonoBehaviour:
   level1Prefab:
   - {fileID: 1735468461804488, guid: ce78f0720de59bc42955fd8d3198229a, type: 2}
   level2Prefab:
-  - {fileID: 1032072482216298, guid: fa4dae52a320b574cb0dd883b9ad25fe, type: 2}
-  - {fileID: 1747505630115082, guid: 7489c630af277934c82437829ff6206f, type: 2}
-  level3Prefab:
-  - {fileID: 1870674216020474, guid: 1d2bd6d046f7a9844bd53908ad06d972, type: 2}
-  - {fileID: 1747505630115082, guid: 7489c630af277934c82437829ff6206f, type: 2}
-  level4Prefab:
   - {fileID: 1614953760434508, guid: a1acccfccbe3ec24ea7e27fac0b97af2, type: 2}
+  level3Prefab:
+  - {fileID: 1473213055824910, guid: 561f7aaddf5aed74fb5618bd1ee01c2f, type: 2}
+  level4Prefab:
+  - {fileID: 1473213055824910, guid: 561f7aaddf5aed74fb5618bd1ee01c2f, type: 2}
+--- !u!114 &678893746
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 678893739}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 479bd79c5c7d2db419eb131a72249ff1, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1001 &680845710
 Prefab:
   m_ObjectHideFlags: 0

@@ -1,9 +1,9 @@
 <bashdungeon>
-	
+  <!--
 	<pergamena>
 		<testo>Affianca al comando "ls" il parametro "-a" per visualizzare tutti gli oggetti all'interno della stanza, compresi quelli... invisibili!?</testo>
 	</pergamena>
-
+  -->
 	<pergamena>
 		<testo>Affianca al comando "cd" il path della stanza nella quale desideri spostarti.
 Esempio: la stanza principale si trova al path "/".</testo>
@@ -12,11 +12,13 @@ Esempio: la stanza principale si trova al path "/".</testo>
 	<pergamena>
 		<testo>Per spostare un oggetto presente nella tua stanza in un'altra è possibile utilizzare il comando "mv" seguito dal nome dell'oggetto da muovere e dal path della stanza scelta. Potresti non essere in grado di spostare tutto...</testo>
 	</pergamena>
-
+  
+  <!--
 	<pergamena>
 		<testo>Alcuni oggetti sono Eliminabili, potrai farlo utilizzando il comando "rm" seguito dal nome dell'oggetto da eliminare.</testo>
 	</pergamena>
-
+  -->
+  
 	<pergamena>
 		<testo>Puoi unire alcuni oggetti, creando un archivio con essi, utilizzando il comando "tar" seguito da "-cf", dal nome dell' archivio (il nome deve terminare con ".tar") e dal nome degli oggetti che vuoi unire.</testo>
 	</pergamena>

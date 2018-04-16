@@ -12,7 +12,8 @@ public class LevelGeneration : MonoBehaviour
 
     Room[,] rooms;
     List<Vector2> takenPositions = new List<Vector2>();
-    int gridSizeX, gridSizeY, numberOfRooms = 22;
+    int gridSizeX, gridSizeY;
+    [SerializeField] int numberOfRooms = 22;
     List<Room> roomsOrderByDistance = new List<Room>();
     List<Room> roomsWithNoChildren = new List<Room>();
     public GameObject player;
@@ -37,20 +38,32 @@ public class LevelGeneration : MonoBehaviour
         gridSizeX = Mathf.RoundToInt(worldSize.x);
         gridSizeY = Mathf.RoundToInt(worldSize.y);
 
+
         CreateRooms();
+        Debug.Log("created rooms");
         SetRoomDoors();
+        Debug.Log("door set");
         SetDistances();
+        Debug.Log("distance set");
         RoomsOrderByDistance();
+        Debug.Log("room ordered by distance");
         CheckRoomWithNoChildrenSorted();
+        Debug.Log("rooms no children sorted");
         DrawMap();
+        Debug.Log("map drawed");
         SetLevelTypeRooms();
+        Debug.Log("rooms type set");
         OggettiNelleStanze();
+        Debug.Log("spawn oggetti");
 
         dataToParse = xmlPergamene.text;
         SpawnRandomPergamene(dataToParse);
+        Debug.Log("spawn pergamene");
 
         SpawnOggetti();
+        Debug.Log("spawn oggetti");
         SpawnPlayer();
+        Debug.Log("spawn player");
 
     }
     void CreateRooms()
@@ -346,27 +359,30 @@ public class LevelGeneration : MonoBehaviour
 
     void SetLevelTypeRooms()
     {
+
+        //se ho abbastanza stanze terminali setto le stanze con loot, altrimenti rigenero il dungeon
         if (!(roomsWithNoChildren.Count <= LootPrefabs.Count))
-        { //se ho abbastanza stanze terminali setto le stanze con loot, altrimenti rigenero il dungeon
+        { 
             Vector3 lootPosition = Vector3.zero;
 
 
             for (int i = 0; i < roomsWithNoChildren.Count; i++)
             {
-
-                if (!levelRooms.Contains(roomsWithNoChildren[i].parentRoom) && roomsWithNoChildren[i].parentRoom.type != 1)
-                {
-                    levelRooms.Add(roomsWithNoChildren[i].parentRoom);
-                    roomsWithNoChildren[i].parentRoom.type = 2;
-                    roomsWithNoChildren[i].type = 3;
-                }
-                if (levelRooms.Count == 4)
+                if (levelRooms.Count == LootPrefabs.Count)
                 {
                     break;
                 }
 
+                if (!levelRooms.Contains(roomsWithNoChildren[i].parentRoom) && roomsWithNoChildren[i].parentRoom.type != 1 && levelRooms.Count < LootPrefabs.Count)
+                {
+                    Debug.Log("stanza livello " + roomsWithNoChildren[i].parentRoom.gridPos);
+                    Debug.Log("stanza loot " + roomsWithNoChildren[i].gridPos);
+                    levelRooms.Add(roomsWithNoChildren[i].parentRoom);
+                    roomsWithNoChildren[i].parentRoom.type = 2;
+                    roomsWithNoChildren[i].type = 3;
+                }
             }
-            if (levelRooms.Count < 4)
+            if (levelRooms.Count < LootPrefabs.Count)
             {
                 Debug.Log("Dungeon rigenerato per mancanza di ''stanze terminali'' utili");
                 SceneManager.LoadScene(SceneManager.GetActiveScene().name);
@@ -381,7 +397,8 @@ public class LevelGeneration : MonoBehaviour
 
     void OggettiNelleStanze()
     {
-        int levelDifficoulty = LootPrefabs.Count;
+        int levelDifficoulty = 0;
+        int maxLevelDifficoulty = LootPrefabs.Count;
         int numeroFrammentoPergamena = 0;
         // Dovremo controllare la lista levelRooms e a seconda del tipo e della difficoltà del livello creare oggetti adeguati
         foreach(Room room in roomsOrderByDistance)
@@ -397,20 +414,25 @@ public class LevelGeneration : MonoBehaviour
             else if(room.type == 2)
             {
                 chosenPrefab = gameObject.GetComponent<ObjectPrefabSelector>().PickLevelPrefab(levelDifficoulty);
+                Debug.Log("tipi settati");
             }
             else if(room.type == 0)
             {
                 chosenPrefab = gameObject.GetComponent<ObjectPrefabSelector>().PickStandardRoomPrefab();
+                Debug.Log("tipi settati");
             }
             else if(room.type == 3)
             {
                 chosenPrefab = gameObject.GetComponent<ObjectPrefabSelector>().PickLootPrefab(numeroFrammentoPergamena);
                 numeroFrammentoPergamena++;
+                Debug.Log("tipi settati");
             }
             else
             {
                 continue;
             }
+
+           
 
             GameObject prefabInstanziata = Instantiate(chosenPrefab) as GameObject;
             prefabInstanziata.transform.parent = GameObject.Find("/" + room.nomeStanza).transform;
@@ -529,9 +551,9 @@ public class LevelGeneration : MonoBehaviour
             }
 
             Destroy(prefabInstanziata);
-            if (room.type == 2)
+            if (room.type == 2 && levelDifficoulty <= maxLevelDifficoulty)
             {
-                levelDifficoulty--;
+                levelDifficoulty++;
             }
         }
         
