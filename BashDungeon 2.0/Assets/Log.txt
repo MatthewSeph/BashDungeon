@@ -1,8 +1,0 @@
-BASH DUGEON - LOGS
-
-4/16/2018 7:17:36 PM - scroll read - "Se vuoi spostarti in..."
-4/16/2018 7:18:38 PM - quest added - "Porta una chiave nel..."
-4/16/2018 7:19:39 PM - scroll read - "Puoi separare gli og..."
-4/16/2018 7:19:43 PM - scroll read - "Se utilizzando il co..."
-4/16/2018 7:20:06 PM - quest added - "Risolvi l'indovinell..."
-4/16/2018 7:20:30 PM - quest removed - "Risolvi l'indovinell..."

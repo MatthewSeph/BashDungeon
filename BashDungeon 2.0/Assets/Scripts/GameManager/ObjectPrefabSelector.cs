@@ -133,8 +133,6 @@ public class ObjectPrefabSelector : MonoBehaviour {
     public GameObject PickLevelPrefab(int level)
     {
         GameObject chosenPrefab;
-        level++;
-
 
         if (level == 1 && level1Prefab != null)
         {

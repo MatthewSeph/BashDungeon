@@ -31,8 +31,6 @@ public class PlayManager : MonoBehaviour
     public List<GameObject> addedQuests;
     private bool fineGioco = false;
 
-    LogWriter logWriter;
-
     public bool FineGioco
     {
         get
@@ -130,7 +128,6 @@ public class PlayManager : MonoBehaviour
     {
         playerGO = GameObject.Find("Player");
         addedQuests = new List<GameObject>();
-        logWriter = GetComponent<LogWriter>();
     }
 
     private void Update()
@@ -144,19 +141,14 @@ public class PlayManager : MonoBehaviour
                 {
                     Oggetto oggettoPergamena = playerGO.GetComponent<PlayerMovement>().currentRoom.oggetti.Find(x => x.nomeOggetto == ClickedObject.transform.name);
                     string testoPergamena = oggettoPergamena.TestoTxT;
-
-                    //User is reading this scroll for the first time
-                    if (!oggettoPergamena.HasBeenRead)
+                    if(!oggettoPergamena.HasBeenRead)
                     {
                         oggettoPergamena.HasBeenRead = true;
                         GameObject newPergamenaFound = Instantiate(gameObject.GetComponent<ObjectPrefabSelector>().PergamenaFoundUI) as GameObject;
                         newPergamenaFound.transform.SetParent(listOfFoundTxtUI.transform, false);
                         //newPergamenaFound.transform.localScale = new Vector3(1, 1, 1);
                         newPergamenaFound.GetComponentInChildren<Text>().text = oggettoPergamena.TestoTxT;
-
-                        logWriter.ScrollReadToLog(oggettoPergamena.TestoTxT.Substring(0, 20));
                     }
-
                     pergamenaText.GetComponent<Text>().text = testoPergamena;
 
                     pergamenaPanel.SetActive(true);
@@ -468,13 +460,12 @@ public class PlayManager : MonoBehaviour
 
     public void AddQuest(string testo)
     {
-        
+        {
             GameObject newQuest = Instantiate(gameObject.GetComponent<ObjectPrefabSelector>().setQuest) as GameObject;
             newQuest.transform.SetParent(listOfQuests.transform, false);
             newQuest.GetComponentInChildren<Text>().text = testo;
             addedQuests.Add(newQuest);
-            logWriter.QuestAddedToLog(testo.Substring(0, 20));
-        
+        }
     }
 
     public void RemoveQuest(string questText)
@@ -484,7 +475,6 @@ public class PlayManager : MonoBehaviour
             GameObject questToRemove = addedQuests.Find(x => x.GetComponentInChildren<Text>().text.Contains(questText));
             //addedQuests.Remove(questToRemove);
             questToRemove.SetActive(false);
-            logWriter.QuestRemovedToLog(questText.Substring(0, 20));
         }
     }
 }
