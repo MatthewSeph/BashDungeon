@@ -21,7 +21,7 @@ public class PlayerMovement : MonoBehaviour
     {
         get
         {
-            return targetPosition;
+          return targetPosition;
         }
 
         set
@@ -88,7 +88,7 @@ public class PlayerMovement : MonoBehaviour
         //Check to see if the Player should move
         if (Vector3.Distance(m_Agent.destination, m_Agent.transform.position) <= m_Agent.stoppingDistance && m_Agent.velocity.sqrMagnitude <= 0.1f && !m_Agent.pathPending && !m_Agent.hasPath)
         {
-            anim.SetFloat("MoveSpeed", 0f);
+            anim.SetFloat("MoveSpeed", 0.0f);
             m_Agent.ResetPath();
             //TargetPosition = transform.position;
         }
@@ -110,7 +110,8 @@ public class PlayerMovement : MonoBehaviour
         //Can move inside a room
         if (!WantToChangeRoom && !blockedMovement)
         {
-            if (Input.GetMouseButtonDown(0) && (!EventSystem.current.IsPointerOverGameObject()) && (Camera.main.ScreenToViewportPoint(Input.mousePosition).x > 0.1f) //Are my clicks on the Left Camera and not on a UI Element?
+            if (Input.GetMouseButtonDown(0) && (!EventSystem.current.IsPointerOverGameObject()) 
+                && (Camera.main.ScreenToViewportPoint(Input.mousePosition).x > 0.1f) //Are my clicks on the Left Camera and not on a UI Element?
                 && (Camera.main.ScreenToViewportPoint(Input.mousePosition).x < 0.9f) && (Camera.main.ScreenToViewportPoint(Input.mousePosition).y > 0.1f)
                 && (Camera.main.ScreenToViewportPoint(Input.mousePosition).y < 0.9f))
             {
