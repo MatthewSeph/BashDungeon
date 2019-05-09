@@ -39,7 +39,6 @@ public class SirCH : MonoBehaviour {
                 }
             }
             int randomSearch = Random.Range(0, 4);
-
             switch (randomSearch)
             {
                 case 0:
