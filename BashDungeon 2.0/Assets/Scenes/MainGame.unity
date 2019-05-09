@@ -13,7 +13,7 @@ OcclusionCullingSettings:
 --- !u!104 &2
 RenderSettings:
   m_ObjectHideFlags: 0
-  serializedVersion: 8
+  serializedVersion: 9
   m_Fog: 0
   m_FogColor: {r: 0.5, g: 0.5, b: 0.5, a: 1}
   m_FogMode: 3
@@ -39,6 +39,7 @@ RenderSettings:
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 0}
   m_IndirectSpecularColor: {r: 0, g: 0, b: 0, a: 1}
+  m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
   m_ObjectHideFlags: 0
@@ -54,11 +55,10 @@ LightmapSettings:
     m_EnableBakedLightmaps: 1
     m_EnableRealtimeLightmaps: 0
   m_LightmapEditorSettings:
-    serializedVersion: 9
+    serializedVersion: 10
     m_Resolution: 2
     m_BakeResolution: 40
-    m_TextureWidth: 1024
-    m_TextureHeight: 1024
+    m_AtlasSize: 1024
     m_AO: 0
     m_AOMaxDistance: 1
     m_CompAOExponent: 1
@@ -1008,7 +1008,7 @@ Prefab:
     - target: {fileID: 224388007851349740, guid: b4eba8c29e99a4245be7f8fa75a899c6,
         type: 2}
       propertyPath: m_AnchoredPosition.x
-      value: -198.2942
+      value: -352
       objectReference: {fileID: 0}
     - target: {fileID: 4420695907599956, guid: b4eba8c29e99a4245be7f8fa75a899c6, type: 2}
       propertyPath: m_LocalPosition.z
@@ -1102,12 +1102,12 @@ Prefab:
     - target: {fileID: 224070160619713642, guid: b4eba8c29e99a4245be7f8fa75a899c6,
         type: 2}
       propertyPath: m_AnchoredPosition.x
-      value: -279.2942
+      value: -433
       objectReference: {fileID: 0}
     - target: {fileID: 224025816955430368, guid: b4eba8c29e99a4245be7f8fa75a899c6,
         type: 2}
       propertyPath: m_AnchoredPosition.x
-      value: -354.7942
+      value: -508.5
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: b4eba8c29e99a4245be7f8fa75a899c6, type: 2}
@@ -1977,26 +1977,6 @@ Prefab:
       propertyPath: m_Pivot.y
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 20060332833827936, guid: 9f918ffb4e183f24dac3711819148acc,
-        type: 2}
-      propertyPath: m_NormalizedViewPortRect.x
-      value: 0.69
-      objectReference: {fileID: 0}
-    - target: {fileID: 20060332833827936, guid: 9f918ffb4e183f24dac3711819148acc,
-        type: 2}
-      propertyPath: m_NormalizedViewPortRect.width
-      value: 0.31
-      objectReference: {fileID: 0}
-    - target: {fileID: 114710910732644866, guid: 9f918ffb4e183f24dac3711819148acc,
-        type: 2}
-      propertyPath: m_Text
-      value: 
-      objectReference: {fileID: 0}
-    - target: {fileID: 114710910732644866, guid: 9f918ffb4e183f24dac3711819148acc,
-        type: 2}
-      propertyPath: m_FontData.m_FontSize
-      value: 12
-      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 9f918ffb4e183f24dac3711819148acc, type: 2}
   m_IsPrefabParent: 0
@@ -2127,6 +2107,7 @@ MeshRenderer:
   m_MotionVectors: 1
   m_LightProbeUsage: 1
   m_ReflectionProbeUsage: 1
+  m_RenderingLayerMask: 4294967295
   m_Materials:
   - {fileID: 10303, guid: 0000000000000000f000000000000000, type: 0}
   m_StaticBatchInfo:
@@ -2318,7 +2299,7 @@ Camera:
     serializedVersion: 2
     x: 0
     y: 0
-    width: 0.69
+    width: 0.5
     height: 0.91
   near clip plane: 0.3
   far clip plane: 1000
